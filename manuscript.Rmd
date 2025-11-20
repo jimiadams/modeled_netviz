@@ -1,0 +1,38 @@
+---
+title: "A Suggestion for Visualizing Modeled Social Networks"
+author: "jimi adams"
+date: "2025-11-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+NOTE: This is very much a fledgling idea that isn't yet ready for citation/sharing. If you're interested in helping me bring this to life (I'm presently envisioning submitting as a Viz paper to *Socius*), please reach out. Otherwise, for now, think of it as a musing...
+
+Social network research relies heavily on data visualization (cite Freeman). These visuzliations can serve to characterize, simplfy, and focus theoretical or empirical claims (cite McFarland et al). They are often more readily digestible than tables of seemingly endless coefficients, significance tests, and summary statistics (cite some data viz books). Additionally, with the increasing ubiquity of network verbiage in society, they can even require less "translation" work for those outside academic researchers' focal audiences (net natives?). Quite simply, network visualization is not only common, but can be incredibly useful.
+
+However, network visualizations also come with a number of tradeoffs. Here, I address one of those limitations that I contend needs to be more carefully considered among social network researchers. Namely, network visualizations often present unique ethical challenges to presenting research (cite Sage book). Especially in "closed population" settings (but not only there - see FB example), the potential for deductive disclosure is broad in any presenation of multiple variables (cite cs on this), and network data are unqiquely primed to allow serial-revelations of participants' identities---i.e., the ability to identify one node in a graph (e.g., myself) often heightens the capacity of identifying others' identities in turn (e.g., my friends). To this end, our frequent pracice of plotting empirical networks from data collection efforts (do I want to tell my story of Add Health in my 4-cylce viz paper here?) may undermine principles of confidentiality and minimial risk in ways that should lead us to consider alternate visualization strategies that can simultaneously leverage these stregnths while minimizing these potential risks (cite white paper).
+
+## Plot Modeled, not Raw, Networks
+
+My fundamental proposition is simple - instead of plotting the "raw" empirical networks directly presenting data that has been collected and researchers in-turn analyze, we can produce visualizations of modeled network results that arise from those analyses. This is not a ground-breaking suggestion. In fact, it's a practice many statistical modelers of social network data already enact in practice. For example,  "eye-balling" consistency of modeled results with observed networks--in tandem with formal statistical tests for goodness of fit--is even typically taught as a helpful practice in model development and fitting processes. However, while we use these heuristic network visualizations to improve model fit (whether for capturing theoretical limitations, or for enhancing stability of estimates), when presenting networks in publications, authors still often resort to presenting the "real" network - often as a first-pass descriptive task to characterize the nature of the network(s) that the subsequent analyses are intended to explain. I've done this multiple times myself.
+
+But if our aims in visualizing networks are to systematically, simply, and clearly convey scientific intepretations of those data and relate those to theoretical claims, there's no reason our visualizations need to be of the raw data. Let me draw a parallel here. Logistic regression coefficients (just like exponential random graph models) are notoriously hard to make substantive sense of on their own (e.g., significance and magnitude of effects are frequently conflated in results interpretations by writers and readers alike). One solution to this has been for researchers to (1) gather, pre-process, then provide a descriptive summary of their data to given an overview sense of what the sample being analyzed actually represents, and how key focal features are distributed in the population; (2) conduct statistical analyses to investigate the researchers' theoretical aims, which are summarized with traditional combinations of betas, standard errors, log-likelihoods, etc. to represent the fit of those claims to empirical estimation, then (3) transform those modeled results into "predicted probabilities" in ways that help interpret what those modeled results "look like" in their implications. To "tell the story" that arises from the model results we don't return to the raw data, provide the individual-level combination of variables for some subset of the population and rely on those case's patterns to convey the implications of our research (in the rare cases that people do, they are often "synthetic" cases, not real ones). To do so would not onlyfail to clearly tell the aggegrate story we've learned in the course of our theorization and analysis; it would also violate a number of human subjects protections researchers are obligated to follow. So why in the network world would we need to effectively present the "real" pattern of relationships from our data as a means to interpret and convey our findings in visaul form. 
+
+## Implementation
+
+Instead, I suggest that we can follow a similar logic to develop presentation- and publication-worthy network visualizations from our modeled results in ways that accomplish the aims we have for visualizations--perhaps even more clearly than the directly observed versions--while maintaining protections against potential ethical gaps (e.g., deductive disclosure). The process I'm recommending follows the same logic as for regression-type models laid out above:
+1. Present descriptives as *summary* statistics of the characteristics of one's network(s) being investigated (cite Neal et al here).
+1. Conduct whatever form of analyses are appropriate to the theoretical aims of the research question(s).
+1. Compile appropriate statistics of analytic results into table/figure summary form.
+1. Visualize "predicted" network(s) that are specified by the corresponding network analytic model from which the research conclusions are reached.
+
+## Still to be filled in
+
+Work out the "aims" of visualization a bit more concretely, and elaborate how modeled viz may do this even better than raw data viz can.
+
+Let's illustrate this with an example.
+
+```{r ergm}
+```
