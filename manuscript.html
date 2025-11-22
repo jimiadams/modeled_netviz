@@ -253,6 +253,29 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
 
 
 
@@ -363,25 +386,31 @@ citation/sharing. If you’re interested in helping me bring this to life
 (I’m presently envisioning submitting as a Viz paper to
 <em>Socius</em>), please reach out. Otherwise, for now, think of it as a
 musing…</p>
-<p>Social network research relies heavily on data visualization (cite
-Freeman). These visualizations can serve to characterize, simplfy, and
-focus theoretical or empirical claims (cite McFarland et al). They are
-often more readily digestible than tables of seemingly endless
-coefficients, significance tests, and summary statistics (cite some data
-viz books). Additionally, with the increasing ubiquity of network
+<p>Social network research relies heavily on data visualization <span class="citation">(<a href="#ref-freeman_development_2004">Freeman
+2004</a>)</span>. These visualizations can serve to characterize,
+simplfy, and focus theoretical or empirical claims <span class="citation">(<a href="#ref-moody_dynamic_2005">Moody, McFarland,
+and Bender-DeMoll 2005</a>; <a href="#ref-rawlings_how_2023">Rawlings et
+al. 2023</a>)</span>. They are often more readily digestible than tables
+of seemingly endless coefficients, significance tests, and summary
+statistics <span class="citation">(<a href="#ref-healy_data_2019">Healy
+2019</a>; <a href="#ref-schwabish_better_2021">Schwabish
+2021</a>)</span>. Additionally, with the increasing ubiquity of network
 verbiage in society, they can even require less “translation” work for
-those outside academic researchers’ focal audiences (net natives?).
-Quite simply, network visualization is not only common, but can be
-incredibly useful.</p>
-<p>However, network visualizations also come with a number of tradeoffs.
-Here, I address one of those limitations that I contend needs to be more
-carefully considered among social network researchers. Namely, network
-visualizations often present unique ethical challenges to presenting
-research (cite Sage book). Especially in “closed population” settings
-(but not only there - see FB example), the potential for deductive
-disclosure is broad in any presenation of multiple variables (cite cs on
-this), and network data are unqiquely primed to allow serial-revelations
-of participants’ identities—i.e., the ability to identify one node in a
+those outside academic researchers’ focal audiences <span class="citation">(<a href="#ref-sayama_what_2016">Sayama et al.
+2016</a>; <a href="#ref-harrington_commentary_2013">Harrington et al.
+2013</a>)</span>. Quite simply, network visualization is not only
+common, but can be incredibly useful.</p>
+<p>However, network visualizations also come with a number of
+trade-offs. Here, I address one of those limitations that I contend
+needs to be more carefully considered among social network researchers.
+Namely, network visualizations often present unique ethical challenges
+to presenting research <span class="citation">(<a href="#ref-adams_gathering_2019">adams 2019</a>)</span>. Especially in
+“closed population” settings <span class="citation">(but not only there
+- c.f., <a href="#ref-zimmer_but_2010">Zimmer 2010</a>)</span>, the
+potential for deductive disclosure is broad in any presentation of
+multiple variables <span class="citation">(<a href="#ref-arfer_american_2019">Arfer and Jones 2019</a>)</span>, and
+network data are unqiquely primed to allow serial-revelations of
+participants’ identities—i.e., the ability to identify one node in a
 graph (e.g., myself) often heightens the capacity of identifying others’
 identities in turn (e.g., my friends). To this end, our frequent pracice
 of plotting empirical networks from data collection efforts (do I want
@@ -389,7 +418,8 @@ to tell my story of Add Health in my 4-cylce viz paper here?) may
 undermine principles of confidentiality and minimal risk in ways that
 should lead us to consider alternate visualization strategies that can
 simultaneously leverage these stregnths while minimizing these potential
-risks (cite white paper).</p>
+risks <span class="citation">(<a href="#ref-ethicswhite_2026">Ruiz et
+al. 2026</a>)</span>.</p>
 <div id="plot-modeled-not-raw-networks" class="section level2">
 <h2>Plot Modeled, not Raw, Networks</h2>
 <p>My fundamental proposition is simple - instead of plotting the “raw”
@@ -401,9 +431,10 @@ modelers of social network data already enact in practice. For example,
 “eye-balling” consistency of modeled results with observed networks–in
 tandem with formal statistical tests for goodness of fit–is even
 typically taught as a helpful practice in model development and fitting
-processes. However, while we use these heuristic network visualizations
-to improve model fit (whether for capturing theoretical limitations, or
-for enhancing stability of estimates), when presenting networks in
+processes <span class="citation">(<a href="#ref-krivitsky_ergm_2023">Krivitsky et al. 2023</a>)</span>.
+However, while we use these heuristic network visualizations to improve
+model fit (whether for capturing theoretical limitations, or for
+enhancing stability of estimates), when presenting networks in
 publications, authors still often resort to presenting the “real”
 network - often as a first-pass descriptive task to characterize the
 nature of the network(s) that the subsequent analyses are intended to
@@ -415,21 +446,23 @@ need to be of the raw data. Let me draw a parallel here. Logistic
 regression coefficients (just like exponential random graph models) are
 notoriously hard to make substantive sense of on their own (e.g.,
 significance and magnitude of effects are frequently conflated in
-results interpretations by writers and readers alike). One solution to
-this has been for researchers to (1) gather, pre-process, then provide a
-descriptive summary of their data to given an overview sense of what the
-sample being analyzed actually represents, and how key focal features
-are distributed in the population; (2) conduct statistical analyses to
-investigate the researchers’ theoretical aims, which are summarized with
-traditional combinations of betas, standard errors, log-likelihoods,
-etc. to represent the fit of those claims to empirical estimation, then
-(3) transform those modeled results into “predicted probabilities” in
-ways that help interpret what those modeled results “look like” in their
-implications. To “tell the story” that arises from the model results we
-don’t return to the raw data, provide the individual-level combination
-of variables for some subset of the population and rely on those case’s
-patterns to convey the implications of our research (in the rare cases
-that people do, they are often “synthetic” cases, not real ones). To do
+results interpretations by writers and readers alike). A common solution
+to this has been for researchers to (1) gather, pre-process, then
+provide a descriptive summary of their data to given an overview sense
+of what the sample being analyzed actually represents, and how key focal
+features are distributed in the population; (2) conduct statistical
+analyses to investigate the researchers’ theoretical aims, which are
+summarized with traditional combinations of betas, standard errors,
+log-likelihoods, etc. to represent the fit of those claims to empirical
+estimation, then (3) transform those modeled results into “predicted
+probabilities” in ways that help interpret what those modeled results
+“look like” in their implications <span class="citation">(<a href="#ref-fox_effect_2006">Fox and Andersen 2006</a>)</span>. To “tell
+the story” that arises from the model results we don’t return to the raw
+data, provide the individual-level combination of variables for some
+subset of the population and rely on those case’s patterns to convey the
+implications of our research <span class="citation">(in the rare cases
+that people do, they are often “synthetic” cases, not real ones, e.g.,
+<a href="#ref-ayala_image_2019">Ayala and Koch 2019</a>)</span>. To do
 so would not onlyfail to clearly tell the aggregate story we’ve learned
 in the course of our theorization and analysis; it would also violate a
 number of human subjects protections researchers are obligated to
@@ -465,6 +498,102 @@ researchers’ conclusions are reached.</li>
 elaborate how modeled viz may do this even better than raw data viz
 can.</p>
 <p>Let’s illustrate this with an example.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-adams_gathering_2019" class="csl-entry">
+adams, jimi. 2019. <em>Gathering <span>Social</span>
+<span>Network</span> <span>Data</span></em>. Quantitative
+<span>Applications</span> in the <span>Social</span>
+<span>Sciences</span> 180. SAGE.
+</div>
+<div id="ref-arfer_american_2019" class="csl-entry">
+Arfer, Kodi B., and Jason J. Jones. 2019. <span>“American
+<span>Political</span>-<span>Party</span> <span>Affiliation</span> as a
+<span>Predictor</span> of <span>Usage</span> of an <span>Adultery</span>
+<span>Website</span>.”</span> <em>Archives of Sexual Behavior</em> 48
+(3): 715–23. <a href="https://doi.org/10.1007/s10508-018-1244-1">https://doi.org/10.1007/s10508-018-1244-1</a>.
+</div>
+<div id="ref-ayala_image_2019" class="csl-entry">
+Ayala, Ricardo A., and Tomas F. Koch. 2019. <span>“The
+<span>Image</span> of <span>Ethnography</span>—<span>Making</span>
+<span>Sense</span> of the <span>Social</span> <span>Through</span>
+<span>Images</span>: <span>A</span> <span>Structured</span>
+<span>Method</span>.”</span> <em>International Journal of Qualitative
+Methods</em> 18: 1609406919843014. <a href="https://doi.org/10.1177/1609406919843014">https://doi.org/10.1177/1609406919843014</a>.
+</div>
+<div id="ref-fox_effect_2006" class="csl-entry">
+Fox, John, and Robert Andersen. 2006. <span>“Effect
+<span>Displays</span> for <span>Multinomial</span> and
+<span>Proportional</span>-<span>Odds</span> <span>Logit</span>
+<span>Models</span>.”</span> <em>Sociological Methodology</em> 36 (1):
+225–55. <a href="https://doi.org/10.1111/j.1467-9531.2006.00180.x">https://doi.org/10.1111/j.1467-9531.2006.00180.x</a>.
+</div>
+<div id="ref-freeman_development_2004" class="csl-entry">
+Freeman, Linton C. 2004. <em>The <span>Development</span> of
+<span>Social</span> <span>Network</span> <span>Analysis</span>:
+<span>A</span> <span>Study</span> in the <span>Sociology</span> of
+<span>Science</span></em>. Vancouver, BC: Empirical Press.
+</div>
+<div id="ref-harrington_commentary_2013" class="csl-entry">
+Harrington, Heather A., Mariano Beguerisse-Diaz, M. Puck Rombach, Laura
+M Keating, and MASON A. Porter. 2013. <span>“Commentary:
+<span>Teach</span> Network Science to Teenagers.”</span> <em>Network
+Science</em> 1 (2): 226–47. <a href="https://doi.org/10.1017/nws.2013.11">https://doi.org/10.1017/nws.2013.11</a>.
+</div>
+<div id="ref-healy_data_2019" class="csl-entry">
+Healy, Kieran. 2019. <em>Data Visualization: A Practical
+Introduction</em>. Princeton, New Jersey ; Oxford, Oxfordshire:
+Princeton University Press.
+</div>
+<div id="ref-krivitsky_ergm_2023" class="csl-entry">
+Krivitsky, Pavel N., David R. Hunter, Martina Morris, and Chad Klumb.
+2023. <span>“Ergm 4: <span>New</span> <span>Features</span> for
+<span>Analyzing</span> <span>Exponential</span>-<span>Family</span>
+<span>Random</span> <span>Graph</span> <span>Models</span>.”</span>
+<em>Journal of Statistical Software</em> 105 (6): 1–44. <a href="https://doi.org/10.18637/jss.v105.i06">https://doi.org/10.18637/jss.v105.i06</a>.
+</div>
+<div id="ref-moody_dynamic_2005" class="csl-entry">
+Moody, James, Daniel A. McFarland, and Skye Bender-DeMoll. 2005.
+<span>“Dynamic Network Visualization.”</span> <em>American Journal of
+Sociology</em> 110 (4): 1206–41.
+</div>
+<div id="ref-rawlings_how_2023" class="csl-entry">
+Rawlings, Craig, Jeffrey A. Smith, James Moody, and Daniel A. McFarland.
+2023. <span>“How <span>Are</span> <span>Social</span>
+<span>Network</span> <span>Data</span> <span>Visualized</span>.”</span>
+In <em>Network <span>Analysis</span>: <span>Integrating</span>
+<span>Social</span> <span>Network</span> <span>Theory</span>,
+<span>Method</span>, and <span>Application</span> with
+<span>R</span></em>. Structural <span>Analysis</span> in the
+<span>Social</span> <span>Sciences</span> 52. Cambridge University
+Press.
+</div>
+<div id="ref-ethicswhite_2026" class="csl-entry">
+Ruiz, Francisca Ortiz, Jennifer Watling Neal, Jose Luis Molina, Paola
+Tubaro, Raffaele Vacca, Jana Diesner, jimi adams, et al. 2026.
+<span>“<span class="nocase">Recommendations for conducting ethical
+network research</span>.”</span>
+</div>
+<div id="ref-sayama_what_2016" class="csl-entry">
+Sayama, Hiroki, Catherine Cramer, Mason A. Porter, Lori Sheetz, and
+Stephen Uzzo. 2016. <span>“What Are Essential Concepts about
+Networks?”</span> <em>Journal of Complex Networks</em> 4 (3): 457–74. <a href="https://doi.org/10.1093/comnet/cnv028">https://doi.org/10.1093/comnet/cnv028</a>.
+</div>
+<div id="ref-schwabish_better_2021" class="csl-entry">
+Schwabish, Jonathan. 2021. <em>Better <span>Data</span>
+<span>Visualizations</span>: <span>A</span> <span>Guide</span> for
+<span>Scholars</span>, <span>Researchers</span>, and
+<span>Wonks</span></em>. Columbia University Press.
+</div>
+<div id="ref-zimmer_but_2010" class="csl-entry">
+Zimmer, Michael. 2010. <span>“<span>‘<span>But</span> the Data Is
+Already Public’</span>: On the Ethics of Research in
+<span>Facebook</span>.”</span> <em>Ethics and Information
+Technology</em> 12 (4): 313–25. <a href="https://doi.org/10.1007/s10676-010-9227-5">https://doi.org/10.1007/s10676-010-9227-5</a>.
+</div>
+</div>
 </div>
 
 
