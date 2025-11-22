@@ -28,7 +28,7 @@ But if our aims in visualizing networks are to systematically, simply, and clear
 
 Instead, I suggest that we can follow a similar logic to develop presentation- and publication-worthy network visualizations from our modeled results in ways that accomplish the aims we have for visualizations--perhaps even more clearly than the directly observed versions--while maintaining protections against potential ethical gaps (e.g., deductive disclosure). The process I'm recommending follows the same logic as for regression-type models laid out above:
 
-1. Present descriptives as *summary* statistics of the characteristics of one's network(s) being investigated (cite Neal et al here).
+1. Present descriptives as *summary* statistics of the characteristics of one's network(s) being investigated [@Neal_2024].
 1. Conduct whatever form of analyses are appropriate to the theoretical aims of the research question(s).
 1. Compile appropriate analytic overviews of results (e.g., statistics) into summary form.
 1. Visualize "predicted" network(s) that are specified by the corresponding network analytic (model) results from which the researchers' conclusions are reached.
