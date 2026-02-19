@@ -1,6 +1,6 @@
 ---
 title: "A Provocation: Visualizing Modeled Social Networks"
-author: "jimi adams"
+author: "jimi adams, University of South Carolina"
 date: "`r format(Sys.Date(), '%Y %B %d')`"
 output:
   pdf_document: default
@@ -22,7 +22,9 @@ In particular, they may:
 (4) introduce potential risks that could violate research ethical standards. 
 To address these, this paper provokes the field to consider whether presenting *modeled* network results--in lieu of empirical cases--retains the aims of network visualization, while potentially overcoming some of the limitations of existing practice.
 
-\textcolor{red}{NOTE: This is very much a fledgling idea that isn't yet ready for citation/sharing. If you're interested in helping me bring this to life (I'm presently envisioning submitting as a Viz paper to *Socius* - but it seems to be rapidly evolving beyond something that would fit there. I have no idea where it *does* fit), please reach out. Otherwise, for now, think of it as a musing...}
+\textcolor{red}{NOTE: This is very much a fledgling idea that isn't yet ready for citation/sharing. If you're interested in helping me bring this to life, please reach out. Otherwise, for now, think of it as a musing... Also, I'd initially envisioned submitting as a Viz paper to *Socius* - but it seems to be rapidly evolving beyond something that would fit there. I have no idea where it *does* fit).}
+
+\newpage
 
 Social network research relies heavily on data visualization [@freeman_development_2004]. 
 These visualizations can serve to characterize, simplify, and focus theoretical or empirical claims [@moody_dynamic_2005; @rawlings_how_2023]. 
@@ -33,8 +35,8 @@ Quite simply, network visualization is not only common, but can be incredibly us
 Traditionally, this has taken the form of directly visualizing instances(s) of empirical social networks--whether snapshots of single data waves, or evolving network "movies" for dynamic data structures [@katyao_2025].^[These typically occur *after* data pre-processing has taken place (e.g., cleaning, recoding, etc.), but no further data reduction steps (i.e., are not the product of data *summaries* or analytic interpretations)--i.e., they are intended to characterize the data *per se*.] 
 While this practice predominates, it's worth asking: 
 (1) why we visualize, and 
-(2) what optimal set of principles we have for accomplishing those aims, then 
-(3) whether an alternative strategy serves those *purposes* and *needs* better than the existing approach.
+(2) what optimal set of principles govern strategies for accomplishing those aims, then 
+(3) whether an alternative strategy serves those *purposes* and *needs* better than the existing approach?
 
 \textcolor{red}{I'm working here to re-frame this around what's proposed, and highlight why modeled results do better, rather than first centering a single problem (e.g., ethical considerations - even though that's where this idea intiially sprung from for me). In part, this shift is motivated by suggestions (e.g., from Jim) that some may not view all the potential constraints that led me here as being similarly problematic. So I might need to motivate/sell it more broadly (If I buy it in those terms).}
 
@@ -47,46 +49,85 @@ Edward Tufte has prioritized not only using this benefit, but attempting to opti
 
 In addition to these communicative aims, visualization also demonstrates capacity to enhance our interpretation of complex phenomenon (\textcolor{red}{CITE}). 
 Data for almost all social processes are inherently high-dimensional, and visualizations provide a means for *simplifying* that complexity in reduced formats (@wickham_r_2023).^[Some may contend that this is a *constraint* of data visualization imposed on data presentation strategies rather than its benefit.]
-(\textcolor{red}{This is where *network* data visualization especially benefits, given its complexit both of data and of concepts.})
+(\textcolor{red}{This is where *network* data visualization especially benefits, given its complexity both of data and of concepts.})
 While statistics can summarize data in principled ways, data visualization efforts rarely simply mimic those data reduction aims, but also involve some claims about attention--drawing our attention to certain features of the data, and deprioritizing others (\textcolor{red}{CITE "denying the data"}). 
 
-Scientifically, this simplification typically prioritizes the *theoretical* claims being made in data analysis (\textcolor{red}{CITE on theory as goal of science}).
-For social networks this typically entails explaining elements of relational social processes, via combining **theoretical models**  (\textcolor{red}{CITE Borgatti}) with some form of empirical data analysis (\textcolor{red}{CITE Kadushin})-- which visualizations then provide a means to convey [@bender-demoll_art_2005]. 
-Models are a *theoretical* tool for simplifying reality in a way that makes them theoretically useful (\textcolor{red}{CITE TSP piece}).
+\textcolor{red}{I can't decide if this next idea is better somehow integrated with the section above, or whether this is a separate (set of) idea(s). For now I'm just ensuring I get it out before I lose the thread.}
+
+In practice the stage of research likely approaches these aims differently depending on the stage of research its used for. 
+In particular, the emphases among the aims above likely differ substantially between visualizations with exploratory [@wickham_r_2023], conceptual/theoretical [@conceptmap], or explanatory aims [@HealyMoody].
+
+\textcolor{red}{Should I attempt a claim here that we too often assume the aims/needs/strategies for all of the above are best accomplished with a single approach, rather than leveraging those differences to construct them in different ways? I especially need to think about whether my own suggestion would equally be committing the same "sin" -- especially if the approach I'm deriving is more targeted towards explanatory aims (and therefore may not be appropriate for constructing vizes of the other flavors).}
 
 ## Principles for optimal (network) science visualization
 
-1. theoretical clarity & interpretation
+1. Scientifically, visualization's capacity for simplification typically prioritizes the *theoretical* claims being made in data analysis (\textcolor{red}{CITE on theory as goal of science}).
+\textcolor{red}{How much do I want to differentiate here that this is multidimensional - e.g., including the descriptive, conceptual articulation/refinement, measurement, process/explanation?}
+For social networks this typically entails explaining elements of relational social processes, via combining **theoretical models**  (\textcolor{red}{CITE Borgatti}) with some form of empirical data analysis (\textcolor{red}{CITE Kadushin})-- which visualizations then provide a means to convey [@bender-demoll_art_2005]. 
+Models are a *theoretical* tool for simplifying reality in a way that makes them useful reductions of the claims being made about social processes (\textcolor{red}{CITE TSP piece}).
+Optimizing *useful* simplifications that offer clarity of the theoretical claims being offered is therefore a fundamental principle governing (network) scientific data visualization.
 
-2. scientific principles to optimize accomplishing those aims.
+2. replicability
 
-3. whether modeled viz improves capacity for those.
+3. safety
+\textcolor{red}{Some text from the previous iteration to incorporate here -} One limitation that I contend especially needs to be more carefully considered among social network researchers. 
+Namely, network visualizations often present unique ethical challenges to presenting research (cite Sage book). 
+Especially in “closed population” settings (but not only there - see FB example), the potential for deductive disclosure is broad in any presentation of multiple variables (cite cs on this), and network data are uniquely primed to allow serial-revelations of participants’ identities—i.e., the ability to identify one node in a graph (e.g., myself) often heightens the capacity of identifying others’ identities in turn (e.g., my friends). 
+To this end, our frequent practice of plotting empirical networks from data collection efforts may undermine principles of confidentiality and minimal risk in ways that should lead us to consider alternate visualization strategies that can simultaneously leverage these strengths while minimizing these potential risks (cite white paper). 
+\textcolor{red}{Do I want to tell my story of hand coding the Add Health network from their 4-cycles paper to incorporate that model in my Glee paper?) 
 
+## A synopsis of the traditional approach ?
 
-## Plot Modeled, not Raw, Networks
+1. obtain/clean data
+1. plot & label
+1. interpret
 
-My fundamental proposition is simple - instead of plotting the "raw" empirical networks directly presenting data that has been collected and researchers in-turn analyze, we can produce visualizations of modeled network results that arise from those analyses. This is not a ground-breaking suggestion. In fact, it's a practice many statistical modelers of social network data already enact in practice. For example,  "eye-balling" consistency of modeled results with observed networks--in tandem with formal statistical tests for goodness of fit--is even typically taught as a helpful practice in model development and fitting processes [@krivitsky_ergm_2023]. However, while we use these heuristic network visualizations to improve model fit (whether for capturing theoretical limitations, or for enhancing stability of estimates), when presenting networks in publications, authors still often resort to presenting the "real" network - often as a first-pass descriptive task to characterize the nature of the network(s) that the subsequent analyses are intended to explain. I've done this multiple times myself.
+## Plot Modeled, not Raw, Networks 
 
-But if our aims in visualizing networks are to clearly, simply, systematically, and ethically convey scientifically useful network visualizations, there's no reason our visualizations need to be of the raw data. Modeled network representations can better serve our purposes across these aims.
+\textcolor{red}{From here still likely reads according to the old motivation for this piece - primarily ethical considerations, and may need some substantial revision yet to think broader about what's being solved. Especially should be recast as how/whether it accomplishes the list of aims elaborated above.}
 
-Let me draw a parallel here. Logistic regression coefficients (just like exponential random graph models) are notoriously hard to make substantive sense of on their own (e.g., significance and magnitude of effects are frequently conflated in results interpretations by writers and readers alike). A common solution to this has been for researchers to (1) gather, pre-process, then provide a descriptive summary of their data to given an overview sense of what the sample being analyzed actually represents, and how key focal features are distributed in the population; (2) conduct statistical analyses to investigate the researchers' theoretical aims, which are summarized with traditional combinations of betas, standard errors, log-likelihoods, etc. to represent the fit of those claims to empirical estimation, then (3) transform those modeled results into "predicted probabilities" in ways that help interpret what those modeled results "look like" in their implications [@fox_effect_2006]. To "tell the story" that arises from the model results we don't return to the raw data, provide the individual-level combination of variables for some subset of the population and rely on those case's patterns to convey the implications of our research [in the rare cases that people do, they are often "synthetic" cases, not real ones, e.g.,  @ayala_image_2019]. To do so would not only fail to clearly tell the aggregate story we've learned in the course of our theorization and analysis; it would also violate a number of human subjects protections researchers are obligated to follow. So why in the network world would we need to effectively present the "real" pattern of relationships from our data as a means to interpret and convey our findings in visual form?
+My fundamental proposition is simple - instead of plotting the "raw" empirical networks directly presenting data that has been collected and researchers in-turn analyze, we can produce visualizations of modeled network results that arise from those analyses. 
+This is not a ground-breaking suggestion. 
+In fact, it's a practice many statistical modelers of social network data already enact in practice.
+For example,  "eye-balling" consistency of modeled results with observed networks--in tandem with formal statistical tests for goodness of fit--is even typically taught as a helpful practice in model development and fitting processes [@krivitsky_ergm_2023]. 
+However, while we use these heuristic network visualizations to improve model fit (whether for capturing theoretical limitations, or for enhancing stability of estimates), when presenting networks in publications, authors still often resort to presenting the "real" network - often as a first-pass descriptive task to characterize the nature of the network(s) that the subsequent analyses are intended to explain. 
+I've done this multiple times myself.
+
+But if our aims in visualizing networks are to clearly, simply, systematically, and ethically 
+convey scientifically useful network visualizations \textcolor{red}{(recheck these parallel the way I end up ordering the set above.)}, there's no reason our visualizations need to be of the raw data. 
+Modeled network representations can better serve our purposes across these aims.
+
+Let me draw a parallel here. 
+Logistic regression coefficients (just like exponential random graph models) are notoriously hard to make substantive sense of on their own (e.g., significance and magnitude of effects are frequently conflated in results interpretations by writers and readers alike). 
+A common solution to this has been for researchers to:
+(1) gather, pre-process, then provide a descriptive summary of their data to given an overview sense of what the sample being analyzed actually represents, and how key focal features are distributed in the population; 
+(2) conduct statistical analyses to investigate the researchers' theoretical aims, which are summarized with traditional combinations of betas, standard errors, log-likelihoods, etc. to represent the fit of those claims to empirical estimation, then 
+(3) transform those modeled results into "predicted probabilities" in ways that help interpret what those modeled results "look like" in their implications [@fox_effect_2006]. 
+To "tell the story" that arises from the model results we don't return to the raw data, provide the individual-level combination of variables for some subset of the population and rely on those case's patterns to convey the implications of our research [in the rare cases that people do, they are often "synthetic" cases, not real ones, e.g.,  @ayala_image_2019]. 
+To do so would not only fail to clearly tell the aggregate story we've learned in the course of our theorization and analysis; it would also violate a number of human subjects protections researchers are obligated to follow. 
+So why in the network world would we need to effectively present the "real" pattern of relationships from our data as a means to interpret and convey our findings in visual form?
 
 ## Implementation
 
-Instead, I suggest that we can follow a similar logic to develop presentation- and publication-worthy network visualizations from our modeled results in ways that accomplish the aims we have for visualizations--perhaps even more clearly than the directly observed versions--while maintaining protections against potential ethical gaps (e.g., deductive disclosure). The process I'm recommending follows the same logic as for regression-type models laid out above:
+Instead, I suggest that we can follow a similar logic to develop presentation- and publication-worthy network visualizations from our modeled results in ways that accomplish the aims we have for visualizations--perhaps even more clearly than the directly observed versions--while maintaining protections against potential ethical gaps (e.g., deductive disclosure). 
+The process I'm recommending follows the same logic as for regression-type models laid out above:
 
 1. Present descriptives as *summary* statistics of the characteristics of one's network(s) being investigated [@Neal_2024].
 1. Conduct whatever form of analyses are appropriate to the theoretical aims of the research question(s).
-1. Compile appropriate analytic overviews of results (e.g., statistics) into summary form.
+1. Compile appropriate analytic overviews of results (e.g., statistics) into summary form. \textcolor{red}{Here I'm going to want to be especially clear that I'm using "model" as primarily a *theoretical* device/claim, not a particular form of (statistical) analysis. I.e., this doesn't have to be e.g., and ergm result.}
 1. Visualize "predicted" network(s) that are specified by the corresponding network analytic (model) results from which the researchers' conclusions are reached.
+
+Worth noting that some corners of the field already effectively do this. 
+Block images are a coarse-graining analytical result based strategy for presenting model characteristics (e.g., from a stochastic blockmodel), rather than the raw data from which they derive.
+Ego network visuals often use heuristic representations of their actual observations.
+Network motifs are an attempt to capture common features across a collection of networks, rather than presenting multiple parallel visualizations and attempting to extract those commonalities across the repeated panels.
 
 ## Still to be filled in - Example
 
 \textcolor{red}{Work out the "aims" of visualization a bit more concretely, and elaborate how modeled viz may do this even better than raw data viz can.}
 
-\textcolor{red}{Let's illustrate this with an example.}
+...
 
-```{r ergm}
-```
+\textcolor{red}{Let's illustrate this with an example - I do think I want to use an ergm for this, especially given how frequently we already do this in the first place for that modeling framework as a means for interpretting/improving fit of model estimates.}
 
 # References
