@@ -54,13 +54,12 @@ For social networks this typically entails explaining elements of relational soc
 Models are a *theoretical* tool for simplifying reality in a way that makes them useful reductions of the claims being made about social processes [@adams_TSP2020].
 Optimizing *useful* simplifications that offer clarity of the theoretical claims being offered is therefore a fundamental principle governing (network) scientific data visualization.
 
-2. replicability
+2. If the aims of visualization are scientific, and not merely heuristic, an additionally desirable quality would allow for ready replication. 
+Providing data and code allowing for analyses [@transparent2019] should also facilitate the reproduction of any corresponding visualizations used to represent and communicate those analyses [@bender-demoll_art_2005].
 
-3. safety
-One limitation that I contend especially needs to be more carefully considered among social network researchers. 
-Namely, network visualizations often present unique ethical challenges to presenting research (cite Sage book). 
-Especially in “closed population” settings (but not only there - see FB example), the potential for deductive disclosure is broad in any presentation of multiple variables (cite cs on this), and network data are uniquely primed to allow serial-revelations of participants’ identities—i.e., the ability to identify one node in a graph (e.g., myself) often heightens the capacity of identifying others’ identities in turn (e.g., my friends). 
-To this end, our frequent practice of plotting empirical networks from data collection efforts may undermine principles of confidentiality and minimal risk in ways that should lead us to consider alternate visualization strategies that can simultaneously leverage these strengths while minimizing these potential risks (cite white paper). 
+3. Network visualizations often present unique ethical challenges to presenting research [@adams2019sage]. 
+Especially in “closed population” settings (but not exclusively @zimmer_but_2010), the potential for deductive disclosure is broad in any presentation of multiple variables, and network data are uniquely primed to allow serial-revelations of participants’ identities—i.e., the ability to identify one node in a graph (e.g., myself) often heightens the capacity of identifying others’ identities in turn (e.g., my friends). 
+To this end, our frequent practice of directly plotting observed networks may undermine principles of confidentiality and minimal risk in ways that should lead us to consider alternate visualization strategies that can simultaneously leverage these strengths while minimizing these potential risks [@INSNA26-ethics]. 
 
 
 ## A synopsis of the traditional approach
