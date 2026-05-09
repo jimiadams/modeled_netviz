@@ -7,6 +7,7 @@ output:
   beamer_presentation: 
     theme: "Boadilla"
     colortheme: "beaver"
+    slide_level: 2
 ---
 
 ```{r setup, include=FALSE}
@@ -45,7 +46,7 @@ knitr::opts_chunk$set(echo = TRUE)
 **standard approach**
 
 - obtain & preprocess
-- **\textcolor{red}{visualize}** to describe
+- **\textcolor{blue}{visualize}** to describe
 - analyze
 - explain via layering
 
@@ -58,7 +59,7 @@ knitr::opts_chunk$set(echo = TRUE)
 **standard approach**
 
 - obtain & preprocess
-- **\textcolor{red}{visualize}** to describe
+- **\textcolor{blue}{visualize}** to describe
 - analyze
 - explain via layering
 :::
@@ -119,5 +120,5 @@ Rather than dichotomous, this should be thought of as an optimization task, w/ v
 
 
 
-let's discuss! [\textcolor{red}{jimi.adams@sc.edu}](mailto:jimi.adams@sc.edu)
+let's discuss! [\textcolor{blue}{jimi.adams@sc.edu}](mailto:jimi.adams@sc.edu)
 
