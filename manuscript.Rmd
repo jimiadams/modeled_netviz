@@ -41,21 +41,17 @@ While this practice predominates, it's worth asking:
 \textcolor{red}{I'm working here to re-frame this around what's proposed, and highlight why modeled results do better, rather than first centering a single problem (e.g., ethical considerations - even though that's where this idea intiially sprung from for me). In part, this shift is motivated by suggestions (e.g., from Jim) that some may not view all the potential constraints that led me here as being similarly problematic. So I might need to motivate/sell it more broadly (If I buy it in those terms).}
 
 ## Purposes of (network) vizualization
-So, what are the benefits of network data visualizations? 
-Many of the benefits for network scholarship mirror those that motivate data visualization in science more broadly. 
+So, what are the benefits of network data visualizations? Many of the benefits for network scholarship mirror those that motivate data visualization in science more broadly. 
 A fundamental premise is that data visualization enhances **memory** [@schwabish_better_2021]; this reflects what we know from a number of old adages--there's simply value in beauty [@tufte2006beautiful, @halpern2015beautiful]. 
 Moreover, this memory benefit leverages the potential **efficiency** available in data visualization that simply cannot be achieved in other strategies for presenting evidence [@healy_data_2019]. 
-Edward Tufte has prioritized not only using this benefit, but attempting to optimize with efforts to maximize what he conceptualized as the "ink-to-information" ratio [@tufte1983visual].
+Edward Tufte has prioritized not only using this benefit, but attempting to find ways to optimize it, e.g., via efforts to maximize what he conceptualized as the "ink-to-information" ratio [@tufte1983visual].
 
-In addition to these communicative aims, visualization also demonstrates capacity to enhance our interpretation of complex phenomenon (\textcolor{red}{CITE}). 
-Data for almost all social processes are inherently high-dimensional, and visualizations provide a means for *simplifying* that complexity in reduced formats (@wickham_r_2023).^[Some may contend that this is a *constraint* of data visualization imposed on data presentation strategies rather than its benefit.]
-(\textcolor{red}{This is where *network* data visualization especially benefits, given its complexity both of data and of concepts.})
-While statistics can summarize data in principled ways, data visualization efforts rarely simply mimic those data reduction aims, but also involve some claims about attention--drawing our attention to certain features of the data, and deprioritizing others (\textcolor{red}{CITE "denying the data"}). 
-
-\textcolor{red}{I can't decide if this next idea is better somehow integrated with the section above, or whether this is a separate (set of) idea(s). For now I'm just ensuring I get it out before I lose the thread.}
-
-In practice the stage of research likely approaches these aims differently depending on the stage of research its used for. 
-In particular, the emphases among the aims above likely differ substantially between visualizations with exploratory [@wickham_r_2023], conceptual/theoretical [@conceptmap], or explanatory aims [@HealyMoody].
+In addition to these communicative aims, visualization also demonstrates capacity to enhance our interpretation of complex phenomenon [@schwabish_better_2021]. 
+Data for almost all social processes are inherently high-dimensional, and visualizations provide a means for *simplifying* that complexity in reduced formats (@wickham_r_2023).^[Some contend that this is a *constraint* of data visualization imposed on data presentation strategies rather than its benefit.]
+Network visualizations in particular focus on dimension reduction for ease of interpretation [@rawlings_how_2023]. 
+While statistics can summarize data in principled ways, data visualization efforts rarely simply mimic those data reduction aims, but also involve some claims about attention--drawing our attention to certain features of the data, and deprioritizing others [@leifer_denying_1992]. 
+In practice, researchers assesses these aims differently depending on the stage of research in which they implement visualizations. 
+In particular, optimal visualization strategies differ substantially between exploratory [@wickham_r_2023], conceptual/theoretical [@conceptmap], or explanatory aims [@HealyMoody]. 
 
 \textcolor{red}{Should I attempt a claim here that we too often assume the aims/needs/strategies for all of the above are best accomplished with a single approach, rather than leveraging those differences to construct them in different ways? I especially need to think about whether my own suggestion would equally be committing the same "sin" -- especially if the approach I'm deriving is more targeted towards explanatory aims (and therefore may not be appropriate for constructing vizes of the other flavors).}
 
