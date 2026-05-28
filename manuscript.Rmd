@@ -22,35 +22,41 @@ In particular, they may:
 (4) introduce potential risks that could violate research ethical standards. 
 To address these, this paper provokes the field to consider whether presenting *modeled* network results--in lieu of empirical cases--retains the aims of network visualization, while potentially overcoming some of the limitations of existing practice.
 
-\textcolor{red}{NOTE: This is very much a fledgling idea that isn't yet ready for citation/sharing. If you're interested in helping me bring this to life, please reach out. Otherwise, for now, think of it as a musing... Also, I'd initially envisioned submitting as a Viz paper to *Socius* - but it seems to be rapidly evolving beyond something that would fit there. I have no idea where it *does* fit).}
+\textcolor{red}{NOTE: This is very much a fledgling idea that isn't yet ready for citation/sharing. If you're interested in helping me bring this to life, please reach out. Otherwise, for now, think of it as a musing... Also, I'd initially envisioned submitting as a Viz paper to \textit{Socius}, and have since submitted it to \textit{Social Networks} for their theory special issue (but I'm not hopeful given how many submissions they received); so I likely need to re-think \textbf{where} this is targeting.}
 
 \newpage
 
 Social network research relies heavily on data visualization [@freeman_development_2004]. 
 These visualizations can serve to characterize, simplify, and focus theoretical or empirical claims [@moody_dynamic_2005; @rawlings_how_2023]. 
 Visualizations generally are often more readily digestible than tables of seemingly endless coefficients, significance tests, and summary statistics [@healy_data_2019; @schwabish_better_2021]. 
-Additionally, with the increasing ubiquity of network verbiage in society, they can even convey ideas in ways that require less "translation" work for audiences who sit outside of academic research niches [@sayama_what_2016; @harrington_commentary_2013]. 
-Quite simply, network visualization is not only common, but can be incredibly useful [@NetCanvas].^[As with any data presentation strategy--visual or otherwise--there are also ample examples of how to do this poorly (e.g., what have come to be known as unintelligible network "hairballs"); I have a few published visuals of my own I'd *substantially* rework if given the opportunity today.]
+Additionally, with the increasing ubiquity of network verbiage in society, they can even convey ideas in ways that require less "translation" work for audiences who sit outside of academic and research niches [@sayama_what_2016; @harrington_commentary_2013]. 
+Quite simply, network visualization is not only common, but can be incredibly useful [@NetCanvas].^[As with any data presentation strategy--visual or otherwise--there are also ample examples of how to do this poorly (e.g., what have come to be known as unintelligible network "hairballs"); I have a few published visuals of my own that I'd *substantially* rework if given the opportunity today.]
 
-Traditionally, this has taken the form of directly visualizing instances(s) of empirical social networks--whether snapshots of single data waves, or evolving network "movies" for dynamic data structures [@katyao_2025].^[These typically occur *after* data pre-processing has taken place (e.g., cleaning, recoding, etc.), but no further data reduction steps (i.e., are not the product of data *summaries* or analytic interpretations)--i.e., they are intended to characterize the data *per se*.] 
+Traditionally, this has taken the form of directly visualizing instances(s) of empirically **observed** social networks--whether snapshots of single data waves, or evolving network "movies" for dynamic relational data patterns [@katyao_2025].^[These typically occur *after* data pre-processing has taken place (e.g., cleaning, recoding, etc.), but no further data reduction steps (i.e., are not the product of data *summaries* or analytic interpretations).]
+That is, such visualizations are intended to characterize the data *per se*. 
 While this practice predominates, it's worth asking: 
 (1) why we visualize, and 
 (2) what optimal set of principles govern strategies for accomplishing those aims, then 
 (3) whether an alternative strategy serves those *purposes* and *needs* better than the existing approach?
 
-\textcolor{red}{I'm working here to re-frame this around what's proposed, and highlight why modeled results do better, rather than first centering a single problem (e.g., ethical considerations - even though that's where this idea intiially sprung from for me). In part, this shift is motivated by suggestions (e.g., from Jim) that some may not view all the potential constraints that led me here as being similarly problematic. So I might need to motivate/sell it more broadly (If I buy it in those terms).}
+\textcolor{red}{I'm working here to re-frame this around what's proposed, and highlight why modeled results do better, rather than first centering a single problem (e.g., ethical considerations - even though that's where this idea intiially sprung from for me). In part, this shift is motivated by suggestions (e.g., from Jim) that some may not view all the potential constraints that led me here as being similarly problematic. So I might need to motivate/sell it more broadly (\textbf{if} I buy it in those terms; I'm actually increasingly convinced that I think this is where the real value of this lies - so, thanks Jim!). }
 
 ## Purposes of (network) vizualization
 So, what are the benefits of network data visualizations? 
 Many of the benefits for network scholarship mirror those that motivate data visualization in science more broadly. 
-A fundamental premise is that data visualization enhances **memory** [@schwabish_better_2021]; this reflects what we know from a number of old adages--there's simply value in beauty [@tufte2006beautiful, @halpern2015beautiful]. 
+A fundamental premise is that data visualization enhances **memory** [@schwabish_better_2021]; this reflects what we know from a number of old adages--including that there's simply value in beauty [@tufte2006beautiful, @halpern2015beautiful]. 
 Moreover, this memory benefit leverages the potential **efficiency** available in data visualization that simply cannot be achieved in other strategies for presenting evidence [@healy_data_2019]. 
 Edward Tufte has prioritized not only using this benefit, but attempting to find ways to optimize it, e.g., via efforts to maximize what he conceptualized as the "ink-to-information" ratio [@tufte1983visual].
 
-In addition to these communicative aims, visualization also demonstrates capacity to enhance our interpretation of complex phenomenon [@schwabish_better_2021]. 
-Data for almost all social processes are inherently high-dimensional, and visualizations provide a means for *simplifying* that complexity in reduced formats [@wickham_r_2023].^[Some contend that this is a *constraint* of data visualization imposed on data presentation strategies rather than its benefit.]
-Network visualizations in particular focus on dimension reduction for ease of interpretation [@rawlings_how_2023]. 
-While statistics can summarize data in principled ways, data visualization efforts rarely simply mimic those data reduction aims, but also involve some claims about attention--drawing our attention to certain features of the data, and deprioritizing others [@leifer_denying_1992]. 
+Data representing nearly all social processes are inherently high-dimensional, and visualizations provide a means for *simplifying* that complexity in structured, intepretable formats [@wickham_r_2023].^[Some contend that this is a *constraint* of data visualization imposed on data presentation strategies (by obfuscating its richness), rather than its benefit.]
+This leads visualizations to not only enhance communicative aims, but also to improve readers' ability to understand and interpret complex social phenomenon [@schwabish_better_2021]. 
+While statistics can summarize data in principled ways, data visualization rarely simply mimics these other forms and represetnations of data reduction. 
+Instead, they are also "attention-drwaing" efforts that highlight certain features of the data, while typically necessitating the deprioritizaton of others [@leifer_denying_1992].
+
+** How do network scholars *in particular* prioritize these combating aims? **
+involve some claims about attention--drawing our attention to certain features of the data, and deprioritizing others .^{e.g., emphasizing the community structure of a graph in a  }
+
+Network scholars especially leverage these dimension reduction approaches by translating summaries of (theoretically) salient social space into the particular strategies for visuzliation forms [@rawlings_how_2023]. 
 In practice, researchers assesses these aims differently depending on the stage of research in which they implement visualizations. 
 In particular, optimal visualization strategies differ substantially between exploratory [@wickham_r_2023], conceptual/theoretical [@conceptmap], or explanatory aims [@HealyMoody]. 
 
