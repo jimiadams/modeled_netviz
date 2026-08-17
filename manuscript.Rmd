@@ -32,7 +32,7 @@ Visualizations are generally more readily digestible than tables of seemingly en
 Additionally, with the increasing ubiquity of network verbiage in society, they can even convey ideas in ways that require less "translation" work for audiences who sit outside of academic and research niches [@sayama2016; @harrington2013]. 
 Quite simply, network visualization is not only common, but can be incredibly useful [@birkett2021].^[As with any data presentation strategy--visual or otherwise--there are also ample examples of how to do this poorly (e.g., what have come to be known as unintelligible network "hairballs"); I have a few published visuals of my own that I'd *substantially* rework if given the opportunity today.]
 
-Traditionally, this has taken the form of directly visualizing instances(s) of empirically **observed** social networks--whether snapshots of single data waves, or evolving network "movies" for dynamic relational data patterns [@katyao_2025].^[These typically occur *after* data pre-processing has taken place (e.g., cleaning, recoding, etc.), but no further data reduction steps (i.e., are not the product of data *summaries* or analytic interpretations).]
+Traditionally, this has taken the form of directly visualizing instances(s) of empirically **observed** social networks--whether snapshots of single data waves, or evolving network "movies" for dynamic relational data patterns [@ognyanova2025].^[These typically occur *after* data pre-processing has taken place (e.g., cleaning, recoding, etc.), but no further data reduction steps (i.e., are not the product of data *summaries* or analytic interpretations).]
 That is, such visualizations are intended to characterize the data *per se*. 
 While this practice predominates, it's worth asking: 
 (1) why we visualize, and 
@@ -52,7 +52,7 @@ Moreover, this general applicability with not only "extend" to applications outs
 ## Purposes of (network) visualization
 So, what are the benefits of network data visualizations? 
 Many of the benefits for network scholarship mirror those that motivate data visualization in science more broadly [@rawlings2023]. 
-A fundamental premise is that data visualization enhances **memory** [@schwabish2021]; this reflects what we know from a number of old adages--including that there's simply value in beauty [@tufte2006beautiful, @halpern2015beautiful]. 
+A fundamental premise is that data visualization enhances **memory** [@schwabish2021]; this reflects what we know from a number of old adages--including that there's simply value in beauty [@tufte2006, @halpern2015]. 
 Moreover, this memory benefit leverages the potential **efficiency** available in data visualization that simply cannot be achieved in other strategies for presenting evidence [@healy2018].
 Edward Tufte has prioritized not only using this benefit, but attempting to find ways to optimize it, e.g., via efforts to maximize what he conceptualized as the "ink-to-information" ratio [@tufte1983].
 These memory-oriented enhancements can arise both via improved recall and encoding processes--on the latter, the simple act of including visualizations can enhance memory via the complementarity of multimodal communication strategies, dovetailing with the strengths and weaknesses of text [@sweller1988].
@@ -65,9 +65,9 @@ Instead, they are also "attention-drawing" efforts that highlight certain featur
 ** How do network scholars *in particular* prioritize these combating aims? **
 involve some claims about attention--drawing our attention to certain features of the data, and deprioritizing others .^{e.g., emphasizing the community structure of a graph in a  }
 
-Network scholars especially leverage these dimension reduction approaches by translating summaries of (theoretically) salient social space into the particular strategies for visuzliation forms [@rawlings2023]. 
+Network scholars especially leverage these dimension reduction approaches by translating summaries of (theoretically) salient social space into the particular strategies for visualization forms [@rawlings2023]. 
 In practice, researchers assesses these aims differently depending on the stage of research in which they implement visualizations. 
-In particular, optimal visualization strategies differ substantially between exploratory [@wickham2023a], conceptual/theoretical [@conceptmap], or explanatory aims [@healy2014]. 
+In particular, optimal visualization strategies differ substantially between exploratory [@wickham2023a], conceptual/theoretical [@brady2020], or explanatory aims [@healy2014]. 
 
 Given these potential differences, it is worth considering how readily existing uses implement different prioritization within visualizations.
 For example, if data fidelity, anomalous cases, and XXX are of particular interest in exploratory analyses, that would prioritize a set of *data* features as the key elements for visualization to highlight. 
@@ -82,7 +82,7 @@ Here, I focus on three broad aims, with some differences within the precise impl
 
 1. Given that researchers prioritize different sets of features to be highlighted in their visualizations--according to different phases of the research process, and these take on particular flavors in *network* visualizations.
 Exploratorily, network visualizations can serve to characterize a study population's composition and structural patterns, in ways that help to articulate things like: features that analyses seek to explain, or identify needed pre-processing steps [@wickham2023a].
-Conceptually, network visualizations necessitate a concrete articulation of what analyses will and will not explicitly address, highlighting aspects of a theorized social and relational process to be evaluated [@adams2020covid].
+Conceptually, network visualizations necessitate a concrete articulation of what analyses will and will not explicitly address, highlighting aspects of a theorized social and relational process to be evaluated [@adams2020d].
 In social network research, the explanatory aims of these simplifications seek to characterize how readily the analytic results applied to the empirical case(s) observed [@kadushin2012] when properly interpreted conform to the theoretical claims being modeled [@borgatti2011] -- something subsequent visualizations can be optimized to clearly convey [@bender-demoll2005]. 
 It is worth noting that while each of these research purposes leverage **simplifications** to achieve their aims, they do so in ways that induce non-overlapping prioritization in the types of visualizations each would produce.
 
