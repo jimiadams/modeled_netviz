@@ -46,58 +46,67 @@ To address this misalignment, I propose that many (though notably, not all) purp
 After making this case following the motivations above, I illustrate this shift in three ways--a trivial example common to how many of us already teach social network modeling, describing a parallel strategy common in non-networks research, and an applied example from a recent research paper.
 
 Before continuing, I should emphasize one thing--when I say "model" I intend this usage in a *theoretical* not a *statistical* sense. 
-I avoid relegating this point to a footnote to highlight that the strategy I encourage does not only apply to statistically modeled results. 
-Moreover, this general applicability with not only "extend" to applications outside of the recent proliferation of statistically modeled networks, but will also draw directly from other forms of SNA to demonstrate how elements of this strategy are already common practices in some circles (if labeled differently), and (partially) pave the way for how statistically oriented researchers can implement the approach.
+I avoid relegating this point to a footnote to highlight that the strategy I encourage does not apply only to statistically modeled results. 
+Moreover, I should emphasize that this broader applicability in some ways reflects that my proposal in places *imports* practices from non-statistical orientations to network research as much as (or perhaps even more so) than developing a method for statistical applications that can be exported to other use cases.
+That caveat noted, my illustrations below will primarily draw on statistical applications as a concrete demonstration; but I will include how the *principles* demonstrated are applicable beyond these particularities.^[Specifically, some of the elements proposed below are directly adopted from other corners of SNA where they are already variably common practices (if labeled differently), and (partially) pave the way for how statistically oriented researchers can implement the approach.]
 
 ## Purposes of (network) visualization
 So, what are the benefits of network data visualizations? 
+And what are the principles we should follow to best accomplish those aims? 
+Here, I begin from the assumption that SNA visualizations seek to optimize their *scientific utility*, and highlight some shortcomings that have emerged in our common practices, which have weakened our ability to accomplish those aims--particularly by assuming single visualization strategies can address multiple (sometimes competing) sets of aims.
+
 Many of the benefits for network scholarship mirror those that motivate data visualization in science more broadly [@rawlings2023]. 
 A fundamental premise is that data visualization enhances **memory** [@schwabish2021]; this reflects what we know from a number of old adages--including that there's simply value in beauty [@tufte2006, @halpern2015]. 
 Moreover, this memory benefit leverages the potential **efficiency** available in data visualization that simply cannot be achieved in other strategies for presenting evidence [@healy2018].
 Edward Tufte has prioritized not only using this benefit, but attempting to find ways to optimize it, e.g., via efforts to maximize what he conceptualized as the "ink-to-information" ratio [@tufte1983].
-These memory-oriented enhancements can arise both via improved recall and encoding processes--on the latter, the simple act of including visualizations can enhance memory via the complementarity of multimodal communication strategies, dovetailing with the strengths and weaknesses of text [@sweller1988].
+These memory-oriented enhancements can arise both via improved recall and encoding processes--on the latter, the simple act of including visualizations can enhance memory via the complementary of multimodal communication strategies, dovetailing with the strengths and weaknesses of text [@sweller1988].
 
-The data we use to represent social processes are almost always inherently high-dimensional, and visualizations provide a means for *simplifying* that complexity in structured, intepretable formats [@wickham2023a].^[Some contend that this is a *constraint* of data visualization imposed on data presentation strategies (by obfuscating its richness), rather than its benefit [@healy2014].]
+The data we use to represent social processes are almost always inherently high-dimensional, and visualizations provide a means for *simplifying* that complexity in structured, interpretable formats [@wickham2023a].^[Some contend that this is a *constraint* of data visualization imposed on data presentation strategies (by obfuscating its richness), rather than its benefit [@healy2014].]
 This leads visualizations to not only enhance communicative aims, but also to improve readers' ability to understand and interpret complex social phenomenon [@schwabish2021]. 
 While statistics can summarize data in principled ways, data visualization rarely simply mimics these other forms and representations of data reduction. 
 Instead, they are also "attention-drawing" efforts that highlight certain features of the data, while typically necessitating the deprioritization of others [@leifer1992].
 
-** How do network scholars *in particular* prioritize these combating aims? **
-involve some claims about attention--drawing our attention to certain features of the data, and deprioritizing others .^{e.g., emphasizing the community structure of a graph in a  }
-
+So, how do network scholars *in particular* prioritize these combating aims?
 Network scholars especially leverage these dimension reduction approaches by translating summaries of (theoretically) salient social space into the particular strategies for visualization forms [@rawlings2023]. 
-In practice, researchers assesses these aims differently depending on the stage of research in which they implement visualizations. 
+For example, one such "attention-drawing" move researchers engage in can seek to highlight certain elements of (theoretically salient) relational patterns (e.g., community structure), while deprioritizing others (e.g., homophily).^[For example, to emphasize the changes in political polarization over time in the US Congress, @moody2013 employ increased coarse-graining to highlight *group* size and positioning over time, and juxtapose that against the decreased *individual* positioning and distancing.]
+
+While such trade-offs may seem universally useful, I argue that how researchers prioritize among these various aims should differ according to different stages the research process when we're leveraging visualization as a tool. 
+Moreover, I will contend that collapsing the "preferred strategy" across these non-overlapping sets of aims has been one source of limiting the utility of SNA researchers' visualizations.
+That is, my hope is the encourage, more, more-varied, particularization uses of visualizations in ways that will afford each instance greater likelihood of achieving the researchers' purposes for visualizing their network(s).
 In particular, optimal visualization strategies differ substantially between exploratory [@wickham2023a], conceptual/theoretical [@brady2020], or explanatory aims [@healy2014]. 
 
-Given these potential differences, it is worth considering how readily existing uses implement different prioritization within visualizations.
-For example, if data fidelity, anomalous cases, and XXX are of particular interest in exploratory analyses, that would prioritize a set of *data* features as the key elements for visualization to highlight. 
-In contrast, for conceptual development in formalizing the aims of a research question, visualization likely needs to optimize on elements of the *analytic strategy* - e.g., differentiating which components are explicitly examined, versus which are (unexamined) assumptions.
-Similarly, if being used as a strategy for presenting analytic results, the emphasis typically seeks to highlight *theoretical* implications of interpretation.
-Given the inherent trade-offs between data fidelity, theorized processes, and participant confidentiality [@moody2005], these prioritizations will frequently lead visualizations designed for one of these purposes serving poorly when leveraged for another. 
-Perhaps more problematically, when researchers *assume* (or worse, *require*) that the aims and strategies are shared across these purposes, we can end up with visualizations that actually fail to accomplish any of these aims well [@pache2010]. 
+### Differentiated aims according to research stage
+Given the potential multiplicity of visualization use cases' aims, it is worth considering how readily our current approaches address the prioritization among aims. 
+First, if data fidelity, anomalous cases, and idea generation are of particular interest in exploratory analyses, that would prioritize a set of *data* features as the key elements for visualization to highlight. 
+As such, exploratory network visualizations can serve to characterize a study population's composition and structural patterns, in ways that help to articulate things like: features that analyses seek to explain, or identify needed pre-processing steps [@wickham2023a].
 
-## Principles for optimal (network) science visualization
-This leads to a set of questions that should be addressed before any visualization is generated, namely - what are the desirable features of a visualization strategy? 
-Here, I focus on three broad aims, with some differences within the precise implementations of these.
 
-1. Given that researchers prioritize different sets of features to be highlighted in their visualizations--according to different phases of the research process, and these take on particular flavors in *network* visualizations.
-Exploratorily, network visualizations can serve to characterize a study population's composition and structural patterns, in ways that help to articulate things like: features that analyses seek to explain, or identify needed pre-processing steps [@wickham2023a].
+Second, for conceptual development in formalizing the aims of a research question, visualization likely needs to optimize on elements of the *analytic strategy* - e.g., differentiating which components are explicitly examined, versus which are (unexamined) assumptions.
 Conceptually, network visualizations necessitate a concrete articulation of what analyses will and will not explicitly address, highlighting aspects of a theorized social and relational process to be evaluated [@adams2020d].
-In social network research, the explanatory aims of these simplifications seek to characterize how readily the analytic results applied to the empirical case(s) observed [@kadushin2012] when properly interpreted conform to the theoretical claims being modeled [@borgatti2011] -- something subsequent visualizations can be optimized to clearly convey [@bender-demoll2005]. 
-It is worth noting that while each of these research purposes leverage **simplifications** to achieve their aims, they do so in ways that induce non-overlapping prioritization in the types of visualizations each would produce.
 
-This lack of overlap can be resolved in one of three ways. 
-One strategy would be to develop visualization strategies that synthesize across these aims (e.g., plotting an observed network then overlaying features of the theoretical results -- such as highlighting model results as features on top of those networks).
-A second alternative is to construct visualizations that prioritize one of these aims and assume it can carry benefits into the other uses.
-My critique is that we're often doing one of the 2 above, without having well-considered what the limitations of the selected approach are imposing.
-The third option is to generate (multiple) visualizations according to these separable purposes.
+Third, if being used as a strategy for presenting analytic *results*, the emphasis typically seeks to highlight *theoretical* implications of interpretation.
+In social network research with explanatory (even causal) aims, researchers seek to demonstrate how the observations in empirical cases [@kadushin2012], and appropriate analytic strategies conform to expectations in ways that (fail to) allow appropriate theoretical interpretations [@borgatti2011]. 
+In this case, visualizations can prioritize that *conformity* over "data fidelity" or theoretical "ideal types" alone, and likely warrants different optimizations to clearly convey those implications [@bender-demoll2005]. 
 
+The above leads to the implication that while all visualization prioritizations and resulting strategies necessarily employ **simplifications**, the potential non-overlaps among those (prioritized) aims could lead to sub-optimal visualizations in a number of distinct ways.
 
-Optimizing *useful* simplifications that offer clarity of the theoretical claims being offered is therefore a fundamental principle governing (network) scientific data visualization.
+Perhaps most obviously, when researchers construct a visualization to serve one of these purposes (e.g., exploratory data analysis), it will not optimally serve other aims (e.g., explanatory), because the simpllifications necessary for one purpose mask what needs to be optimized for another.
+The previous discussion elaborates why we should reject this assumption; whether we have been making it implicitly or intentionally.
 
+Perhaps more problematically, when researchers *assume* (or worse, *require*) visualizations have "universal" benefits, we are presupposing that the purposes of data visualization are necessarily shared. 
+One common version of this approach in SNA visuals has been to produce a "descriptive" plot of the observed data, then to "overlay" some features of the theoretical interpretation of analytic results in hopes that readers can be taught to see the "important" signal among the other noise in the data).
+Unfortunately, in this case, we are likely to find ourselves in a situations where the visualizations strategies we employ can end up failing to accomplish *any* of our aims well [@pache2010]. 
 
-- describe/explain differences need to be incorporated into the above.
-- methodological over-simplification (assume the data are real, BUT, they're a characterization, and one with SUBSTANTIAL error.)
+My contention is that network visualizations are not infrequently commiting one of these two errors.^[For example, in instances where I've wanted to convey the theoretical takeaways from @adams2013 (that different types of "risk partnerships" provide different contributions to overall graph connectivity, even while their node-level differences/combinations are minimal), nearly impossible to convey from the (largely exploratorily oriented) visualization included in the paper--error 1.]
+
+As such, in the remainder of this paper, I elaborate explore two distinct aims. 
+The first path seeks to identify a proposed mapping of differentiated prioritizations to optimized visualization strategies.
+The second path seeks to demonstrate how "modeled network visualizations" offer a strategy for conveying the theoretical implications of SNA empirical analyses in ways that are presently under-utilized in the field.
+
+## Additional principles for optimal (network) science visualization
+
+Before jumping into those tasks for optimizing multiple scientific purposes in visualizations, I also need to address two other desirable features of (network) data visualization, that any approaches should incorporate.
+
 
 2. replicability
 
@@ -150,7 +159,7 @@ The process I'm recommending follows the same logic as for regression-type model
 1. Visualize "predicted" network(s) that are specified by the corresponding network analytic (model) results from which the researchers' conclusions are reached.
 
 Worth noting that some corners of the field already effectively do this. 
-Block images are a coarse-graining analytical result based strategy for presenting model characteristics (e.g., from a stochastic blockmodel), rather than the raw data from which they derive.
+Block images are a coarse-graining analytic result based strategy for presenting model characteristics (e.g., from a stochastic blockmodel), rather than the raw data from which they derive.
 Ego network visuals often use heuristic representations of their actual observations.
 Network motifs are an attempt to capture common features across a collection of networks, rather than presenting multiple parallel visualizations and attempting to extract those commonalities across the repeated panels.
 
