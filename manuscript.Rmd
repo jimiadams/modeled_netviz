@@ -172,7 +172,33 @@ empirical interpretation & \textcolor{blue}{?} & \textcolor{blue}{?} & \checkmar
 \end{tabular} 
 \end{table}
 
-I need a transition here. Or does the below fit somewhere above?
+## Implementation
+
+My proposal, is that relative to observed (or conceptual) visualizations, modeled network visualizations better accomplish the combined aims of: theoretical implications of parsimonious empirical interpretation, alongside preserving confidentiality and the capacity for reproducibility.
+While the particularities of the claims in [**Table 1**](#benies) likely leave room for debate, it seems unlikely for a convincing case to be available that *all* (combinations of) aims can equally be satisfied by a single visualization orientation.
+So, what does model-based network visualization look like?
+
+As with recent resurgence in understanding for the importance of *descriptive* statistics before conducting and presenting any data analyses [@ayala2019, @healy2014, @wickham2023a], the **first** step is to provide a preliminary account for the broad details of the data to be examined.
+The full details of what this should entail are likely dependent upon the scientific aims and nature of the data to be investigated (e.g., qualitative or quantitative, closed or open population, etc.), but scholars have recently suggested potentially standardizing these to include a variety of features at the node, tie, and network levels [@neal2024b].
+Additionally, it is perfectly reasonable to suggest that in some--but as with my proposal here, *not all*--cases, this descriptive task may be improved by a presentation of an observed network visualization.
+
+The **second** step is to conduct whatever forms of analyses are appropriate to the theoretical aims of the research questions and the nature of the analytic dataset.
+This step necessitates one of the most important assertions of the proposal here - "modeled" results come in many forms.
+While the illustrations below draw from *statistical* models (ergms, in particular), the approach could equally be applied to *any* other form of data analytic results--ranging from similarly statistically oriented models such as SAOMs straight to the primary takeaways from grounded theoretically-oriented ethnographic observations.^[As will be noted below, many network data analytic approaches already lean on visualizations--at least in part--to *assist* with interpretation.]
+
+Analytic results and interpretations are necessarily reductions of the full-details available in our data [@adams2020d]. 
+Done well, they draw our attention to the scientifically useful features of the data, lead us to appropriate interpretations, and limit the distractions that keep us from achieving those aims--regardless of the particularities of the case at hand [@healy2017].
+The **third** step is therefore to compile an appropriate overview of analytic results in summary form (whether statistical or otherwise).
+
+The **fourth** step is then to convert that summary into a "predicted" network that conforms to the key features of those analytic results. 
+This modeled-network visualization will necessarily differ from any observed network visualization, by eliminating features that are not "modeled" [@schwabish2021], reducing the prominence of idiosyncratic variation (i.e., identifying "what is this a case of?" [@ragin1992, @collins2024]), and highlighting only the key elements of the findings that warrant theoretical interpretation [@vertesi2025].
+The idea here is to provide an empirically-anchored, theoretically-prioritized, visualization that assists in clearly communicating the researchers' interpretations.
+
+## Illustrative Examples
+### Modeling Aid
+To illustrate this process in practice, I proceed with three examples: (1) a common strategy used in model *building* that illustrates and leverages the implications of the proposed strategy; (2) a non-network corollary that highlights the integration of some of the benefits of this strategy in already accepted practices; and (3) a practical example demonstrating the application to an actual network research question.
+
+The first example comes from a classic tutorial approach to modeling social network data [@ergm2026], and draws directly from an implementation that first drove home the utility of this approach for me [@lind2012]. 
 
 #### Corollaries (delete once written)
 Let me draw a parallel here. 
@@ -185,28 +211,21 @@ To "tell the story" that arises from the model results we don't return to the ra
 To do so would not only fail to clearly tell the aggregate story we've learned in the course of our theorization and analysis; it would also violate a number of human subjects protections researchers are obligated to follow. 
 So why in the network world would we need to effectively present the "real" pattern of relationships from our data as a means to interpret and convey our findings in visual form?
 
-
-## Implementation
-
-Instead, I suggest that we can follow a similar logic to develop presentation- and publication-worthy network visualizations from our modeled results in ways that accomplish the aims we have for visualizations--perhaps even more clearly than the directly observed versions--while maintaining protections against potential ethical gaps (e.g., deductive disclosure). 
-The process I'm recommending follows the same logic as for regression-type models laid out above:
-
-1. Present descriptives as *summary* statistics of the characteristics of one's network(s) being investigated [@neal2024b].
-1. Conduct whatever form of analyses are appropriate to the theoretical aims of the research question(s).
-1. Compile appropriate analytic overviews of results (e.g., statistics) into summary form. \textcolor{red}{Here I'm going to want to be especially clear that I'm using "model" as primarily a *theoretical* device/claim, not a particular form of (statistical) analysis. I.e., this doesn't have to be e.g., and ergm result.}
-1. Visualize "predicted" network(s) that are specified by the corresponding network analytic (model) results from which the researchers' conclusions are reached.
-
-Worth noting that some corners of the field already effectively do this. 
-Block images are a coarse-graining analytic result based strategy for presenting model characteristics (e.g., from a stochastic blockmodel), rather than the raw data from which they derive.
-Ego network visuals often use heuristic representations of their actual observations.
-Network motifs are an attempt to capture common features across a collection of networks, rather than presenting multiple parallel visualizations and attempting to extract those commonalities across the repeated panels.
-
-## Still to be filled in - Example
+### Practical Example
 
 \textcolor{red}{Work out the "aims" of visualization a bit more concretely, and elaborate how modeled viz may do this even better than raw data viz can.}
 
 ...
 
 \textcolor{red}{Let's illustrate this with an example - I do think I want to use an ergm for this, especially given how frequently we already do this in the first place for that modeling framework as a means for interpretting/improving fit of model estimates.}
+
+I actually think I don't want to use an ERGM example here.}
+
+## Quo Vadimus?
+Worth noting that some corners of the field already effectively do this. 
+Block images are a coarse-graining analytic result based strategy for presenting model characteristics (e.g., from a stochastic blockmodel), rather than the raw data from which they derive.
+Ego network visuals often use heuristic representations of their actual observations.
+Network motifs are an attempt to capture common features across a collection of networks, rather than presenting multiple parallel visualizations and attempting to extract those commonalities across the repeated panels.
+
 
 # References
