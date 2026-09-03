@@ -1,12 +1,15 @@
 ---
-title: "Visualizing Modeled Social Networks: a Provocation"
+title: |
+  Visualizing Modeled Social Networks: a Provocation\thanks{
+  This manuscript has benefited greatly from input by seminar participants at the South Carolina Networks Consortium, Duke University's Social Networks \& Health workshop, the Patchwork group at Autonomous University of Barcelona, and Sunbelt 2026, as well as helpful feedback from Jim Moody and David Schaefer. Though they may not all agree with me.}
 author: "jimi adams, University of South Carolina"
 date: "`r format(Sys.Date(), '%Y %B %d')`"
-output:
-  pdf_document: default
-  html_document: default
+output: pdf_document
 bibliography: modviz.bib
 link-citations: yes
+header-includes:
+  - \usepackage{subcaption}
+  - \usepackage[margin=20pt,font=small,labelfont=bf]{caption}
 ---
 
 ```{r setup, include=FALSE}
@@ -195,37 +198,105 @@ This modeled-network visualization will necessarily differ from any observed net
 The idea here is to provide an empirically-anchored, theoretically-prioritized, visualization that assists in clearly communicating the researchers' interpretations.
 
 ## Illustrative Examples
+To illustrate this process in practice, I proceed with three examples: (1) a common strategy used in model *building* that illustrates and leverages the implications of the proposed strategy; (2) corollary approaches that leverage modeled results to visualize theoretical takeaways (in non-networks and networks research); and (3) a practical example demonstrating the application to an actual network research question.
+
 ### Modeling Aid
-To illustrate this process in practice, I proceed with three examples: (1) a common strategy used in model *building* that illustrates and leverages the implications of the proposed strategy; (2) a non-network corollary that highlights the integration of some of the benefits of this strategy in already accepted practices; and (3) a practical example demonstrating the application to an actual network research question.
+The first example comes from a classic tutorial approach to modeling social network data [@krivitsky2026], and draws directly from an implementation that first drove home the utility of this approach for me [@lind2012]. 
+Building statistical models of observed network data can be a complicated process.
+In the process of developing "well behaving" models, various estimates of goodness of fit can readily assist with interpreting what the latest model estimates are (and are not) accounting for in the data.
+Many tutorials for developing such models employ visualizations of a single network instance, both as a means to intuit how models work when teaching how to estimate them, and as a means to assist in enhancing model estimation and fit when conducting research [@krivitsky2026].
 
-The first example comes from a classic tutorial approach to modeling social network data [@ergm2026], and draws directly from an implementation that first drove home the utility of this approach for me [@lind2012]. 
+Benjamin Lind demonstrated this utility incredibly effectively by iteratively updating a model estimation of the "hookup" network among characters in *Grey's Anatomy* as a means to teach how exponential random graph models work -@lind2012.
+The sample images below adapt from his approach slightly to demonstrate how this process can reflect a model estimate in ways that: (a) focus on the aspects incorporated in the model, while diminishing the idiosyncrasies of the data in other dimensions^[In this case, the model includes a term for gender match (significantly indicating heterophily), and a constraint on isolates (since the data recording process effectively ignored those), but, e.g., *not* including a term for racial homophily (since that wasn't found to improve fit in this case).], and (b) highlight that including names is not necessary to reach those interpretations.^[Moreover, this reflects an often ignored detail. Namely, observed data are necessarily a single characterization of reality, that almost by definition include substantial amounts of error. Presenting the "raw" data often overly reifies that capture of reality in ways that are orthogonal to our theoretical aims and draw attention towards the idiosyncrasies of the case at hand, and away from the *implications* of the research [@becker2017].]
 
-#### Corollaries (delete once written)
-Let me draw a parallel here. 
+\begin{figure}[htbp]
+  \centering
+  % Left Panel (a)
+  \begin{subfigure}[b]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/greys_obs.png}
+    \caption{Observed \textit{Grey's} Network}
+    \label{fig:panel_a}
+  \end{subfigure}
+  \hfill
+  % Right Panel (b)
+  \begin{subfigure}[b]{0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/greys_iga.png}
+    \caption{Modeled \textit{Grey's} Network}
+    \label{fig:panel_b}
+  \end{subfigure}
+  
+  \caption{Two visualizations of \textit{Grey's Anatomy} hookup network data from ergm tutorial. Panel A represents the "observed" data with identities and multiple attributes attached (size=age, color=race, shape=gender). Panel B represents network generated from the modeled results, including only those features that are part of the model (node color=gender). This example is adapted from (Lind 2012).}
+  \label{fig:greys}
+\end{figure}
+
+### Corollaries
+#### Logistic Regression
+Let me draw a few parallels here that illustrate how researchers leverage (parts of) the logic of my proposal when *presenting* results rather than within modeling processes.
 Logistic regression coefficients (just like exponential random graph models) are notoriously hard to make substantive sense of on their own (e.g., significance and magnitude of effects are frequently conflated in results interpretations by writers and readers alike). 
 A common solution to this has been for researchers to:
 (1) gather, pre-process, then provide a descriptive summary of their data to given an overview sense of what the sample being analyzed actually represents, and how key focal features are distributed in the population; 
 (2) conduct statistical analyses to investigate the researchers' theoretical aims, which are summarized with traditional combinations of betas, standard errors, log-likelihoods, etc. to represent the fit of those claims to empirical estimation, then 
 (3) transform those modeled results into "predicted probabilities" in ways that help interpret what those modeled results "look like" in their implications [@fox2006]. 
 To "tell the story" that arises from the model results we don't return to the raw data, provide the individual-level combination of variables for some subset of the population and rely on those case's patterns to convey the implications of our research [in the rare cases that people do, they are often "synthetic" cases, not real ones, e.g., @ayala2019]. 
+
+\begin{figure}[htbp]
+  \centering
+  % Left Panel (a)
+  \begin{subfigure}[b]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/eda.png}
+    \caption{Scatterplot of Observed Association}
+    \label{fig:2panel_a}
+  \end{subfigure}
+  \hfill
+  % Right Panel (b)
+  \begin{subfigure}[b]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/pred_prob.png}
+    \caption{Predicted Probabilities from Logistic Regression}
+    \label{fig:2panel_b}
+  \end{subfigure}
+  
+  \caption{These are currently stand-ins until I have the example I want to leverage here. This example is adapted from (cite).}
+  \label{fig:lr-pp}
+\end{figure}
+
+Likely able to considerably reduce this once I have the example I want to leverage. May be as simple as "plot", model, "predict" and show them in tandem to make the points below.
+
 To do so would not only fail to clearly tell the aggregate story we've learned in the course of our theorization and analysis; it would also violate a number of human subjects protections researchers are obligated to follow. 
 So why in the network world would we need to effectively present the "real" pattern of relationships from our data as a means to interpret and convey our findings in visual form?
 
+#### Similar *Network* Approaches
+It is also important to note that the basis of the general idea--if not the complete practice I am recommending--is already in use by researchers in some clusters of social networks.
+Perhaps the most direct corollary is how blockmodeling results tend to be presented as a capture of role profiles [@doreian2005].
+The image matrix and/or reduced graph presentation is a distilled presentation of the overall-role structure in an analyzed graph presented in summary form [@borgatti2024]. 
+A permuted adjacency matrix arranged by density blocks maps that summary onto the full data, but typically for the *observed* adjacency matrix, rather than a modeled representation thereof.
+Other "coarse graining" visualization strategies of "large" networks take similar parallel approaches.
+
+Another approach to leveraging visualizations to characterize analytic results in theoretically focused ways comes via *network motifs* [@schwarze2021]. 
+Network motifs seek to identify *repeated* structural patterns across multiple (often, but not exclusively *personal*) subgraphs of networks--and presents those in abstracted "common forms," rather than presenting multiple parallel observed networks then highlighting such commonalities across the repeated panels.
+These aims are similar to those in blockmodels, though exclusively considering *local* configurations.
+However, network motifs--and their visual style of presentation--remain more widely adopted among network science than social network researchers to date [for an exception see @vacca2020]. 
+Other approaches in ego network research similarly draw on stylized representations to visualize analytic implications, rather than reverting to empirical networks to explain findings [especially when doing so would violate confidentiality - @mccarty2019].
+
+Such configurational representations have also been employed to assist interpreting the results inferential statistical models of social network data--by presenting visualizations of micro-patterns rather than coefficient names in results tables [e.g., in stochastic actor based models @snijders2026]
+
 ### Practical Example
+Ideally here, I want data data that are “non-confidential” in any sense to demonstrate why confidentiality concerns should be attuned to in data that are (i.e., I need to be able to show the “revealed” and presumably “unrevealed” versions in tandem to show that the “non-disclosed” version can sometimes be showing more than we think it is). 
+
+Here I will again present a "parallel" figure that characterizes the "raw" data, then a "modeled result" that conveys the research takeaway.
 
 \textcolor{red}{Work out the "aims" of visualization a bit more concretely, and elaborate how modeled viz may do this even better than raw data viz can.}
-
-...
-
-\textcolor{red}{Let's illustrate this with an example - I do think I want to use an ergm for this, especially given how frequently we already do this in the first place for that modeling framework as a means for interpretting/improving fit of model estimates.}
 
 I actually think I don't want to use an ERGM example here.}
 
 ## Quo Vadimus?
-Worth noting that some corners of the field already effectively do this. 
-Block images are a coarse-graining analytic result based strategy for presenting model characteristics (e.g., from a stochastic blockmodel), rather than the raw data from which they derive.
-Ego network visuals often use heuristic representations of their actual observations.
-Network motifs are an attempt to capture common features across a collection of networks, rather than presenting multiple parallel visualizations and attempting to extract those commonalities across the repeated panels.
+Sometimes but not always beneficial.
+Perhaps better meets the unique combinations of purposes and principles for conveying the theoretical implications of analytic results.
+Additional benefit of confidentiality.
 
+Hopefully we all can make our continued use of visualizations even more impactful than they've been too date.
 
 # References
