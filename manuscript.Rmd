@@ -32,7 +32,7 @@ To address these, this paper provokes the field to consider whether presenting *
 Social network research relies heavily on data visualization [@freeman2004]. 
 These visualizations can serve to characterize, simplify, and focus theoretical or empirical claims [@moody2005; @rawlings2023]. 
 Visualizations are generally more readily digestible than tables of seemingly endless coefficients, significance tests, and summary statistics [@healy2018; @schwabish2021]. 
-Additionally, with the increasing ubiquity of network verbiage in society, they can even convey ideas in ways that require less "translation" work for audiences who sit outside of academic and research niches [@sayama2016; @harrington2013]. 
+Additionally, with the increasing ubiquity of network verbiage in society, they can even convey ideas in ways that require less "translation" work for audiences who sit outside of academic and research niches [@sayama2016; @wolff2026]. 
 Quite simply, network visualization is not only common, but can be incredibly useful [@birkett2021].^[As with any data presentation strategy--visual or otherwise--there are also ample examples of how to do this poorly (e.g., what have come to be known as unintelligible network "hairballs"); I have a few published visuals of my own that I'd *substantially* rework if given the opportunity today.]
 
 Traditionally, this has taken the form of directly visualizing instances(s) of empirically **observed** social networks--whether snapshots of single data waves, or evolving network "movies" for dynamic relational data patterns [@ognyanova2025].^[These typically occur *after* data pre-processing has taken place (e.g., cleaning, recoding, etc.), but no further data reduction steps (i.e., are not the product of data *summaries* or analytic interpretations).]
@@ -152,10 +152,6 @@ For example,  "eye-balling" consistency of modeled results with observed network
 However, while we use these heuristic network visualizations to improve model fit (whether for capturing theoretical limitations, or for enhancing stability of estimates), when presenting networks in publications, authors still often resort to presenting the observed  version as our primary network visualization(s).
 I've done this multiple times myself.
 
-But if we aim to visualize networks in ways that are clear, simple, informative, replicable and ethical--in alignment with scientific purposes and principles--a single network visualization strategy likely does not equally accomplish those tasks across the different purposes outlined above. 
-In certain cases, analytic network representations likely better serves our purposes.
-[**Table 1**](#benies) heuristically assesses which of the delineated purposes and/or principles are accomplished across the outlined visualization orientations. 
-
 <div id="benies"></div> 
 \begin{table}[h] 
 \centering 
@@ -174,6 +170,10 @@ empirical interpretation & \textcolor{blue}{?} & \textcolor{blue}{?} & \checkmar
 \hline 
 \end{tabular} 
 \end{table}
+
+But if we aim to visualize networks in ways that are clear, simple, informative, replicable and ethical--in alignment with scientific purposes and principles--a single network visualization strategy likely does not equally accomplish those tasks across the different purposes outlined above. 
+In certain cases, analytic network representations likely better serves our purposes.
+[**Table 1**](#benies) heuristically assesses which of the delineated purposes and/or principles are accomplished across the outlined visualization orientations. 
 
 ## Implementation
 
@@ -206,16 +206,13 @@ Building statistical models of observed network data can be a complicated proces
 In the process of developing "well behaving" models, various estimates of goodness of fit can readily assist with interpreting what the latest model estimates are (and are not) accounting for in the data.
 Many tutorials for developing such models employ visualizations of a single network instance, both as a means to intuit how models work when teaching how to estimate them, and as a means to assist in enhancing model estimation and fit when conducting research [@krivitsky2026].
 
-Benjamin Lind demonstrated this utility incredibly effectively by iteratively updating a model estimation of the "hookup" network among characters in *Grey's Anatomy* as a means to teach how exponential random graph models work -@lind2012.
-The sample images below adapt from his approach slightly to demonstrate how this process can reflect a model estimate in ways that: (a) focus on the aspects incorporated in the model, while diminishing the idiosyncrasies of the data in other dimensions^[In this case, the model includes a term for gender match (significantly indicating heterophily), and a constraint on isolates (since the data recording process effectively ignored those), but, e.g., *not* including a term for racial homophily (since that wasn't found to improve fit in this case).], and (b) highlight that including names is not necessary to reach those interpretations.^[Moreover, this reflects an often ignored detail. Namely, observed data are necessarily a single characterization of reality, that almost by definition include substantial amounts of error. Presenting the "raw" data often overly reifies that capture of reality in ways that are orthogonal to our theoretical aims and draw attention towards the idiosyncrasies of the case at hand, and away from the *implications* of the research [@becker2017].]
-
 \begin{figure}[htbp]
   \centering
   % Left Panel (a)
   \begin{subfigure}[b]{0.49\textwidth}
     \centering
     \includegraphics[width=\textwidth]{img/greys_obs.png}
-    \caption{Observed \textit{Grey's} Network}
+    \caption{observed network}
     \label{fig:panel_a}
   \end{subfigure}
   \hfill
@@ -223,13 +220,18 @@ The sample images below adapt from his approach slightly to demonstrate how this
   \begin{subfigure}[b]{0.4\textwidth}
     \centering
     \includegraphics[width=\textwidth]{img/greys_iga.png}
-    \caption{Modeled \textit{Grey's} Network}
+    \caption{modeled network}
     \label{fig:panel_b}
   \end{subfigure}
   
-  \caption{Two visualizations of \textit{Grey's Anatomy} hookup network data from ergm tutorial. Panel A represents the "observed" data with identities and multiple attributes attached (size=age, color=race, shape=gender). Panel B represents network generated from the modeled results, including only those features that are part of the model (node color=gender). This example is adapted from (Lind 2012).}
+  \caption{\textbf{Two visualizations of \textit{Grey's Anatomy} hookup network}. Panel A represents the "observed" data with identities and multiple attributes attached (size=age, color=race, shape=gender). Panel B represents a network generated from the modeled results, including only those exogenous features that are part of the model (node color=gender). This example is adapted from Lind's (2012) ergm tutorial.}
   \label{fig:greys}
 \end{figure}
+
+Benjamin Lind -@lind2012 demonstrated this utility incredibly effectively by iteratively updating a model estimation of the "hookup" network among characters in *Grey's Anatomy* as a means to teach how exponential random graph models work.
+In [**Figure 1**](#fig:greys), panel A presents the observed network, while panel B visualizes a single draw from the ergm results, allowing comparison of their intelligibility.
+First, the modeled visualization only includes those aspects that were incorporated in the model (gender *heter*ophily, and a restriction on isolates^[Given the way the data were recorded, isolates were not possible in the observed data.]), while diminishing the role of idiosyncratic aspects of the data.^[Here, the visual specifically excludes node labels, and nodal attributes of race and age information, because those did not contribute to the observed relational pattern. Furthermore, the "visual" similarity between the general structure of the two graphs--while other, lesser performing models showed obvious divergences (e.g., ones with terms for race or age homophily)--is also confirmed by more formal goodness-of-fit tests.]
+Second, removing the names does not diminish the ability to observe important features of the network (a general, but not absolute heterosexual partnering pattern), and were these actual data carrying any confidentiality concerns, not only are nodes not specifically labeled, by presenting modeled results, these are "representative" nodes and ties, not "capturing" actual relationships, thus also removing any risks of sequential deductive disclosure.^[Moreover, this reflects an often ignored detail. Observed data are necessarily a single characterization of reality, that by invariably includes some level of error. Presenting the "raw" data often overly reifies that particular capture of reality in ways that assume the "realized instance" is the goal of our analyses. Rather, in many cases, the specific instance is only reasonable approximation of our theoretical questions--us removing names avoids drawing our attention towards the idiosyncrasies of the case at hand, and towards the *implications* of the research [@becker2017].]
 
 ### Corollaries
 #### Logistic Regression
