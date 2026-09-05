@@ -53,6 +53,8 @@ I avoid relegating this point to a footnote to highlight that the strategy I enc
 Moreover, I should emphasize that this broader applicability in some ways reflects that my proposal in places *imports* practices from non-statistical orientations to network research as much as (or perhaps even more so) than developing a method for statistical applications that can be exported to other use cases.
 That caveat noted, my illustrations below will primarily draw on statistical applications as a concrete demonstration; but I will include how the *principles* demonstrated are applicable beyond these particularities.^[Specifically, some of the elements proposed below are directly adopted from other corners of SNA where they are already variably common practices (if labeled differently), and (partially) pave the way for how statistically oriented researchers can implement the approach.]
 
+\textcolor{red}{I need to better flesh out the purposes/principles distinction here and ensure I am convinced I have them in the right buckets.}
+
 ## Purposes & principles of (network) visualization
 So, what are the benefits of network data visualizations? 
 And what are the principles we should follow to best accomplish those aims? 
@@ -301,5 +303,8 @@ Perhaps better meets the unique combinations of purposes and principles for conv
 Additional benefit of confidentiality.
 
 Hopefully we all can make our continued use of visualizations even more impactful than they've been too date.
+
+\textcolor{red}{I think I want to end with a punchy metaphorical takeaway here - viz is undoubtedly an incredibly powerful tool in the toolkit; unfortunately we've come to only see it as a hammer. Or to awssume a hammer's the tool we need. When at times the needs are clearly calling for a tool with different qualitites.}
+
 
 # References
