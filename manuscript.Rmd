@@ -8,8 +8,12 @@ output: pdf_document
 bibliography: modviz.bib
 link-citations: yes
 header-includes:
-  - \usepackage{subcaption}
   - \usepackage[margin=20pt,font=small,labelfont=bf]{caption}
+  - \usepackage{subcaption}
+  - \usepackage{setspace}
+  - \usepackage{etoolbox}
+  - \AtBeginDocument{\doublespacing}
+  - \AtBeginEnvironment{CSLReferences}{\singlespacing}
 ---
 
 ```{r setup, include=FALSE}
@@ -23,7 +27,7 @@ I describe how visualizations often target three non-overlapping sets of aims si
 I then highlight how these orientations both necessitate constrain different sets of the varied scientific purposes and principles of visualization. 
 Given these differential demands, this paper provokes the field to consider whether presenting *modeled* network results--in lieu of empirical cases--better satisfies the aims of visualization for particular purposes.
 
-\textcolor{red}{NOTE: This is very much a fledgling idea that isn't yet ready for citation/sharing. If you're interested in helping me bring this to life, please reach out. Otherwise, for now, think of it as a musing... Also, I'd initially envisioned submitting as a Viz paper to \textit{Socius}, and have since submitted it to \textit{Social Networks} for their theory special issue (which has a submission timeline of Nov 1.)}
+\textcolor{red}{NOTE: In preparation for submission to the \textit{Social Networks} theory special issue (which has a submission timeline of Nov 1.)}
 
 \newpage
 
@@ -229,7 +233,7 @@ A common solution has been for researchers to: (1) gather, pre-process, and prov
     \caption{Marginal Effects Plot, with Interaction}
     \label{fig:2panel_b}
   \end{subfigure}
-  \caption{Predicting Sentencing Length from Expressed Remorse, split by Offender Race (Zhao \& Rogalin 2024).}
+  \caption{Predicting Sentencing Length from Expressed Remorse, split by Offender Race \& Gender (Zhao \& Rogalin 2024).}
   \label{fig:lr-pp}
 \end{figure}
 
@@ -317,7 +321,7 @@ The results elements of the *Grey's* example include gender *heter*ophily and a 
 
 ### Step 4: Generate a modeled network from that summary
 
-The **fourth** step is then to convert that summary into a “predicted” network that conforms to the key features of the estimated analytic results.
+The fourth step is then to convert that summary into a “predicted” network that conforms to the key features of the estimated analytic results.
 This modeled network visualization will necessarily differ from any observed network visualization by eliminating features that are not “modeled” [@schwabish2021], reducing the prominence of idiosyncratic variation (i.e., identifying “what is this a case of?” [@ragin1992; @collins2024]), and highlighting only the key elements of the findings that warrant theoretical interpretation [@vertesi2025].
 The idea here is to provide an empirically anchored, theoretically prioritized, network visualization that clearly communicates the researchers’ key interpretative takeaways.
 
