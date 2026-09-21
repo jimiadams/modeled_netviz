@@ -144,26 +144,44 @@ Although primarily descriptive, this type of visualization can also bridge to th
 Many of the pre-processing, presentation, and sense-making steps involved at this stage benefit from intimate knowledge of the data [@potterat2004a].
 Although this knowledge can inform researchers’ work, it may undermine principles of confidentiality and/or deductive disclosure in ways that may not be advisable or permitted in publishable or directly replicable forms [@ortizruiz2026].
 
-Some fields readily draw on *visualized conceptual models*, to varying degrees of formalization—ranging from those that primarily serve to “organize one’s thoughts” [@brady2020] to approaches that formally articulate analytic aims and assumptions [e.g., directed acyclic graphs; @elwert2013].
+Some fields readily draw on *conceptual models*, to varying degrees of formalization—ranging from those that primarily serve to “organize one’s thoughts” [@brady2020] to approaches that formally articulate analytic aims and assumptions [e.g., directed acyclic graphs; @elwert2013].
 Network research has periodically leveraged such visualization aims to specify how *combinations* of features can lead expectations to diverge from various “ideal type” formations of networks.
 Visualizations can make these configurations concrete in ways that may not be as readily intelligible without them.^[A very widely used example of this is how “small world” networks, while being very differentiated from random networks, require few shortcuts, which does not make them appear particularly statistically distinct from “caveman” graphs, but the difference is readily apparent when visualized [@watts1998b].]
 
 This form of visualization can explicitly articulate which elements are core to subsequent analyses and which remain unexamined assumptions, thus informing which theorized social processes the analyses evaluate [@adams2020d].
 Conceptual visualizations can formalize the theoretical claims a study evaluates, including the patterns that would support, disconfirm, or suggest alternate interpretations.^[Here, visualizations are performing the same clarifying and formalizing task that is accomplished when we employ "writing as thinking" [@zinsser1993].]
 
+## How & what do we visualize?
+### The "traditional" approach
+An overwhelmingly common orientation to visualizing network data takes an approach best understood as it simply representing one way of conveying information (about the nature of the data at hand).
+In this orientation, visualizations provide a first step towards presenting one's case. 
+"First step" however doesn't mean that the data presented are "raw." 
+It merely indicates that the data have been obtained, minimally processed, shaped into a coherent presentation strategy, and presented to the reader.
+Each of these steps requires implementing (variably justifiable) decisions, that shape the nature of the visualization, but our (implicit) assertion is typically that what we present in these types of visualizations are merely "representing" our case. 
+
+
 In their “pure” form, conceptual visualizations tend to prioritize theoretical interpretation and simplification over all else.
 Additionally, given the potential for (nearly) “data-free” visualizations of this sort, ethical considerations are likely minimal.
 
-Modeled results^[As above, "modeled" is not limited to statistical approaches.] visualizations seek to highlight the *theoretical* implications of *interpretation* and/or *explanation* [@rawlings2023].
+When used as a strategy for presenting analytic results, visualizations typically seek to highlight the *theoretical* implications of *interpretation* and/or *explanation* [@rawlings2023].
 For example, in social network research with explanatory (e.g., causal) aims, researchers seek to demonstrate how observations in empirical cases [@kadushin2012] combined with appropriate analytic strategies [@borgatti2024; @mccarty2019], conform to expectations in ways that support theoretically appropriate interpretations [@borgatti2011].
 In this case, simplifications tend to highlight theoretical implications over data fidelity (case interpretation).
 Because an emphasis on theoretical conformity often highlights general patterns or “ideal types,” it need not rely on the specifics of the data--thus allowing researchers to readily maintain confidentiality and facilitate replication [@bender-demoll2005].
 
+Before moving on to describing the approach I'm encouraging here, we should also address a related consideration that is not often equated with visualization, because it is typically done without data. 
+Some fields readily draw on *conceptual models*, to varying degrees of formalization--ranging from those that primarily serve to "organize one's thoughts" [@brady2020] to approaches that formally articulate analytic aims and assumptions [e.g., directed acyclic graphs @elwert2013].
+Similarly, network research has leveraged these types of visualization aims to specify how *combinations* of features can lead expectations to diverge from various "ideal type" formations of networks--doing so in concrete ways that may not be as readily intelligible without visualizations.^[A very widely used example of this is how "small world" networks, while being very differentiated from random networks, require few shortcuts, which does not make them appear particularly statistically distinct from "caveman" graphs, but the difference is readily apparent when visualized [@watts1998b].]
+Conceptual visualizations can be used to serve dual purposes--complementary formalizing researchers' expectations of what revealed (combinations of) patterns would align with specific (hypothesized) interpretations, while also articulating what revealed "exclusions" would lead to disconfirming or alternate interpretations. 
+That is, conceptual visualizations serve to illustrate the theoretical claims being evaluated in research.^[I feel like I want to include a parallel to "writing as thinking" here [@zinsser1993]. Would that be forced?]
+The utility of conceptual models, however, typically operates independently of the empirical realities of the data, in either descriptive detail or analytic interpretation.
+=======
 Alternatively, other research may primarily draw on theory and analysis to account for events in particular cases *per se*.
 In this case simplification and (case) interpretation are still more heavily emphasized than description and full data fidelity.
 Confidentiality can be maintained through presenting heuristic visualizations--e.g., to elaborate "conceptual generalizability" [@collins2024]--rather than direct representations of labeled data, also fostering potential replicability.
+>>>>>>> b3014c2973046ec234a7d422ff36d3d59da66aa2
 
 In sum, different research stages and visualization strategies incorporate different optimizations across the purposes and principles of network visualization. 
+
 [**Table 1**](#benies) heuristically represents a summary of these potential combinations. 
 
 <div id="benies"></div> 
@@ -212,6 +230,17 @@ I have done this multiple times myself.
 "Modeled network visualizations" can provide a better alternative when we seek to characterize analytic results in ways that better achieve certain combinations of the aims and principles outlined above.^[I do not also contrast these with “conceptual” visualizations in what follows, because researchers often develop those intentionally in *non-empirical* ways.]
 In describing the proposed approach and  examples below, I focus on the conditions under which modeled network visualizations offer relative advantages in pursuing this unique combination.
 
+<<<<<<< HEAD
+## Illustrative Examples
+To illustrate this process in practice, I proceed with three examples: (1) a common strategy used in model *building* that illustrates and leverages the implications of the proposed strategy; (2) corollary approaches that leverage modeled results to visualize theoretical takeaways (in non-networks and networks research); and (3) a practical example demonstrating the application to an actual network research question.
+I'll note here that while these use cases illustrate the benefits of model-based visualziations, they are not intended to facilitate descriptive or exploratory purposes.
+
+### Modeling Aid
+The first example comes from a classic tutorial approach to modeling social network data [@krivitsky2026], and draws directly from an implementation that first drove home the utility of this approach for me [@lind2012]. 
+Building statistical models of observed network data can be a complicated process.
+In the process of developing "well behaving" models, various estimates of goodness of fit can readily assist with interpreting what the latest model estimates are (and are not) accounting for in the data.
+Many tutorials for developing such models employ visualizations of a single network instance, both as a means to intuit how models work when teaching how to estimate them, and as a means to assist in enhancing model estimation and fit when conducting research [@krivitsky2026].
+=======
 ### Effect plots - a parallel motivation
 Let me draw a few parallels that illustrate how researchers leverage (parts of) the same logic underpinning this proposed approach when presenting and interpreting modeled results.
 Logistic-regression coefficients (just like exponential random graph models) are notoriously hard to make substantive sense of on their own (e.g., significance and magnitude of effects are frequently conflated in results interpretations by writers and readers alike).
@@ -298,6 +327,7 @@ The third step is therefore to compile an appropriate overview of analytic resul
 
 In Lind’s example, the fitted ERGM supplies this summary, including both model-specification details and corresponding results for the network features it identifies as important.^[These should include *all* details necessary to estimate *and* interpret the model. In the case of ERGM, these are returned as part of the model object and include such information as model coefficients and standard errors, goodness-of-fit statistics, and convergence diagnostics [@krivitsky2023].]
 The results elements of the *Grey's* example include gender *heter*ophily and a restriction on isolates.^[This excludes also investigated examples of age or racial homophily. Since formal goodness-of-fit statistics indicated including these produced more poorly performing models, they are excluded from the final results.]
+>>>>>>> b3014c2973046ec234a7d422ff36d3d59da66aa2
 
 \begin{figure}[htbp]
   \centering

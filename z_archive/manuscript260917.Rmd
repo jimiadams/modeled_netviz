@@ -144,7 +144,7 @@ Although primarily descriptive, this type of visualization can also bridge to th
 Many of the pre-processing, presentation, and sense-making steps involved at this stage benefit from intimate knowledge of the data [@potterat2004a].
 Although this knowledge can inform researchers’ work, it may undermine principles of confidentiality and/or deductive disclosure in ways that may not be advisable or permitted in publishable or directly replicable forms [@ortizruiz2026].
 
-Some fields readily draw on *visualized conceptual models*, to varying degrees of formalization—ranging from those that primarily serve to “organize one’s thoughts” [@brady2020] to approaches that formally articulate analytic aims and assumptions [e.g., directed acyclic graphs; @elwert2013].
+Some fields readily draw on *conceptual models*, to varying degrees of formalization—ranging from those that primarily serve to “organize one’s thoughts” [@brady2020] to approaches that formally articulate analytic aims and assumptions [e.g., directed acyclic graphs; @elwert2013].
 Network research has periodically leveraged such visualization aims to specify how *combinations* of features can lead expectations to diverge from various “ideal type” formations of networks.
 Visualizations can make these configurations concrete in ways that may not be as readily intelligible without them.^[A very widely used example of this is how “small world” networks, while being very differentiated from random networks, require few shortcuts, which does not make them appear particularly statistically distinct from “caveman” graphs, but the difference is readily apparent when visualized [@watts1998b].]
 
@@ -154,7 +154,7 @@ Conceptual visualizations can formalize the theoretical claims a study evaluates
 In their “pure” form, conceptual visualizations tend to prioritize theoretical interpretation and simplification over all else.
 Additionally, given the potential for (nearly) “data-free” visualizations of this sort, ethical considerations are likely minimal.
 
-Modeled results^[As above, "modeled" is not limited to statistical approaches.] visualizations seek to highlight the *theoretical* implications of *interpretation* and/or *explanation* [@rawlings2023].
+When used as a strategy for presenting analytic results, visualizations typically seek to highlight the *theoretical* implications of *interpretation* and/or *explanation* [@rawlings2023].
 For example, in social network research with explanatory (e.g., causal) aims, researchers seek to demonstrate how observations in empirical cases [@kadushin2012] combined with appropriate analytic strategies [@borgatti2024; @mccarty2019], conform to expectations in ways that support theoretically appropriate interpretations [@borgatti2011].
 In this case, simplifications tend to highlight theoretical implications over data fidelity (case interpretation).
 Because an emphasis on theoretical conformity often highlights general patterns or “ideal types,” it need not rely on the specifics of the data--thus allowing researchers to readily maintain confidentiality and facilitate replication [@bender-demoll2005].
@@ -345,13 +345,16 @@ Here, I will again present a parallel figure that characterizes the “raw” da
 [TO DEVELOP: Select an example other than an ERGM application.]
 
 ## Quo Vadimus?
+
+\textcolor{red}{This is merely a sketch and a collection point for potential stray ideas to revisit, not at all a draft section yet.}
+
 As with any visualization strategy, useful examples in the literature are joined by many that are, well, not so much.
 There are numerous routes to less-informative (network) visualizations that can be avoided by following basic guidelines of visualization--e.g., unintelligible "hairball," poor layout choices, over-complicate visuals, and other visualization "sins" arise from poor implementation per se [@tufte1983].
-However, a similar weakness arise if we assume visualization is a single task with "global optimization" principles.
-Here, I have sought to make the case that for certain combinations of the purposes and principles outlined above, modeled network visualizations are the better choice.
+However, a similar weakness arise if we assume visualization is a single task with "global optimization" principles. 
+Developing a single visualization strategy intended to simultaneously serve multiple (potentially completing) purposes, *and* adhering to principles of sound research, can overly compromise the utility of the visuals we construct.
 
-I'm fully on board with the fundamental premise that network visualizations one of our field's distinctive calling cards [@freeman2004], and that this reflects their utility as part of our research toolkit [@freeman2000].
-However, this paper also suggests that we've increasingly come to use them as the proverbial hammer, being put to use even when other tools are more suited to the task at hand.
-As such, I've sought to develop the strategy of model based network visualizations as a tool more attuned to conveying theoretical implications of analytic results, while also potential opportunities for enhanced replicability and confidentiality in their uses.
+Despite these potential pitfall, network visualizations have undoubtedly proven to be an incredibly powerful part of our research toolkit. 
+In this paper I've sought to think of visualization as more than a hammer in that bag, encouraging us instead to think of it as representing multiple options in that toolkit, each with different optimal uses.
+Model-based visualization adds to those already available, providing an approach that is especially attuned to conveying theoretical implications of modeled empirical results
 
 # References
