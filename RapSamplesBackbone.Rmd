@@ -1,0 +1,141 @@
+---
+title: "Backbone Illustration"
+author: "jimi adams"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 10,
+  fig.height = 8,
+  dpi = 300
+)
+```
+
+# Overview
+
+This document builds a visualization of the rap samples that Jenn Lena used in her dissertation and subsequent *Poetics* paper -@lena2004. Mark Pachucki provided the raw files that I am working from as part of a replication package for their related co-authored later *Poetics* paper -@lena2013.
+
+
+## Setup 
+
+Just packages, data, and re-labeling to get things started.
+
+```{r packages}
+library(dplyr)
+library(tidyr)
+library(igraph)
+library(ggraph)
+library(ggplot2)
+library(scales)
+library(purrr)
+library(tibble)
+library(rlang)
+library(backbone)
+
+df <- readRDS("JL_samples.rds")
+```
+
+Just to clarify what's in that file:
+| var name | brief derscription |
+|---|---|
+| `src_id` | source/sample song ID |
+| `src_gen` | source/sample genre |
+| `src_art` | source/sample artist label |
+| `src_sng` | source/sample song title |
+| `tar_id` | target/rap song ID |
+| `tar_art` | target/rap artist label |
+| `tar_sng` | target/rap song title |
+| `yr` | year |
+| `art_tar` | target/rap artist ID |
+| `art_src` | source/sample artist ID |
+
+We'll convert those to *slightly* more informative variable names; typing efficiency be damned, mental space is too precious.
+
+```{r standardize-data, eval=T}
+samp <- df %>%
+  transmute(
+## sampling details
+    rap_song_id = tar_id,
+    rap_artist_id = art_tar,
+    rap_artist = tar_art,
+    rap_song = tar_sng,
+    year = as.integer(yr),
+## sampled details
+    sampled_song_id = src_id,
+    sampled_artist_id = art_src,
+    sampled_artist = src_art,
+    sampled_song = src_sng,
+    sampled_genre = as.character(src_gen)
+  ) 
+```
+
+## The "raw" samples network
+
+We're going to first build a bipartite incidence matrix of:
+
+- **rap (sampling) **songs** on the rows** by
+- **sampled *artists* on the columns**
+
+Note these are weighted, because there are times where the same song multiply samples the same artist (in fact several 3 times!).
+
+```{r build-incidence}
+
+##  first as a graph
+g <- graph_from_data_frame(
+  data.frame(from = samp$rap_song_id, to = samp$sampled_artist_id), directed = FALSE)
+
+## converting to 2-mode
+V(g)$type <- V(g)$name %in% samp$rap_song_id
+## collapsing multiple ties to edge weights
+E(g)$weight <- 1 #needs a base
+gw <- igraph::simplify(g, remove.multiple = TRUE, remove.loops = TRUE,
+  edge.attr.comb = list(weight = "sum", .default = "ignore"))
+## and converting that to matrix form (for the backbone)
+mw <- as.matrix(as_biadjacency_matrix(gw, attr = "weight"))
+
+```
+
+# Backbone
+Let's pull off the **sampled artists'** backbone.
+```{r backbone}
+w <- mw %*% t(mw)
+bb<- backbone(w)
+```
+
+# Generating an *Exploratory* plot
+I'm actually going to come back to this one last, ironically enough to the point of this exercise.
+
+```{r plot-panelA}
+layout_full <- layout = layout_with_kk(g) # will decide later what the plot algo is
+
+gc <- subgraph(g, clusters(g)$membership==1)
+layout_gc <- layout = layout_with_kk(gc) # will decide later what the plot algo is
+
+source("src/igraph-triangles.R")
+
+# We're going to add sampling degree to the sampled artists as a nodal attribute:
+artist_deg <- degree(g, v = V(g)[!V(g)$type])
+vsize <- rep(3, vcount(g))
+vsize[!V(g)$type] <- scales::rescale(log1p(artist_deg), to = c(3, 10))
+
+# For full network
+plot.igraph(g, vertex.size=3, vertex.label=NA, vertex.shape = c("circle", "triangle")[V(g)$type + 1], vertex.color= c("black", "white")[V(g)$type + 1],)
+
+# For giant component only
+plot.igraph(gc, vertex.size=3, vertex.label=NA, vertex.shape = c("circle", "triangle")[V(gc)$type + 1], vertex.color= c("black", "white")[V(gc)$type + 1],)
+
+```
+
+# Generating a "hybrid" plot
+
+
+
