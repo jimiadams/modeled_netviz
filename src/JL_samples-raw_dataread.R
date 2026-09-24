@@ -17,7 +17,7 @@ samples <- samples |>
          yr = labs[[11]]) |>     # year of sample
   mutate(
     tar_key = str_squish(paste(tar_art, tar_sng, yr, sep = " | ")),
-    tar_id = dense_rank(tar_key) + 2000
+    tar_id = dense_rank(tar_key) + 2000 # just so none of the ids overlap
   ) |>
   select(
     src_id, src_gen, src_art, src_sng,

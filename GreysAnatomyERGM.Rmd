@@ -1,0 +1,72 @@
+---
+title: "Grey's Anatomy ERGM"
+author: "jimi adams"
+date: "2026-09-24"
+output: html_document
+---
+
+This version follows the updates I made for the ergm tutorial at IBS at CU in 2018.
+I've extracted only the steps for the pertinent visualizations used here.
+
+``` {r full, echo=T}
+##########################################################################
+#	0.1 	Setting up your R environment
+##########################################################################
+# This is the main package (along w/ its dependencies) we're using for analyses and visualizations here.
+#install.packages("statnet")			# The first time you install a package
+library(statnet)						      # Attach the library to your session
+
+# These 2 are merely to present some of the results in more readable graphics (code works w/o)
+#install.packages("coda")
+library(coda)
+#install.packages("latticeExtra")
+library(latticeExtra)
+
+##########################################################################
+#	0.2 	Loading our data
+##########################################################################
+# Chris Marcum produced a single R environment w/ a # of datasets
+# https://github.com/cmarcum/TVHookupNetworks/blob/master/TvContacts.Rdata
+greys <- readRDS("data/greys.rds")
+
+# Greys Anatomy data come from: Lind, B. 2012. Bad Hessian Blog. https://goo.gl/oJsZpH
+
+##########################################################################
+#	1. 	Exploratory visuzlization the data
+##########################################################################
+la <- plot(greys)		#fix plot coordinates, so they don't jump around if we replot later
+plot(greys, coord=la, 
+     vertex.col=get.vertex.attribute(greys, "nrace"), 	
+     label=get.vertex.attribute(greys, "name"), 
+     label.cex=0.4,                    # CRUCIAL FIX: Drastically scales font size down
+     vertex.sides=(50*(get.vertex.attribute(greys, "sex")=="F")+4), 	
+     vertex.cex=.05*(2013-get.vertex.attribute(greys, "birthyear")))	
+
+# Building a model that just has terms for (1) gender homophily, (2) age similarity, & excluding isolates
+
+set.seed(421)
+gr.het_noisol_age<-ergm(greys~edges+nodematch("sex")+degree(1)+absdiff("birthyear"), control=control.ergm(MCMC.burnin=50000, MCMC.interval=5000))
+plot(simulate(gr.het_noisol_age), vertex.sides=(50*(get.vertex.attribute(greys, "sex")=="F")+4), 
+     vertex.cex=.05*(2013-get.vertex.attribute(greys, "birthyear")))	
+gr.het_noisol_age.gof<-gof(gr.het_noisol_age)			# Estimating Goodness of Fit with default set of diagnostics
+summary(gr.het_noisol_age.gof) 						# Summarize the goodness of fit
+par(mfrow=c(1,3)); plot(gr.het_noisol_age.gof)
+par(mfrow=c(1,1))
+summary(gr.het_noisol_age) 							# Summarize the model
+mcmc.diagnostics(gr.het_noisol_age)
+
+
+gr.nisol.het.aged.sim <- simulate(gr.het_noisol_age, nsim=100)
+
+# looping to find a draw w/ at least one isolate and some same-sex pairs to demonstrate stochasticity.
+# for(i in 1:10){
+# plot(gr.nisol.het.aged.sim[[i]],
+#      vertex.col=(get.vertex.attribute(gr.nisol.het.aged.sim[[i]], "sex")=="F")+1,
+#      vertex.cex=.05*(2013-get.vertex.attribute(gr.nisol.het.aged.sim[[i]], "birthyear")))
+# }
+
+i<-2
+plot(gr.nisol.het.aged.sim[[i]], 
+      vertex.col=(get.vertex.attribute(gr.nisol.het.aged.sim[[i]], "sex")=="F")+1, 	
+      vertex.cex=.05*(2013-get.vertex.attribute(gr.nisol.het.aged.sim[[i]], "birthyear")))
+```
