@@ -41,7 +41,7 @@ library(tibble)
 library(rlang)
 library(backbone)
 
-df <- readRDS("JL_samples.rds")
+df <- readRDS("data/JL_samples.rds")
 ```
 
 Just to clarify what's in that file:
