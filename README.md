@@ -8,7 +8,7 @@ In addition to archives of the manuscript (which I may remove later), this repos
     - src/JL_samples-raw_dataread.R provides the code for doing pulling that from original data (Note a re-IDing of the rap song IDs therein from what they worked with)
   - RapSamplesBackbone.Rmd then provides all steps for creating each of the visuals from those data.
   
-**NOTE**: This example is adapted from Jennifer Lena's analysis in Lena, Jennifer C. 2004. “Meaning and Membership: Samples in Rap Music, 1979–1995.” Poetics 32(3–4):297–310. doi:10.1016/j.poetic.2004.05.006. I'm using data files provided by Mark Pachucki. The results here do not exactly match those reported in the paper, as used the "full" rather than trimmed analytic data set.
+**NOTE**: This example is adapted from Jennifer Lena's analysis in Lena, Jennifer C. 2004. “Meaning and Membership: Samples in Rap Music, 1979–1995.” *Poetics* 32(3–4):297–310. doi:10.1016/j.poetic.2004.05.006. I'm using data files provided by Mark Pachucki. The results here do not exactly match those reported in the paper, as used the "full" rather than trimmed analytic data set.
 
   
 - For Figure 2 - the ***Grey's Anatomy* hookup** visualization:
