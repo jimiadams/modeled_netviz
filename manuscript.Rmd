@@ -296,8 +296,8 @@ Analytic results and interpretations are necessarily reductions of the full deta
 Done well, they draw our attention to the scientifically useful features of the data, lead us to appropriate interpretations, and limit the distractions that keep us from achieving those aims—regardless of the particularities of the case at hand [@healy2017].
 The third step is therefore to compile an appropriate overview of analytic results in summary form (whether statistical or otherwise).
 
-In Lind’s example, the fitted ERGM supplies this summary, including both model-specification details and corresponding results for the network features it identifies as important.^[These should include *all* details necessary to estimate *and* interpret the model. In the case of ERGM, these are returned as part of the model object and include such information as model coefficients and standard errors, goodness-of-fit statistics, and convergence diagnostics [@krivitsky2023].]
-The results elements of the *Grey's* example include gender *heter*ophily and a restriction on isolates.^[This excludes also investigated examples of age or racial homophily. Since formal goodness-of-fit statistics indicated including these produced more poorly performing models, they are excluded from the final results.]
+Drawing on the *Grey's Anatomy* example, the fitted ERGM supplies this summary, including both model-specification details and corresponding results for the network features it identifies as important.^[These should include *all* details necessary to estimate *and* interpret the model. In the case of ERGM, these are returned as part of the model object and include such information as model coefficients and standard errors, goodness-of-fit statistics, and convergence diagnostics [@krivitsky2023].]
+The results elements of the *Grey's* example include gender *heter*ophily, age similarity, and a restriction on isolates.^[This excludes also investigated node-effects for gender, race, or age, and a racial homophily term. Since formal goodness-of-fit statistics indicated including these produced more poorly performing models, they are excluded from the final results.]
 
 \begin{figure}[htbp]
   \centering
@@ -314,7 +314,7 @@ The results elements of the *Grey's* example include gender *heter*ophily and a 
     \caption{modeled network}
     \label{fig:panel_b}
   \end{subfigure}
-  \caption{\textbf{Two visualizations of \textit{Grey’s Anatomy} hookup network}. Panel A represents the “observed” data with identities and multiple attributes attached (size=age, color=race, shape=gender). Panel B represents a network generated from the modeled results, including only those exogenous features that are part of the model (node color=gender). This example is adapted from Lind’s (2012) ERGM tutorial.}
+  \caption{\textbf{Two visualizations of \textit{Grey’s Anatomy} hookup network}. Panel A represents the “observed” data with identities and multiple attributes attached (size=age, color=race, shape=gender). Panel B represents a network generated from the modeled results, including only those exogenous features that are part of the model (node color=gender, node size = age). This example is adapted from Lind’s (2012) ERGM tutorial.}
   \label{fig:greys}
 \end{figure}
 
@@ -326,7 +326,7 @@ This modeled network visualization will necessarily differ from any observed net
 The idea here is to provide an empirically anchored, theoretically prioritized, network visualization that clearly communicates the researchers’ key interpretative takeaways.
 
 In [**Figure 2**](#fig:greys), panel B visualizes a single draw from the ERGM results for the *Grey’s Anatomy* analysis, allowing comparison with the observed network in panel A.
-The modeled visualization includes only the aspects incorporated in the model, while diminishing the role of idiosyncratic aspects of the data.^[Here, the visual specifically excludes node labels and nodal attributes of race and age because goodness-of-fit statistics confirmed that these did not contribute to the observed relational pattern. More formal goodness-of-fit tests also confirm the “visual” similarity between the general structures of the two graphs, while other, lesser-performing models showed obvious divergences, visually *and* statistically.]
+The modeled visualization includes only the aspects incorporated in the model, while diminishing the role of idiosyncratic aspects of the data.^[Here, the visual specifically excludes node labels and the race nodal attribute because goodness-of-fit statistics confirmed that these did not contribute to the observed relational pattern. More formal goodness-of-fit tests also confirm the “visual” similarity between the general structures of the two graphs, while other, lesser-performing models showed obvious divergences, visually *and* statistically.]
 
 Not including names does not diminish the ability to observe important features of the network (e.g., a general, but not absolute, heterosexual partnering pattern).
 More fundamentally, observed data provide only a single, characterization of reality, invariably including error along with the information they convey.^[Treating the realized particulars of that instance as central can over-reify what is often only an approximation--though ideally a reasonable one--of the theoretical question being investigated [@becker2017].]
