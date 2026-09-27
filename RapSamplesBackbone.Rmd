@@ -40,6 +40,7 @@ library(purrr)
 library(tibble)
 library(rlang)
 library(backbone)
+library(patchwork)
 
 df <- readRDS("data/JL_samples.rds")
 ```
@@ -95,47 +96,196 @@ g <- graph_from_data_frame(
 
 ## converting to 2-mode
 V(g)$type <- V(g)$name %in% samp$rap_song_id
+
+## converting to 2-mode
+V(g)$type <- V(g)$name %in% samp$rap_song_id
 ## collapsing multiple ties to edge weights
 E(g)$weight <- 1 #needs a base
 gw <- igraph::simplify(g, remove.multiple = TRUE, remove.loops = TRUE,
   edge.attr.comb = list(weight = "sum", .default = "ignore"))
+
+
+## adding year as an *edge* attribute
+edge_lookup <- samp %>%
+  distinct(rap_song_id, sampled_artist_id, .keep_all = TRUE) %>%
+  select(rap_song_id, sampled_artist_id, year) %>%
+  # igraph stores as character, so making merge-able
+  mutate(
+    rap_song_id = as.character(rap_song_id),
+    sampled_artist_id = as.character(sampled_artist_id)
+  )
+edges_joined <- igraph::as_data_frame(gw, what = "edges") %>%
+  left_join(edge_lookup, by = c("from" = "rap_song_id", "to" = "sampled_artist_id"))
+E(gw)$year <- edges_joined$year
+
+
+## let's reattach the nodal attributes for potential use later
+sampled_artist_attributes <- samp %>%
+  select(sampled_artist_id, sampled_artist, sampled_genre) %>%
+  distinct(sampled_artist_id, .keep_all = TRUE)
+# I'm not sure how much we're going to use the sampling side here, but just in case, those too.
+rap_song_attributes <- samp %>%
+  select(rap_song_id, rap_artist, rap_song, year) %>%
+  distinct(rap_song_id, .keep_all = TRUE)
+
+V(gw)$artist <- ifelse(
+  V(gw)$type, 
+  rap_song_attributes$rap_artist[match(V(gw)$name, rap_song_attributes$rap_song_id)],
+  sampled_artist_attributes$sampled_artist[match(V(gw)$name, sampled_artist_attributes$sampled_artist_id)]
+)
+
+# I can't imagine I'm going to use this in any plots, but it doesn't hurt to carry it.
+V(gw)$song_title <- ifelse(
+  V(gw)$type,
+  rap_song_attributes$rap_song[match(V(gw)$name, rap_song_attributes$rap_song_id)],
+  NA # doesn't apply to sampled artists
+)
+# Duplicate of edge attribute above, but I'm not positive which way I'll use it.
+V(gw)$year <- ifelse(
+  V(gw)$type,
+  rap_song_attributes$year[match(V(gw)$name, rap_song_attributes$rap_song_id)],
+  NA # doesn't apply to sampled artists
+)
+
+# This one's key for the analyses here
+V(gw)$genre <- ifelse(
+  !V(gw)$type,
+  sampled_artist_attributes$sampled_genre[match(V(gw)$name, sampled_artist_attributes$sampled_artist_id)],
+  NA # I don't want to have a genre attached to the sampling songs
+)
+## making it plotable
+unique_genres <- unique(na.omit(V(gw)$genre))
+genre_colors  <- rainbow(length(unique_genres))
+names(genre_colors) <- unique_genres
+# sampling songs (type = TRUE) become white; sampled artists color by genre
+V(gw)$color <- ifelse(
+  V(gw)$type, 
+  "white", 
+  genre_colors[V(gw)$genre]
+)
+
+### Given a bunch of data manipulations above, I want to run one sanity check on something that was multiply assigned and thus "checkable" to ensure all was behaving as anticipated:
+# dq_check <- igraph::as_data_frame(gw, what = "edges") %>%
+#   mutate(node_year = V(gw)$year[match(from, V(gw)$name)])
+# any(dq_check$year != dq_check$node_year) # is FALSE (as should be)
+
 ## and converting that to matrix form (for the backbone)
-mw <- as.matrix(as_biadjacency_matrix(gw, attr = "weight"))
+mw <- t(as.matrix(as_biadjacency_matrix(gw, attr = "weight")))
 
-```
-
-# Backbone
-Let's pull off the **sampled artists'** backbone.
-```{r backbone}
-w <- mw %*% t(mw)
-bb<- backbone(w)
 ```
 
 # Generating an *Exploratory* plot
 I'm actually going to come back to this one last, ironically enough to the point of this exercise.
 
-```{r plot-panelA}
-layout_full <- layout = layout_with_kk(g) # will decide later what the plot algo is
-
-gc <- subgraph(g, clusters(g)$membership==1)
-layout_gc <- layout = layout_with_kk(gc) # will decide later what the plot algo is
+```{r plot-panelA, include=T}
+# We're going to add sampling degree to the sampled artists as a nodal attribute:
+artist_deg <- degree(gw, v = V(gw)[!V(gw)$type])
+vsize <- rep(2, vcount(gw)) # fixing size for sampling nodes
+vsize[!V(gw)$type] <- scales::rescale(log1p(artist_deg), to = c(1, 4))
+names(vsize) <- V(gw)$name
+V(gw)$vsize <- vsize
 
 source("src/igraph-triangles.R")
+V(gw)$shape <- ifelse(V(gw)$type, "triangle", "circle")
 
-# We're going to add sampling degree to the sampled artists as a nodal attribute:
-artist_deg <- degree(g, v = V(g)[!V(g)$type])
-vsize <- rep(3, vcount(g))
-vsize[!V(g)$type] <- scales::rescale(log1p(artist_deg), to = c(3, 10))
+# likely only going to plot the giant component, but let's carry the small ones just in case
+components_list <- decompose(gw)
+components_list <- components_list[order(sapply(components_list, vcount), decreasing = TRUE)]
+g_core <- components_list[[1]]
+layout_core <- layout_with_fr(g_core)
 
-# For full network
-plot.igraph(g, vertex.size=3, vertex.label=NA, vertex.shape = c("circle", "triangle")[V(g)$type + 1], vertex.color= c("black", "white")[V(g)$type + 1],)
+# now we're going to strip off, and plot a grid of the smaller components
+minor_components <- components_list[2:length(components_list)]
+g_small <- disjoint_union(minor_components)
+vsize_small <- vsize[V(g_small)$name] # just the ones that are still here
+all_coords_small <- matrix(0, nrow = vcount(g_small), ncol = 2)
+rownames(all_coords_small) <- V(g_small)$name
+max_row_width <- 36  # The virtual horizontal canvas size for the tile panel
+padding <- 1.5       # Gutter separation buffer between adjacent components
+  current_x <- 0
+  current_y <- 0
+  max_height_in_row <- 0
+  
+  # Step through each minor component to translate its true scale geometry
+  for (i in seq_along(minor_components)) {
+    comp <- minor_components[[i]]
+    comp_coords <- layout_with_fr(comp)
+    
+    # 1. Measure the native, honest spatial footprint of the layout
+    comp_width <- max(comp_coords[, 1]) - min(comp_coords[, 1])
+    comp_height <- max(comp_coords[, 2]) - min(comp_coords[, 2])
+    
+    # 2. Zero-center coordinates so translations don't distort shapes
+    comp_coords[, 1] <- comp_coords[, 1] - mean(comp_coords[, 1])
+    comp_coords[, 2] <- comp_coords[, 2] - mean(comp_coords[, 2])
+    
+    # 3. FIX: Determine if adding this component spills past our maximum row width boundary.
+    # If it exceeds the boundary, automatically trigger a clean line break.
+    if (current_x + comp_width > max_row_width && current_x > 0) {
+      current_x <- 0
+      current_y <- current_y - max_height_in_row - padding
+      max_height_in_row <- 0
+    }
+    
+    # 4. Map coordinates precisely onto the current visual baseline tracking point
+    comp_coords[, 1] <- comp_coords[, 1] + current_x + (comp_width / 2)
+    comp_coords[, 2] <- comp_coords[, 2] + current_y - (comp_height / 2)
+    
+    # Commit coordinates to master layout tracker matrix
+    all_coords_small[V(comp)$name, ] <- comp_coords
+    
+    # Record the tallest component processed in this row to compute the next row offset
+    if (comp_height > max_height_in_row) {
+      max_height_in_row = comp_height
+    }
+    
+    # 5. Move horizontal cursor ahead by the actual width of this component plus padding
+    current_x <- current_x + comp_width + padding
+  }
 
-# For giant component only
-plot.igraph(gc, vertex.size=3, vertex.label=NA, vertex.shape = c("circle", "triangle")[V(gc)$type + 1], vertex.color= c("black", "white")[V(gc)$type + 1],)
+# exploratory plot of just the giant component
+source("src/igraph-triangles.R")
 
+# Exploratory plot of just the giant component
+plot(g_core, 
+     layout = layout_core, 
+     vertex.size = V(g_core)$vsize, 
+     vertex.label = NA,
+     vertex.shape = c("circle", "triangle")[V(g_core)$type + 1], 
+     margin = 0.15,
+     edge.width = 0.5,
+     edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.15))
+
+title(main = "Bipartite Sampling Graph", line = 2.5, cex.main = 1.5)
+title(main = "large component only", line = 1.2, cex.main = 1.0, font.main = 1)
+
+
+par(mfrow = c(1, 2), mar = c(1, 1, 3, 1))
+plot(g_core, 
+     layout = layout_core, 
+     vertex.size = V(g_core)$vsize, 
+     vertex.label = NA,
+     margin = 0.15,
+     edge.width = 0.5,
+     edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.15))
+
+plot(g_small, 
+       layout = all_coords_small, 
+       vertex.size = vsize_small, 
+       vertex.label = NA,
+       edge.width = 0.6,
+       edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.3))
+
+mtext("Bipartite Rap Samples Network", 
+      side = 3, 
+      outer = TRUE, 
+      line = 1, 
+      cex = 1.5, 
+      font = 2)
+
+par(mfrow = c(1, 1))
 ```
 
-# Generating a "hybrid" plot
-
+I'm way down a rabbit hole or rethinking how to model Jenn's claims. Backbone appears to have been a distraction.
 
 
