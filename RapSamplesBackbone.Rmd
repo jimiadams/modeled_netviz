@@ -179,9 +179,9 @@ I'm actually going to come back to this one last, ironically enough to the point
 
 ```{r plot-panelA, include=T}
 # We're going to add sampling degree to the sampled artists as a nodal attribute:
-artist_deg <- degree(gw, v = V(gw)[!V(gw)$type])
+artist_str <- strength(gw, v = V(gw)[!V(gw)$type])
 vsize <- rep(2, vcount(gw)) # fixing size for sampling nodes
-vsize[!V(gw)$type] <- scales::rescale(log1p(artist_deg), to = c(1, 4))
+vsize[!V(gw)$type] <- scales::rescale(log1p(artist_str), to = c(1, 4))
 names(vsize) <- V(gw)$name
 V(gw)$vsize <- vsize
 
@@ -258,8 +258,12 @@ plot(g_core,
 
 title(main = "Bipartite Sampling Graph", line = 2.5, cex.main = 1.5)
 title(main = "large component only", line = 1.2, cex.main = 1.0, font.main = 1)
-
-
+legend(
+  "bottomright", 
+  legend = c("node size proportional to strength", "(sampled artist) node colored by genre"),
+  bty = "n",       # Removes the box border around the text
+  cex = 0.8        # Scales text size (optional, 0.8 makes it slightly smaller)
+)
 par(mfrow = c(1, 2), mar = c(1, 1, 3, 1))
 plot(g_core, 
      layout = layout_core, 
@@ -288,4 +292,28 @@ par(mfrow = c(1, 1))
 
 I'm way down a rabbit hole or rethinking how to model Jenn's claims. Backbone appears to have been a distraction.
 
+# Generating the "hybrid" plot (likely shoving this one in an appendix, but for a key claim).
 
+# Generating the "explanatory" plot
+```{r panelC}
+V(gw)$str <- strength(gw)
+table(V(gw)$str[as.numeric(V(gw)$name)<500]) # looking at the distribution (for sampled artists only)
+prop <- table(V(gw)$str[as.numeric(V(gw)$name)<500])/sum(table(V(gw)$str[as.numeric(V(gw)$name)<500])) # as proportion
+cdf <- cumsum(prop)
+cdf95 <- 8
+core <- V(gw)$name[which(V(gw)$str>cdf95 & as.numeric(V(gw)$name)<500)] # finding top 5%
+# cbind( V(gw)$artist[V(gw)$name %in% core],  V(gw)$genre[V(gw)$name %in% core]) # just curious
+# just checking that they're all in the gc
+# core %in% V(components_list[[1]])$name
+
+core_vs <- V(gw)[name %in% as.character(core)]
+nbr_names <- V(gw)$name[unique(unlist(neighborhood(gw, order = 1, nodes = core_vs), use.names = FALSE))]
+keep_vs <- V(gw)[name %in% unique(c(as.character(core), nbr_names))]
+g_core_neighborhood <- induced_subgraph(gw, vids = keep_vs)
+
+table(V(g_core_neighborhood)$type)
+table(V(gw)$type)
+# over 40% of the samples come from those 26 (top 5% of) sampled artists.
+
+
+```

@@ -97,5 +97,6 @@ dev.off()
 
 ```
 
+# Generating the *hybrid* plot
 
 # Generating the *explanatory* plot
