@@ -14,6 +14,7 @@ samples <- samples |>
          art_tar = labs[[7]],    # I'm using the 2-mode version here
          tar_art = labs[[8]],    # Who's doing the sampling?
          tar_sng = labs[[10]],   # In what song?
+         tar_sub = labs[[26]],   # Rap subgenre
          yr = labs[[11]]) |>     # year of sample
   mutate(
     tar_key = str_squish(paste(tar_art, tar_sng, yr, sep = " | ")),
@@ -21,7 +22,7 @@ samples <- samples |>
   ) |>
   select(
     src_id, src_gen, src_art, src_sng,
-    tar_id, tar_key, tar_art, tar_sng, yr,
+    tar_id, tar_key, tar_art, tar_sng, tar_sub, yr,
     art_tar, art_src
   )
 
@@ -35,5 +36,5 @@ samples |>
     n_source_songs = n_distinct(src_id)
   )
 
- saveRDS(samples, "JL_samples.rds")
+ saveRDS(samples, "data/JL_samples.rds")
  

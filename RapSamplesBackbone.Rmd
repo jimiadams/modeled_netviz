@@ -55,9 +55,11 @@ Just to clarify what's in that file:
 | `tar_id` | target/rap song ID |
 | `tar_art` | target/rap artist label |
 | `tar_sng` | target/rap song title |
+| `tar_sub` | target/rap song sub-genre |
 | `yr` | year |
 | `art_tar` | target/rap artist ID |
 | `art_src` | source/sample artist ID |
+
 
 We'll convert those to *slightly* more informative variable names; typing efficiency be damned, mental space is too precious.
 
@@ -68,6 +70,7 @@ samp <- df %>%
     rap_song_id = tar_id,
     rap_artist_id = art_tar,
     rap_artist = tar_art,
+    rap_genre = tar_sub, 
     rap_song = tar_sng,
     year = as.integer(yr),
 ## sampled details
@@ -93,9 +96,6 @@ Note these are weighted, because there are times where the same song multiply sa
 ##  first as a graph
 g <- graph_from_data_frame(
   data.frame(from = samp$rap_song_id, to = samp$sampled_artist_id), directed = FALSE)
-
-## converting to 2-mode
-V(g)$type <- V(g)$name %in% samp$rap_song_id
 
 ## converting to 2-mode
 V(g)$type <- V(g)$name %in% samp$rap_song_id
@@ -148,9 +148,25 @@ V(gw)$year <- ifelse(
 )
 
 # This one's key for the analyses here
+# collapsing the broad genre categories to the analytic set
+sampled_artist_attributes <- sampled_artist_attributes %>%
+  mutate(
+   new_genre = case_when(
+      sampled_genre == 8 ~ "a",
+      sampled_genre == 10 ~ "b",
+      sampled_genre == 14 ~ "c",
+      sampled_genre == 15 ~ "d",
+      sampled_genre == 16 ~ "e",
+      sampled_genre == 18 ~ "f",
+      sampled_genre == 23 ~ "g",
+      sampled_genre == 24 ~ "h",
+      sampled_genre %in% c(8,10,14,15,16,18,23,24) == F ~ "v"
+    ))
+## hoping to "relabel" those meaningfully before we're done.    
+
 V(gw)$genre <- ifelse(
   !V(gw)$type,
-  sampled_artist_attributes$sampled_genre[match(V(gw)$name, sampled_artist_attributes$sampled_artist_id)],
+  sampled_artist_attributes$new_genre[match(V(gw)$name, sampled_artist_attributes$sampled_artist_id)],
   NA # I don't want to have a genre attached to the sampling songs
 )
 ## making it plotable
@@ -163,6 +179,7 @@ V(gw)$color <- ifelse(
   "white", 
   genre_colors[V(gw)$genre]
 )
+# Right now the above ONLY colors sampled artist genre, not rap artists' sub-genre
 
 ### Given a bunch of data manipulations above, I want to run one sanity check on something that was multiply assigned and thus "checkable" to ensure all was behaving as anticipated:
 # dq_check <- igraph::as_data_frame(gw, what = "edges") %>%
@@ -172,6 +189,66 @@ V(gw)$color <- ifelse(
 ## and converting that to matrix form (for the backbone)
 mw <- t(as.matrix(as_biadjacency_matrix(gw, attr = "weight")))
 
+```
+
+```{r build-artxart}
+a <-  graph_from_data_frame(data.frame(from = samp$rap_artist_id, to = samp$sampled_artist_id), directed = FALSE)
+
+## converting to 2-mode
+V(a)$type <- V(a)$name %in% samp$rap_artist_id
+## collapsing multiple ties to edge weights
+E(a)$weight <- 1 #needs a base
+aw <- igraph::simplify(a, remove.multiple = TRUE, remove.loops = TRUE,
+  edge.attr.comb = list(weight = "sum", .default = "ignore"))
+
+## let's reattach the nodal attributes for potential use later
+sampled_artist_attributes <- samp %>%
+  select(sampled_artist_id, sampled_artist, sampled_genre) %>%
+  distinct(sampled_artist_id, .keep_all = TRUE)
+# genre is song-specific, not artist on the target side, so need to reconsider that use here...
+rap_artist_attributes <- samp %>%
+  select(rap_artist_id, rap_artist) %>%
+  distinct(rap_artist_id, .keep_all = TRUE)
+
+
+V(aw)$artist <- ifelse(
+  V(aw)$type, 
+  rap_artist_attributes$rap_artist[match(V(gw)$name, rap_artist_attributes$rap_artist_id)],
+  sampled_artist_attributes$sampled_artist[match(V(gw)$name, sampled_artist_attributes$sampled_artist_id)]
+)
+
+# This one's key for the analyses here
+# collapsing the broad genre categories to the analytic set
+sampled_artist_attributes <- sampled_artist_attributes %>%
+  mutate(
+   new_genre = case_when(
+      sampled_genre == 8 ~ "a",
+      sampled_genre == 10 ~ "b",
+      sampled_genre == 14 ~ "c",
+      sampled_genre == 15 ~ "d",
+      sampled_genre == 16 ~ "e",
+      sampled_genre == 18 ~ "f",
+      sampled_genre == 23 ~ "g",
+      sampled_genre == 24 ~ "h",
+      sampled_genre %in% c(8,10,14,15,16,18,23,24) == F ~ "v"
+    ))
+## hoping to "relabel" those meaningfully before we're done.    
+
+V(aw)$genre <- ifelse(
+  !V(aw)$type,
+  sampled_artist_attributes$new_genre[match(V(aw)$name, sampled_artist_attributes$sampled_artist_id)],
+  NA # I don't want to have a genre attached to the sampling songs
+)
+## making it plotable
+unique_genres <- unique(na.omit(V(aw)$genre))
+genre_colors  <- rainbow(length(unique_genres))
+names(genre_colors) <- unique_genres
+# sampling songs (type = TRUE) become white; sampled artists color by genre
+V(aw)$color <- ifelse(
+  V(aw)$type, 
+  "white", 
+  genre_colors[V(aw)$genre]
+)
 ```
 
 # Generating an *Exploratory* plot
@@ -259,7 +336,6 @@ plot(g_core,
 title(main = "Bipartite Sampling Graph", line = 2.5, cex.main = 1.5)
 title(main = "large component only", line = 1.2, cex.main = 1.0, font.main = 1)
 
-
 par(mfrow = c(1, 2), mar = c(1, 1, 3, 1))
 plot(g_core, 
      layout = layout_core, 
@@ -284,6 +360,25 @@ mtext("Bipartite Rap Samples Network",
       font = 2)
 
 par(mfrow = c(1, 1))
+
+
+V(aw)$shape <- ifelse(V(aw)$type, "triangle", "circle")
+artist_deg <- degree(aw, v = V(aw)[!V(aw)$type])
+vsize <- rep(2, vcount(aw)) # fixing size for sampling nodes
+vsize[!V(aw)$type] <- scales::rescale(log1p(artist_deg), to = c(1, 4))
+names(vsize) <- V(aw)$name
+V(aw)$vsize <- vsize
+
+plot(aw,
+     vertex.size = V(aw)$vsize,
+     vertex.label = NA,
+     vertex.shape = c("circle", "triangle")[V(aw)$type + 1],
+     margin = 0.15,
+     edge.width = 0.5,
+     edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.15))
+
+title(main = "Bipartite Artists Graph", line = 2.5, cex.main = 1.5)
+
 ```
 
 I'm way down a rabbit hole or rethinking how to model Jenn's claims. Backbone appears to have been a distraction.
