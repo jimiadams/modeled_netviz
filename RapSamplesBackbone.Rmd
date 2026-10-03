@@ -249,6 +249,8 @@ V(aw)$color <- ifelse(
   "white", 
   genre_colors[V(aw)$genre]
 )
+
+maw <- t(as.matrix(as_biadjacency_matrix(aw, attr = "weight")))
 ```
 
 # Generating an *Exploratory* plot
@@ -256,10 +258,13 @@ I'm actually going to come back to this one last, ironically enough to the point
 
 ```{r plot-panelA, include=T}
 # We're going to add sampling degree to the sampled artists as a nodal attribute:
-artist_deg <- degree(gw, v = V(gw)[!V(gw)$type])
-vsize <- rep(2, vcount(gw)) # fixing size for sampling nodes
-vsize[!V(gw)$type] <- scales::rescale(log1p(artist_deg), to = c(1, 4))
+all_gw_strengths <- strength(gw)
+names(all_gw_strengths) <- V(gw)$name
+V(gw)$degree <- all_gw_strengths[V(gw)$name]
+vsize <- rep(2, vcount(gw))
 names(vsize) <- V(gw)$name
+sampled_artist_names <- V(gw)$name[!V(gw)$type]
+vsize[sampled_artist_names] <- scales::rescale(log1p(all_gw_strengths[sampled_artist_names]), to = c(1, 4))
 V(gw)$vsize <- vsize
 
 source("src/igraph-triangles.R")
@@ -363,11 +368,20 @@ par(mfrow = c(1, 1))
 
 
 V(aw)$shape <- ifelse(V(aw)$type, "triangle", "circle")
-artist_deg <- degree(aw, v = V(aw)[!V(aw)$type])
-vsize <- rep(2, vcount(aw)) # fixing size for sampling nodes
-vsize[!V(aw)$type] <- scales::rescale(log1p(artist_deg), to = c(1, 4))
-names(vsize) <- V(aw)$name
-V(aw)$vsize <- vsize
+all_aw_degrees <- degree(aw)
+names(all_aw_degrees) <- V(aw)$name
+V(aw)$degree <- all_aw_degrees[V(aw)$name]
+vsize_aw <- rep(2, vcount(aw))
+names(vsize_aw) <- V(aw)$name
+sampled_artist_names_aw <- V(aw)$name[!V(aw)$type]
+vsize_aw[sampled_artist_names_aw] <- scales::rescale(log1p(all_aw_degrees[sampled_artist_names_aw]), to = c(1, 4))
+V(aw)$vsize <- vsize_aw
+
+# artist_deg <- degree(aw, v = V(aw)[!V(aw)$type])
+# vsize <- rep(2, vcount(aw)) # fixing size for sampling nodes
+# vsize[!V(aw)$type] <- scales::rescale(log1p(artist_deg), to = c(1, 4))
+# names(vsize) <- V(aw)$name
+# V(aw)$vsize <- vsize
 
 plot(aw,
      vertex.size = V(aw)$vsize,
@@ -383,4 +397,39 @@ title(main = "Bipartite Artists Graph", line = 2.5, cex.main = 1.5)
 
 I'm way down a rabbit hole or rethinking how to model Jenn's claims. Backbone appears to have been a distraction.
 
+# Generating a "hybrid" plot (I'll be coming back to this one)
+
+# Generating a modeled plot
+```{r plot-modeled, include=T}
+# First, let's produce a heuristic version.
+## via sampling SONGS
+w_art_vs <- t(mw) %*% mw # weighted sampled artist * sampled artist overlap
+diag(w_art_vs) <- 0
+gas <- graph_from_adjacency_matrix(w_art_vs, mode = "undirected", weighted = TRUE)
+
+## via sampling ARTISTS
+w_art_va <- t(maw) %*% maw # weighted sampled artist * sampled artist overlap
+diag(w_art_va) <- 0
+gaa <- graph_from_adjacency_matrix(w_art_va, mode = "undirected", weighted = TRUE)
+
+# We're going to
+#     1. identify the core here as sampled degree
+#     2. then map the structure among that core as their weighted projections
+
+sampled_swdegree <- colSums(mw)
+sampled_awdegree <- colSums(maw)
+
+# Create unweighted versions - this was just a sanity check, not something I'm actually using. 
+# (It was a recognition that the colSums are equal on the weighted version, but not on the dichotomous.)
+umw <- mw
+umw[umw > 0] <- 1
+umaw <- maw
+umaw[umaw > 0] <- 1
+sampled_sudegree <- colSums(umw)
+sampled_audegree <- colSums(umaw)
+
+V(gas)$degree <- sampled_swdegree
+V(gaa)$degree <- sampled_awdegree
+
+```
 
