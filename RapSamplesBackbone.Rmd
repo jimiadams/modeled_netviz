@@ -421,15 +421,26 @@ sampled_awdegree <- colSums(maw)
 
 # Create unweighted versions - this was just a sanity check, not something I'm actually using. 
 # (It was a recognition that the colSums are equal on the weighted version, but not on the dichotomous.)
-umw <- mw
-umw[umw > 0] <- 1
-umaw <- maw
-umaw[umaw > 0] <- 1
-sampled_sudegree <- colSums(umw)
-sampled_audegree <- colSums(umaw)
+# umw <- mw
+# umw[umw > 0] <- 1
+# umaw <- maw
+# umaw[umaw > 0] <- 1
+# sampled_sudegree <- colSums(umw)
+# sampled_audegree <- colSums(umaw)
 
 V(gas)$degree <- sampled_swdegree
 V(gaa)$degree <- sampled_awdegree
+
+
+cdf_s <- ecdf(sampled_swdegree)
+cdf_a <- ecdf(sampled_awdegree)
+# Let's look at what threshold to use
+(core_nodes_gas <- V(gas)[cdf_s(V(gas)$degree) >= 0.95])
+(core_nodes_gaa <- V(gaa)[cdf_a(V(gaa)$degree) >= 0.95])
+# These are equivalent since they're the qweighted versions...
+
+gas_core <- induced_subgraph(gas, vids = core_nodes_gas)
+gaa_core <- induced_subgraph(gaa, vids = core_nodes_gaa)
 
 ```
 

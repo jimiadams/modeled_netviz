@@ -334,15 +334,58 @@ As such using unlabeled nodes,^[Here we have not merely “removed” labels, bu
 Furthermore, if these were actual data carrying confidentiality concerns, the modeled visualization—and its rendering of modeled results as unlabeled, “representative” nodes and ties rather than a capture of actual relationships—would also remove risks of sequential deductive disclosure.^[For example, given the infrequency of same-sex or inter-racial relationships in the population, even an *unlabeled* version of the graph on the left would allow partners of Derek or “Chief” to likely identify *themselves* in the plot, and thus “discover” their partners having other partners.]
 Moreover, because the visual is based on model results, the model-results object is likely shareable even if the raw data are not,^[It is not uncommon in social network projects to have data-sharing restrictions as part of participation agreements as a means to ensure confidentiality.] facilitating the replicability of both the results and the visualization.
 
-## An illustrative empirical example
+## An illustrative empirical example - Rap Samples
 
-[TO DEVELOP: Introduce a non-confidential empirical case that allows the “revealed” and presumably “unrevealed” versions to appear in tandem, demonstrating why confidentiality concerns can remain consequential even for data that appear non-confidential.]
+Finally, I demonstrate how the visualization strategy I propose could be applied to an empirical analysis using a quite different analytic approach from the ERGM example above.
+Jennifer Lena mapped rap artists’ sampling of other artists’ songs [@lena2004].
+She found (1) a small “core” set of sampled artists from whom a disproportionate volume of samples were drawn, and (2) “circles” among sampling artists that: (a) differentiated among sampled artists by source genre, and (b) distinguished groups of sampling rappers through their sampling repertoires, with those groups also partially sorted by rap sub-genre.
+Later work also showed that these patterns were partially shaped by industry differences [@lena2006] and contributed to the development of status hierarchies among the sub-genres [@lena2013].
 
-Here, I will again present a parallel figure that characterizes the “raw” data and then a “modeled result” that conveys the research takeaway.
+The same sequence outlined above for generating a modeled network visualization applies here, despite these analyses not relying on a single “formal” statistical network model.
+Lena’s conclusions arose from a sequence of descriptive and interpretive social network and non-network analyses (step 2 above), yielding empirically supported theoretical models (step 3), which can in turn be translated into network properties for visualization (step 4).
+Focusing only on the network elements of those results, these describe networks characterized by: (1) highly skewed degree distributions among sampled artists, and (2) a strong core-periphery structure, with a relatively small set of sampled artists forming the core. They also suggest community structuring at two levels: (3) among sampled artists, with communities partially sorted by source genre; and (4) among sampling artists, with communities partially differentiated by the source artists and songs in their sampling repertoires, which are partially sorted by rap sub-genres.
 
-\textcolor{red}{Work out the aims of visualization more concretely, and elaborate how modeled visualization may do this even better than raw-data visualization can.}
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/descriptive_v0-1.png}
+    \caption{exploratory visulization}
+    \label{fig:eda}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/heuristic_modeled.png}
+    \caption{explanatory visualization}
+    \label{fig:genres}
+  \end{subfigure}
+  \caption{\textbf{Two visualizations of Jennifer Lena's (2004) rap sampling network. Panel A represents the “observed” data, including sampling/sampled artists (shape), sampled degree (size), and genre (color), with a few artists in prominent positions labeled. Panel B represents a network generated from the analytic results, with the sampled degree, artist genre, and multi-level community structure highlighted.}}
+  \label{fig:rap}
+\end{figure}
 
-[TO DEVELOP: Select an example other than an ERGM application.]
+In [**Figure 3**](#fig:rap), I present two visualization strategies for this analysis. 
+The first panel is an exploratory bipartite plot, with sampling artists represented by triangles and sampled artists by circles. 
+Sampled-artist node size is proportional to (logged) sampling strength, and their source genre is encoded by color. \textcolor{red}{I am still considering whether and how to encode sampling artists’ rap sub-genres, given that they use a different genre classification.} 
+\textcolor{red}{A select set of nodes are labeled to help orient interpretation.}
+This visualization provides some indication of the analytic patterns identified by Lena--most notably the skewed distribution of sampling across source artists and the resulting core-periphery structure--while other elements are much less visually apparent--including the community structure and its genre sorting.^[Some authors return to exploratory visualizations such as this one and layer analytic properties onto them. I provide a corresponding version of this approach in the appendix as a hybrid of the exploratory and modeled strategies presented here.]
+
+The second panel instead builds the visualization around the analytic structure. 
+I first extracted a core set of sampled artists (those above the 95th percentile of sampled-artist strength) and mapped the strength of co-sampled relationships among them. 
+I then used this core structure to organize the remaining network, anchoring the positions of the core artists to those established in the first step. 
+This allows the core-periphery structure to emanate from the analytically identified core, while preventing the much larger set of sampling artists—and their relationships—from overwhelming the visual layout. 
+Their communities remain represented in the visualization, but as a secondary structural layer rather than as the primary determinant of network position.
+
+Some differences between these visualizations are matters of emphasis; others reflect differences in the network analytic results being represented. 
+In particular, Lena’s interpretation of “circles” concerns similarities in sampling patterns: similarities in the sets of sampled artists and songs associated with sampling artists. 
+These patterns are therefore more directly represented by intra-mode projections, which are an analytic transformation of the observed sampling network rather than a direct representation of the underlying sampling ties. 
+A fully projected network, however, would not necessarily facilitate reaching these interpretations from the visualization itself. 
+Instead, focal elements of the projected structure (e.g., within communities) can be used to organize a modeled representation that preserves the theoretically relevant properties while suppressing less consequential empirical detail, and also retaining empirical details of the sampling ties themselves that provide the basis for those patterns.
+
+Likewise, labels may assist interpretation—for example, by allowing readers to recognize the positions of James Brown or George Clinton—but they are not necessary to convey the modeled results. 
+Coreness, the skewed distribution of sampling, relationships among core artists, and differential genre allocation can all be represented by a synthetic set of artists without relying on their identities. Although this particular example presents no disclosure concerns,^[I selected this example explicitly in part because it allows comparison of labeled and unlabeled visualizations.] it illustrates the broader possibility of communicating theoretical implications without labels in other cases where disclosure risks would be present.
+
+\textcolor{red}{NOTE: What else do we need here? NOTE: Obviously at the moment, this is a heurisitic placeholder image for panel B, because I'm still working out the details of the multi-layering of the community structure presentation strategy. But hopefully you can still get the implication of what it will look like once that's filled in.)}
 
 ## Quo Vadimus?
 As with any visualization strategy, useful examples in the literature are joined by many that are, well, not so much.
