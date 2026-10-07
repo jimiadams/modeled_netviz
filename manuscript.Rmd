@@ -1,7 +1,7 @@
 ---
 title: |
   Visualizing Modeled Social Networks: a Provocation\thanks{
-  This manuscript has benefited greatly from input by seminar participants at the South Carolina Networks Consortium, Duke University's Social Networks \& Health workshop, the Patchwork group at Autonomous University of Barcelona, and Sunbelt 2026, as well as helpful feedback from Jim Moody and David Schaefer. I'm also grateful to Jun Zhao for assisting with materials to include in the illustrative examples. Though they may not all agree with me.}
+  This manuscript has benefited greatly from input by seminar participants at the South Carolina Networks Consortium, Duke University's Social Networks \& Health workshop, the Patchwork group at Autonomous University of Barcelona, and Sunbelt 2026. I'm also especially grateful to Jenn Lena, Marck Pachucki, and Jun Zhao for providing materials and guidance for honing the illustrative examples, and to Jim Moody and David Schaefer for helpful feedback on the manuscript. Though they may not all agree with me.}
 author: "jimi adams, University of South Carolina"
 date: "`r format(Sys.Date(), '%Y %B %d')`"
 output: pdf_document
@@ -21,11 +21,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 **Abstract**: Network scholarship regularly leverages visualizations. 
-They are thought to enhance readers' recall, interpretation, and simplification of scholar's intended takeaways. 
-However, by representing the specifics of single empirical cases, these visualization strategies may not optimize how well they accomplish our scientific purposes. 
-I describe how visualizations often target three non-overlapping sets of aims simultaneously--exploratory description, theoretical conceptualization, *and* empirical interpretation bridging between those. 
-I then highlight how these orientations both necessitate constrain different sets of the varied scientific purposes and principles of visualization. 
-Given these differential demands, this paper provokes the field to consider whether presenting *modeled* network results--in lieu of empirical cases--better satisfies the aims of visualization for particular purposes.
+They are thought to enhance readers’ recall, interpretation, and understanding of scholars’ intended takeaways.
+However, because they represent the specifics of individual empirical cases, these strategies may not optimally accomplish all scientific aims.
+I first distinguish the scientific purposes and principles of visualization, which are differently required and constrained across varying visualization orientations.
+I then describe how visualizations often simultaneously target three potentially non-overlapping aims: exploratory description, theoretical conceptualization, and empirical interpretation, with published examples often bridging them.
+Given these non-overlapping demands, this paper provokes the field to consider whether presenting *modeled* network results—in lieu of empirical cases—can better satisfy the aims of visualization for particular combinations of aims.
 
 \textcolor{red}{NOTE: In preparation for submission to the \textit{Social Networks} theory special issue (which has a submission timeline of Nov 1.)}
 
@@ -167,7 +167,7 @@ In sum, different research stages and visualization strategies incorporate diffe
 [**Table 1**](#benies) heuristically represents a summary of these potential combinations. 
 
 <div id="benies"></div> 
-\begin{table}[h] 
+\begin{table}[htb] 
 \centering 
 \caption{\textbf{Potential Comparative Benefits across Visualization Strategies}} 
 \vspace{6pt}
@@ -383,9 +383,10 @@ A fully projected network, however, would not necessarily facilitate reaching th
 Instead, focal elements of the projected structure (e.g., within communities) can be used to organize a modeled representation that preserves the theoretically relevant properties while suppressing less consequential empirical detail, and also retaining empirical details of the sampling ties themselves that provide the basis for those patterns.
 
 Likewise, labels may assist interpretation—for example, by allowing readers to recognize the positions of James Brown or George Clinton—but they are not necessary to convey the modeled results. 
-Coreness, the skewed distribution of sampling, relationships among core artists, and differential genre allocation can all be represented by a synthetic set of artists without relying on their identities. Although this particular example presents no disclosure concerns,^[I selected this example explicitly in part because it allows comparison of labeled and unlabeled visualizations.] it illustrates the broader possibility of communicating theoretical implications without labels in other cases where disclosure risks would be present.
+Coreness, the skewed distribution of sampling, relationships among core artists, and differential genre allocation can all be represented by a synthetic set of artists without relying on their identities. 
+Although this particular example presents no disclosure concerns,^[I selected this example explicitly in part because it allows comparison of labeled and unlabeled visualizations.] it illustrates the broader possibility of communicating theoretical implications without labels in other cases where disclosure risks would be present.
 
-\textcolor{red}{NOTE: What else do we need here? NOTE: Obviously at the moment, this is a heurisitic placeholder image for panel B, because I'm still working out the details of the multi-layering of the community structure presentation strategy. But hopefully you can still get the implication of what it will look like once that's filled in.)}
+\textcolor{red}{What else do we need here? NOTE: Obviously at the moment, this is a heurisitic placeholder image for panel B, because I'm still working out the details of the multi-layering of the community structure presentation strategy. But hopefully you can still get the implication of what it will look like once that's filled in.)}
 
 ## Quo Vadimus?
 As with any visualization strategy, useful examples in the literature are joined by many that are, well, not so much.
