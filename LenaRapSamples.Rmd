@@ -1,0 +1,29 @@
+---
+title: "Rap Samples Visualization"
+author: "jimi adams"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+# Overview
+
+This document builds a visualization of the rap samples that Jenn Lena used in her dissertation and subsequent *Poetics* paper -@lena2004. Mark Pachucki provided the raw files that I am working from as part of a replication package for their related co-authored later *Poetics* paper -@lena2013.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 10,
+  fig.height = 8,
+  dpi = 300
+)
+```
+
+Right now, I'm working in the old "RapSamplesBackbone.Rmd" file to build out what's going here. Then as chunks work, porting them in for this as a "final" version.
+
+# References

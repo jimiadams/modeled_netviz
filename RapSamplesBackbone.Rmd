@@ -152,17 +152,48 @@ V(gw)$year <- ifelse(
 sampled_artist_attributes <- sampled_artist_attributes %>%
   mutate(
    new_genre = case_when(
-      sampled_genre == 8 ~ "a",
-      sampled_genre == 10 ~ "b",
-      sampled_genre == 14 ~ "c",
-      sampled_genre == 15 ~ "d",
-      sampled_genre == 16 ~ "e",
-      sampled_genre == 18 ~ "f",
-      sampled_genre == 23 ~ "g",
-      sampled_genre == 24 ~ "h",
-      sampled_genre %in% c(8,10,14,15,16,18,23,24) == F ~ "v"
-    ))
+      sampled_genre %in% c(2,3) ~ "blues", # + country (N=1)
+      sampled_genre == 10 ~ "jazz",
+      sampled_genre %in% c(1, 18) ~ "rock", # + alt (N=7)
+      sampled_genre %in% c(15,24) ~ "funk and r&b",
+      sampled_genre == 16 ~ "soul",
+      sampled_genre == 8 ~ "rap",
+      sampled_genre == 22 ~ "comedy & vocal",
+      sampled_genre == 17 ~ "reggae",
+      sampled_genre %in% c(5, 14, 25) ~ "various"
+    )) # 13, 9 are null
+
+—> soul, funk and r&b; jazz; pop and rock; blues; comedy; old school rap; reggae; and various (e.g., traditional pop, salsa, electronica).
+
 ## hoping to "relabel" those meaningfully before we're done.    
+4 Dance
+5 Electronica
+6 Folk
+7 Gospel-Inspirational
+8 Hip Hop or Rap
+9 Indie Rock
+10 Jazz
+11 Latin
+12 Misc. (includes spoken word, soundtracks)
+13 New Age
+14 Pop
+16 Soul
+17 Reggae
+18 Rock
+19 Singer/Songwriter
+20 Vocal
+21 World
+22 Comedy
+23 Disco
+
+
+
+Two of the categories were ultimately null sets: Indie Rock (9) and New Age (13).  Those codes were eliminated.  Several of the categories had small N’s and were conceptually similar to one another.  Therefore, they were collapsed as follows:
+
+Gospel-Inspirational (7; n= 1) + Vocal (20; n= 4) into Vocal (20; n= 5)
+Folk (6; n= 2) + Singer/Songwriter (19; n= 3) into Singer/Songwriter (19; n=5)
+Latin (11; n=1) + World (21; n=1) into World (21; n=2)
+Dance (4; n= 15) + Disco (23; n= 112) into Disco (23; n= 127)
 
 V(gw)$genre <- ifelse(
   !V(gw)$type,
