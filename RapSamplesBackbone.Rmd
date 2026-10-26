@@ -24,6 +24,23 @@ knitr::opts_chunk$set(
 
 This document builds a visualization of the rap samples that Jenn Lena used in her dissertation and subsequent *Poetics* paper -@lena2004. Mark Pachucki provided the raw files that I am working from as part of a replication package for their related co-authored later *Poetics* paper -@lena2013.
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 10,
+  fig.height = 8,
+  dpi = 300
+)
+```
+
+Right now, I'm working in the old "RapSamplesBackbone.Rmd" file to build out what's going here. Then as chunks work, porting them in for this as a "final" version.
+
+# Overview
+
+This document builds a visualization of the rap samples that Jenn Lena used in her dissertation and subsequent *Poetics* paper -@lena2004. Mark Pachucki provided the raw files that I am working from as part of a replication package for their related co-authored later *Poetics* paper -@lena2013.
+
 
 ## Setup 
 
@@ -41,6 +58,7 @@ library(tibble)
 library(rlang)
 library(backbone)
 library(patchwork)
+library(RColorBrewer)
 
 df <- readRDS("data/JL_samples.rds")
 ```
@@ -125,7 +143,7 @@ sampled_artist_attributes <- samp %>%
   distinct(sampled_artist_id, .keep_all = TRUE)
 # I'm not sure how much we're going to use the sampling side here, but just in case, those too.
 rap_song_attributes <- samp %>%
-  select(rap_song_id, rap_artist, rap_song, year) %>%
+  select(rap_song_id, rap_artist_id, rap_artist, rap_genre, rap_song, year) %>%
   distinct(rap_song_id, .keep_all = TRUE)
 
 V(gw)$artist <- ifelse(
@@ -147,6 +165,15 @@ V(gw)$year <- ifelse(
   NA # doesn't apply to sampled artists
 )
 
+V(gw)$rap_artist_id <- ifelse(
+  V(gw)$type,
+  rap_song_attributes$rap_artist_id[
+    match(V(gw)$name, rap_song_attributes$rap_song_id)
+  ],
+  NA # doesn't apply to sampled artists
+)
+
+############ Genres #################
 # This one's key for the analyses here
 # collapsing the broad genre categories to the analytic set
 sampled_artist_attributes <- sampled_artist_attributes %>%
@@ -154,63 +181,87 @@ sampled_artist_attributes <- sampled_artist_attributes %>%
    new_genre = case_when(
       sampled_genre %in% c(2,3) ~ "blues", # + country (N=1)
       sampled_genre == 10 ~ "jazz",
-      sampled_genre %in% c(1, 18) ~ "rock", # + alt (N=7)
+      sampled_genre %in% c(1, 6, 18, 19) ~ "pop & rock", # + alt (N=7) + singer/songwriter (3) + folk (2)
+      sampled_genre %in% c(4,23) ~ "disco", # + dance (15)
       sampled_genre %in% c(15,24) ~ "funk and r&b",
       sampled_genre == 16 ~ "soul",
       sampled_genre == 8 ~ "rap",
-      sampled_genre == 22 ~ "comedy & vocal",
-      sampled_genre == 17 ~ "reggae",
-      sampled_genre %in% c(5, 14, 25) ~ "various"
+      sampled_genre %in% c(7,20,22) ~ "comedy & vocal",
+      sampled_genre %in% c(11,17,21) ~ "reggae", # + latin & world (1 each)
+      sampled_genre %in% c(5, 12, 14, 25) ~ "various"
     )) # 13, 9 are null
-
-—> soul, funk and r&b; jazz; pop and rock; blues; comedy; old school rap; reggae; and various (e.g., traditional pop, salsa, electronica).
-
-## hoping to "relabel" those meaningfully before we're done.    
-4 Dance
-5 Electronica
-6 Folk
-7 Gospel-Inspirational
-8 Hip Hop or Rap
-9 Indie Rock
-10 Jazz
-11 Latin
-12 Misc. (includes spoken word, soundtracks)
-13 New Age
-14 Pop
-16 Soul
-17 Reggae
-18 Rock
-19 Singer/Songwriter
-20 Vocal
-21 World
-22 Comedy
-23 Disco
-
-
-
-Two of the categories were ultimately null sets: Indie Rock (9) and New Age (13).  Those codes were eliminated.  Several of the categories had small N’s and were conceptually similar to one another.  Therefore, they were collapsed as follows:
-
-Gospel-Inspirational (7; n= 1) + Vocal (20; n= 4) into Vocal (20; n= 5)
-Folk (6; n= 2) + Singer/Songwriter (19; n= 3) into Singer/Songwriter (19; n=5)
-Latin (11; n=1) + World (21; n=1) into World (21; n=2)
-Dance (4; n= 15) + Disco (23; n= 112) into Disco (23; n= 127)
 
 V(gw)$genre <- ifelse(
   !V(gw)$type,
   sampled_artist_attributes$new_genre[match(V(gw)$name, sampled_artist_attributes$sampled_artist_id)],
   NA # I don't want to have a genre attached to the sampling songs
 )
-## making it plotable
-unique_genres <- unique(na.omit(V(gw)$genre))
-genre_colors  <- rainbow(length(unique_genres))
+
+# making it plotable
+unique_genres <- sort(unique(na.omit(V(gw)$genre)))
+genre_colors <- brewer.pal(
+  length(unique_genres),
+  "Set3"
+)
 names(genre_colors) <- unique_genres
-# sampling songs (type = TRUE) become white; sampled artists color by genre
-V(gw)$color <- ifelse(
-  V(gw)$type, 
-  "white", 
+
+V(gw)$genre_color <- ifelse(
+  V(gw)$type,
+  NA,
   genre_colors[V(gw)$genre]
 )
-# Right now the above ONLY colors sampled artist genre, not rap artists' sub-genre
+# sampling songs (type = TRUE) become white; sampled artists color by genre
+
+# Now for the sampling song genres
+rap_song_attributes <- rap_song_attributes %>%
+  mutate(
+    new_genre = rap_genre
+  )
+
+V(gw)$rap_genre <- ifelse(
+  V(gw)$type,
+  rap_song_attributes$new_genre[
+    match(V(gw)$name, rap_song_attributes$rap_song_id)
+  ],
+  NA # I don't want to have a rap genre attached to the sampled artists
+)
+
+# making it plotable
+unique_rap_genres <- sort(unique(na.omit(V(gw)$rap_genre)))
+
+rap_genre_colors <- c(
+  brewer.pal(8, "Dark2"),
+  brewer.pal(5, "Set1")
+)
+
+rap_genre_colors <- rap_genre_colors[seq_along(unique_rap_genres)]
+names(rap_genre_colors) <- unique_rap_genres
+
+V(gw)$rap_genre_color <- ifelse(
+  V(gw)$type,
+  rap_genre_colors[V(gw)$rap_genre],
+  NA
+)
+
+rap_genre_labels <- c(
+  B  = "booty",
+  C  = "crossover",
+  D  = "don",
+  Ds = "dirty south",
+  Eg = "east coast gangsta",
+  G  = "g-funk",
+  J  = "jazz",
+  N  = "new jack swing",
+  Pa = "parody",
+  Pi = "pimp",
+  Ra = "race",
+  Ro = "rock",
+  Wg = "west coast gangsta"
+)
+
+V(gw)$rap_genre_label <- unname(
+  rap_genre_labels[V(gw)$rap_genre]
+)
 
 ### Given a bunch of data manipulations above, I want to run one sanity check on something that was multiply assigned and thus "checkable" to ensure all was behaving as anticipated:
 # dq_check <- igraph::as_data_frame(gw, what = "edges") %>%
@@ -222,80 +273,105 @@ mw <- t(as.matrix(as_biadjacency_matrix(gw, attr = "weight")))
 
 ```
 
+I have a few things there. In particular:
+
+- mw - weighted sampling matrix (songs * artists)
+- gw - weighted igraph object (bipartite)
+
+
 ```{r build-artxart}
-a <-  graph_from_data_frame(data.frame(from = samp$rap_artist_id, to = samp$sampled_artist_id), directed = FALSE)
+
+## first as a graph, collapsing sampling songs to sampling artists
+aw_edges <- igraph::as_data_frame(gw, what = "edges") %>%
+  mutate(
+    from_type = V(gw)$type[match(from, V(gw)$name)],
+    to_type = V(gw)$type[match(to, V(gw)$name)],
+    rap_artist_id = ifelse(
+      from_type,
+      V(gw)$rap_artist_id[match(from, V(gw)$name)],
+      V(gw)$rap_artist_id[match(to, V(gw)$name)]
+    ),
+    sampled_artist_id = ifelse(
+      from_type,
+      to,
+      from
+    )
+  ) %>%
+  select(rap_artist_id, sampled_artist_id, weight)
+
+aw <- graph_from_data_frame(
+  aw_edges,
+  directed = FALSE
+)
 
 ## converting to 2-mode
-V(a)$type <- V(a)$name %in% samp$rap_artist_id
+V(aw)$type <- V(aw)$name %in% rap_song_attributes$rap_artist_id
+
 ## collapsing multiple ties to edge weights
-E(a)$weight <- 1 #needs a base
-aw <- igraph::simplify(a, remove.multiple = TRUE, remove.loops = TRUE,
-  edge.attr.comb = list(weight = "sum", .default = "ignore"))
+aw <- igraph::simplify(
+  aw,
+  remove.multiple = TRUE,
+  remove.loops = TRUE,
+  edge.attr.comb = list(weight = "sum", .default = "ignore")
+)
 
-## let's reattach the nodal attributes for potential use later
-sampled_artist_attributes <- samp %>%
-  select(sampled_artist_id, sampled_artist, sampled_genre) %>%
-  distinct(sampled_artist_id, .keep_all = TRUE)
-# genre is song-specific, not artist on the target side, so need to reconsider that use here...
-rap_artist_attributes <- samp %>%
-  select(rap_artist_id, rap_artist) %>%
-  distinct(rap_artist_id, .keep_all = TRUE)
-
-
+## let's reattach the nodal attributes already carried by gw
 V(aw)$artist <- ifelse(
-  V(aw)$type, 
-  rap_artist_attributes$rap_artist[match(V(gw)$name, rap_artist_attributes$rap_artist_id)],
-  sampled_artist_attributes$sampled_artist[match(V(gw)$name, sampled_artist_attributes$sampled_artist_id)]
+  V(aw)$type,
+  rap_song_attributes$rap_artist[
+    match(V(aw)$name, rap_song_attributes$rap_artist_id)
+  ],
+  sampled_artist_attributes$sampled_artist[
+    match(V(aw)$name, sampled_artist_attributes$sampled_artist_id)
+  ]
 )
 
 # This one's key for the analyses here
-# collapsing the broad genre categories to the analytic set
-sampled_artist_attributes <- sampled_artist_attributes %>%
-  mutate(
-   new_genre = case_when(
-      sampled_genre == 8 ~ "a",
-      sampled_genre == 10 ~ "b",
-      sampled_genre == 14 ~ "c",
-      sampled_genre == 15 ~ "d",
-      sampled_genre == 16 ~ "e",
-      sampled_genre == 18 ~ "f",
-      sampled_genre == 23 ~ "g",
-      sampled_genre == 24 ~ "h",
-      sampled_genre %in% c(8,10,14,15,16,18,23,24) == F ~ "v"
-    ))
-## hoping to "relabel" those meaningfully before we're done.    
-
+# use the collapsed source-genre classification already created above
 V(aw)$genre <- ifelse(
   !V(aw)$type,
-  sampled_artist_attributes$new_genre[match(V(aw)$name, sampled_artist_attributes$sampled_artist_id)],
-  NA # I don't want to have a genre attached to the sampling songs
-)
-## making it plotable
-unique_genres <- unique(na.omit(V(aw)$genre))
-genre_colors  <- rainbow(length(unique_genres))
-names(genre_colors) <- unique_genres
-# sampling songs (type = TRUE) become white; sampled artists color by genre
-V(aw)$color <- ifelse(
-  V(aw)$type, 
-  "white", 
-  genre_colors[V(aw)$genre]
+  sampled_artist_attributes$new_genre[
+    match(V(aw)$name, sampled_artist_attributes$sampled_artist_id)
+  ],
+  NA # I don't want to have a genre attached to the sampling artists
 )
 
-maw <- t(as.matrix(as_biadjacency_matrix(aw, attr = "weight")))
+# use the same sampled-artist genre colors already created above
+V(aw)$genre_color <- ifelse(
+  !V(aw)$type,
+  genre_colors[V(aw)$genre],
+  NA
+)
+
+## and converting that to matrix form
+maw <- t(
+  as.matrix(
+    as_biadjacency_matrix(aw, attr = "weight")
+  )
+)
+
 ```
 
 # Generating an *Exploratory* plot
 I'm actually going to come back to this one last, ironically enough to the point of this exercise.
 
 ```{r plot-panelA, include=T}
-# We're going to add sampling degree to the sampled artists as a nodal attribute:
+
+# We're going to add sampling strength to the sampled artists as a nodal attribute:
 all_gw_strengths <- strength(gw)
 names(all_gw_strengths) <- V(gw)$name
 V(gw)$degree <- all_gw_strengths[V(gw)$name]
+
 vsize <- rep(2, vcount(gw))
 names(vsize) <- V(gw)$name
+
 sampled_artist_names <- V(gw)$name[!V(gw)$type]
-vsize[sampled_artist_names] <- scales::rescale(log1p(all_gw_strengths[sampled_artist_names]), to = c(1, 4))
+
+vsize[sampled_artist_names] <- scales::rescale(
+  log1p(all_gw_strengths[sampled_artist_names]),
+  to = c(1, 4)
+)
+
 V(gw)$vsize <- vsize
 
 source("src/igraph-triangles.R")
@@ -303,109 +379,176 @@ V(gw)$shape <- ifelse(V(gw)$type, "triangle", "circle")
 
 # likely only going to plot the giant component, but let's carry the small ones just in case
 components_list <- decompose(gw)
-components_list <- components_list[order(sapply(components_list, vcount), decreasing = TRUE)]
+components_list <- components_list[
+  order(sapply(components_list, vcount), decreasing = TRUE)
+]
+
 g_core <- components_list[[1]]
 layout_core <- layout_with_fr(g_core)
 
 # now we're going to strip off, and plot a grid of the smaller components
 minor_components <- components_list[2:length(components_list)]
 g_small <- disjoint_union(minor_components)
+
 vsize_small <- vsize[V(g_small)$name] # just the ones that are still here
-all_coords_small <- matrix(0, nrow = vcount(g_small), ncol = 2)
+
+# some plotting config
+all_coords_small <- matrix(
+  0,
+  nrow = vcount(g_small),
+  ncol = 2
+)
 rownames(all_coords_small) <- V(g_small)$name
-max_row_width <- 36  # The virtual horizontal canvas size for the tile panel
-padding <- 1.5       # Gutter separation buffer between adjacent components
-  current_x <- 0
-  current_y <- 0
-  max_height_in_row <- 0
+max_row_width <- 36  
+padding <- 1.5       
+current_x <- 0
+current_y <- 0
+max_height_in_row <- 0
   
-  # Step through each minor component to translate its true scale geometry
-  for (i in seq_along(minor_components)) {
-    comp <- minor_components[[i]]
-    comp_coords <- layout_with_fr(comp)
-    
-    # 1. Measure the native, honest spatial footprint of the layout
-    comp_width <- max(comp_coords[, 1]) - min(comp_coords[, 1])
-    comp_height <- max(comp_coords[, 2]) - min(comp_coords[, 2])
-    
-    # 2. Zero-center coordinates so translations don't distort shapes
-    comp_coords[, 1] <- comp_coords[, 1] - mean(comp_coords[, 1])
-    comp_coords[, 2] <- comp_coords[, 2] - mean(comp_coords[, 2])
-    
-    # 3. FIX: Determine if adding this component spills past our maximum row width boundary.
-    # If it exceeds the boundary, automatically trigger a clean line break.
-    if (current_x + comp_width > max_row_width && current_x > 0) {
-      current_x <- 0
-      current_y <- current_y - max_height_in_row - padding
-      max_height_in_row <- 0
-    }
-    
-    # 4. Map coordinates precisely onto the current visual baseline tracking point
-    comp_coords[, 1] <- comp_coords[, 1] + current_x + (comp_width / 2)
-    comp_coords[, 2] <- comp_coords[, 2] + current_y - (comp_height / 2)
-    
-    # Commit coordinates to master layout tracker matrix
-    all_coords_small[V(comp)$name, ] <- comp_coords
-    
-    # Record the tallest component processed in this row to compute the next row offset
-    if (comp_height > max_height_in_row) {
-      max_height_in_row = comp_height
-    }
-    
-    # 5. Move horizontal cursor ahead by the actual width of this component plus padding
-    current_x <- current_x + comp_width + padding
+# Step through each minor component to translate its true scale geometry
+for (i in seq_along(minor_components)) {
+  comp <- minor_components[[i]]
+  comp_coords <- layout_with_fr(comp)
+  comp_width <- max(comp_coords[, 1]) - min(comp_coords[, 1])
+  comp_height <- max(comp_coords[, 2]) - min(comp_coords[, 2])
+  comp_coords[, 1] <- comp_coords[, 1] - mean(comp_coords[, 1])
+  comp_coords[, 2] <- comp_coords[, 2] - mean(comp_coords[, 2])
+  if (current_x + comp_width > max_row_width && current_x > 0) {
+    current_x <- 0
+    current_y <- current_y - max_height_in_row - padding
+    max_height_in_row <- 0
   }
+  comp_coords[, 1] <- comp_coords[, 1] + current_x + (comp_width / 2)
+  comp_coords[, 2] <- comp_coords[, 2] + current_y - (comp_height / 2)
+  all_coords_small[V(comp)$name, ] <- comp_coords
+  if (comp_height > max_height_in_row) {
+    max_height_in_row = comp_height
+  }
+  current_x <- current_x + comp_width + padding
+}
 
-# exploratory plot of just the giant component
-source("src/igraph-triangles.R")
+# colors for the sampled artists only;
+# sampling songs remain white/neutral in the EDA plot
+core_colors <- ifelse(
+  V(g_core)$type,
+  "white",
+  V(g_core)$genre_color
+)
+small_colors <- ifelse(
+  V(g_small)$type,
+  "white",
+  V(g_small)$genre_color
+)
 
-# Exploratory plot of just the giant component
-plot(g_core, 
-     layout = layout_core, 
-     vertex.size = V(g_core)$vsize, 
-     vertex.label = NA,
-     vertex.shape = c("circle", "triangle")[V(g_core)$type + 1], 
-     margin = 0.15,
-     edge.width = 0.5,
-     edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.15))
+###### Actual plots
+# giant component only
+png(
+  filename = "img/Lena_EDA-gconly.png",
+  width = 2400,
+  height = 2000,
+  res = 300
+)
 
-title(main = "Bipartite Sampling Graph", line = 2.5, cex.main = 1.5)
-title(main = "large component only", line = 1.2, cex.main = 1.0, font.main = 1)
+par(mar = c(1, 1, 3, 1))
 
-par(mfrow = c(1, 2), mar = c(1, 1, 3, 1))
-plot(g_core, 
-     layout = layout_core, 
-     vertex.size = V(g_core)$vsize, 
-     vertex.label = NA,
-     margin = 0.15,
-     edge.width = 0.5,
-     edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.15))
+plot(
+  g_core, 
+  layout = layout_core, 
+  vertex.size = V(g_core)$vsize, 
+  vertex.label = NA,
+  vertex.shape = c("circle", "triangle")[V(g_core)$type + 1],
+  vertex.color = core_colors,
+  margin = 0.15,
+  edge.width = 0.5,
+  edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.15)
+)
 
-plot(g_small, 
-       layout = all_coords_small, 
-       vertex.size = vsize_small, 
-       vertex.label = NA,
-       edge.width = 0.6,
-       edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.3))
+title(
+  main = "Bipartite Sampling Graph",
+  line = 2.5,
+  cex.main = 1.5
+)
 
-mtext("Bipartite Rap Samples Network", 
-      side = 3, 
-      outer = TRUE, 
-      line = 1, 
-      cex = 1.5, 
-      font = 2)
+title(
+  main = "large component only",
+  line = 1.2,
+  cex.main = 1.0,
+  font.main = 1
+)
+
+dev.off()
+
+## w/ small components tiled
+png(
+  filename = "img/Lena_EDA-full.png",
+  width = 3000,
+  height = 1700,
+  res = 300
+)
+
+par(
+  mfrow = c(1, 2),
+  mar = c(1, 1, 3, 1)
+)
+
+# giant component
+plot(
+  g_core, 
+  layout = layout_core, 
+  vertex.size = V(g_core)$vsize, 
+  vertex.label = NA,
+  vertex.shape = c("circle", "triangle")[V(g_core)$type + 1],
+  vertex.color = core_colors,
+  margin = 0.15,
+  edge.width = 0.5,
+  edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.15)
+)
+
+# smaller components
+plot(
+  g_small, 
+  layout = all_coords_small, 
+  vertex.size = vsize_small, 
+  vertex.label = NA,
+  vertex.shape = c("circle", "triangle")[V(g_small)$type + 1],
+  vertex.color = small_colors,
+  margin = 0.15,
+  edge.width = 0.6,
+  edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.3)
+)
+
+mtext(
+  "Bipartite Rap Samples Network", 
+  side = 3, 
+  outer = TRUE, 
+  line = 1, 
+  cex = 1.5, 
+  font = 2
+)
 
 par(mfrow = c(1, 1))
 
+dev.off()
 
+
+#### A third potential (artist-artist version)
 V(aw)$shape <- ifelse(V(aw)$type, "triangle", "circle")
+
 all_aw_degrees <- degree(aw)
 names(all_aw_degrees) <- V(aw)$name
+
 V(aw)$degree <- all_aw_degrees[V(aw)$name]
+
 vsize_aw <- rep(2, vcount(aw))
 names(vsize_aw) <- V(aw)$name
+
 sampled_artist_names_aw <- V(aw)$name[!V(aw)$type]
-vsize_aw[sampled_artist_names_aw] <- scales::rescale(log1p(all_aw_degrees[sampled_artist_names_aw]), to = c(1, 4))
+
+vsize_aw[sampled_artist_names_aw] <- scales::rescale(
+  log1p(all_aw_degrees[sampled_artist_names_aw]),
+  to = c(1, 4)
+)
+
 V(aw)$vsize <- vsize_aw
 
 # artist_deg <- degree(aw, v = V(aw)[!V(aw)$type])
@@ -414,21 +557,93 @@ V(aw)$vsize <- vsize_aw
 # names(vsize) <- V(aw)$name
 # V(aw)$vsize <- vsize
 
-plot(aw,
-     vertex.size = V(aw)$vsize,
-     vertex.label = NA,
-     vertex.shape = c("circle", "triangle")[V(aw)$type + 1],
-     margin = 0.15,
-     edge.width = 0.5,
-     edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.15))
+plot(
+  aw,
+  vertex.size = V(aw)$vsize,
+  vertex.label = NA,
+  vertex.shape = c("circle", "triangle")[V(aw)$type + 1],
+  vertex.color = ifelse(
+    V(aw)$type,
+    NA,
+    V(aw)$genre_color
+  ),
+  margin = 0.15,
+  edge.width = 0.5,
+  edge.color = rgb(0.3, 0.3, 0.3, alpha = 0.15)
+)
 
-title(main = "Bipartite Artists Graph", line = 2.5, cex.main = 1.5)
-
+title(
+  main = "Bipartite Artists Graph",
+  line = 2.5,
+  cex.main = 1.5
+)
 ```
 
-I'm way down a rabbit hole or rethinking how to model Jenn's claims. Backbone appears to have been a distraction.
-
 # Generating a "hybrid" plot (I'll be coming back to this one)
+
+```{r coreset, include=T}
+
+# sampled-artist projection
+artist <- mw %*% t(mw)
+diag(artist) <- 0
+
+g_artist <- graph_from_adjacency_matrix(
+  artist,
+  mode = "undirected",
+  weighted = TRUE,
+  diag = FALSE
+)
+
+# backbone reduction of the sampled-artist projection
+bb <- backbone(artist)
+
+# convert the backbone result to a graph
+g_artist_backbone <- graph_from_adjacency_matrix(
+  bb,
+  mode = "undirected",
+  weighted = TRUE,
+  diag = FALSE
+)
+
+# identify the core sampled artists
+# using the same 95th-percentile sampling-strength heuristic
+sampled_strength <- strength(
+  gw,
+  v = V(gw)[!V(gw)$type],
+  weights = E(gw)$weight
+)
+
+core_threshold <- quantile(
+  sampled_strength,
+  0.95,
+  na.rm = TRUE
+)
+
+core_names <- V(g_artist)$name[
+  V(g_artist)$name %in%
+    names(sampled_strength)[sampled_strength >= core_threshold]
+]
+
+# extract the core graph from the backbone
+gas_core <- induced_subgraph(
+  g_artist_backbone,
+  vids = V(g_artist_backbone)[
+    V(g_artist_backbone)$name %in% core_names
+  ]
+)
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Generating a modeled plot
 ```{r plot-modeled, include=T}
