@@ -28,10 +28,6 @@ knitr::opts_chunk$set(
 
 Right now, I'm working in the old "RapSamplesBackbone.Rmd" file to build out what's going here. Then as chunks work, porting them in for this as a "final" version.
 
-# Overview
-
-This document builds a visualization of the rap samples that Jenn Lena used in her dissertation and subsequent *Poetics* paper -@lena2004. Mark Pachucki provided the raw files that I am working from as part of a replication package for their related co-authored later *Poetics* paper -@lena2013.
-
 
 ## Setup 
 
@@ -571,6 +567,115 @@ title(
   cex.main = 1.5
 )
 ```
+
+Next we're going to extract the core (here the 95th %ile) of sampled artists, and preserve the co-sampling edges among those as a structural highlight.
+
+```{r coreset, include=T}
+
+# sampled-artist projection
+artist <- t(mw) %*% mw
+diag(artist) <- 0
+
+g_artist <- graph_from_adjacency_matrix(
+  artist,
+  mode = "undirected",
+  weighted = TRUE,
+  diag = FALSE
+)
+
+# identify the core sampled artists
+# using the 95th-percentile sampling-strength heuristic
+sampled_strength <- strength(
+  gw,
+  v = V(gw)[!V(gw)$type],
+  weights = E(gw)$weight
+)
+
+core_threshold <- quantile(
+  sampled_strength,
+  0.95,
+  na.rm = TRUE
+)
+
+core_names <- names(sampled_strength)[
+  sampled_strength >= core_threshold
+]
+
+# extract the relationships among the core sampled artists
+# this is the structural backbone used for the visualization
+gas_core <- induced_subgraph(
+  g_artist,
+  vids = V(g_artist)[
+    V(g_artist)$name %in% core_names
+  ]
+)
+
+```
+**gas_core** is the key output there.
+
+## Build the layout projection layers
+
+```{r layers, includ=T}
+## building the two within-layer projections directly from the bipartite graph
+
+projections <- igraph::bipartite_projection(
+  gw,
+  multiplicity = TRUE,
+  probe1 = V(gw)[!V(gw)$type][1],
+  which = "both",
+  remove.type = FALSE
+)
+
+g_artist <- projections[[1]]
+g_song   <- projections[[2]]
+
+## layering the gas_core info from above onto the sampled artist layer
+# identify the sampled-artist core on the full projection
+core_names <- V(gas_core)$name
+
+V(g_artist)$is_core <- V(g_artist)$name %in% core_names
+
+# identify which edges in the sampled artists' projection belong to the core skeleton
+core_edge_names <- apply(
+  as_edgelist(gas_core, names = TRUE),
+  1,
+  function(x) paste(sort(x), collapse = "||")
+)
+
+artist_edge_names <- apply(
+  as_edgelist(g_artist, names = TRUE),
+  1,
+  function(x) paste(sort(x), collapse = "||")
+)
+
+E(g_artist)$is_core_edge <- artist_edge_names %in% core_edge_names
+
+# lastly, let's retain the "inter-layer" edges (actual samplings)
+# ------------------------------------------------------------
+# Observed inter-layer sampling ties
+# ------------------------------------------------------------
+
+interlayer_edges <- igraph::as_data_frame(
+  gw,
+  what = "edges"
+) %>%
+  mutate(
+    from_type = V(gw)$type[match(from, V(gw)$name)],
+    to_type   = V(gw)$type[match(to, V(gw)$name)]
+  ) %>%
+  mutate(
+    song = if_else(from_type, from, to),
+    sampled_artist = if_else(from_type, to, from)
+  ) %>%
+  select(
+    song,
+    sampled_artist,
+    weight
+  )
+```
+
+That has all the elements we need. Next we're going to build the layouts
+
 
 
 # References

@@ -584,7 +584,7 @@ title(
 ```{r coreset, include=T}
 
 # sampled-artist projection
-artist <- mw %*% t(mw)
+artist <- t(mw) %*% mw
 diag(artist) <- 0
 
 g_artist <- graph_from_adjacency_matrix(
@@ -594,19 +594,8 @@ g_artist <- graph_from_adjacency_matrix(
   diag = FALSE
 )
 
-# backbone reduction of the sampled-artist projection
-bb <- backbone(artist)
-
-# convert the backbone result to a graph
-g_artist_backbone <- graph_from_adjacency_matrix(
-  bb,
-  mode = "undirected",
-  weighted = TRUE,
-  diag = FALSE
-)
-
 # identify the core sampled artists
-# using the same 95th-percentile sampling-strength heuristic
+# using the 95th-percentile sampling-strength heuristic
 sampled_strength <- strength(
   gw,
   v = V(gw)[!V(gw)$type],
@@ -619,18 +608,19 @@ core_threshold <- quantile(
   na.rm = TRUE
 )
 
-core_names <- V(g_artist)$name[
-  V(g_artist)$name %in%
-    names(sampled_strength)[sampled_strength >= core_threshold]
+core_names <- names(sampled_strength)[
+  sampled_strength >= core_threshold
 ]
 
-# extract the core graph from the backbone
+# extract the relationships among the core sampled artists
+# this is the structural backbone used for the visualization
 gas_core <- induced_subgraph(
-  g_artist_backbone,
-  vids = V(g_artist_backbone)[
-    V(g_artist_backbone)$name %in% core_names
+  g_artist,
+  vids = V(g_artist)[
+    V(g_artist)$name %in% core_names
   ]
 )
+
 ```
 
 
