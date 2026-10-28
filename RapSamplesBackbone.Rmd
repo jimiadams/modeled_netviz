@@ -578,8 +578,11 @@ title(
   cex.main = 1.5
 )
 ```
-
+############################## 
 # Generating a "hybrid" plot (I'll be coming back to this one)
+############################## 
+
+# First we need to identify the core set within the projected layer (keeping it separate to be able to later chunk out the analytic code from the plotting specific elements - I want to be able to simply import the results objects into the plotting steps--that latter part is what I'll likely post for the modeled viz paper.)
 
 ```{r coreset, include=T}
 
@@ -620,8 +623,8 @@ gas_core <- induced_subgraph(
     V(g_artist)$name %in% core_names
   ]
 )
-
 ```
+
 
 
 
@@ -670,11 +673,12 @@ V(gaa)$degree <- sampled_awdegree
 
 cdf_s <- ecdf(sampled_swdegree)
 cdf_a <- ecdf(sampled_awdegree)
+
 # Let's look at what threshold to use
 (core_nodes_gas <- V(gas)[cdf_s(V(gas)$degree) >= 0.95])
 (core_nodes_gaa <- V(gaa)[cdf_a(V(gaa)$degree) >= 0.95])
-# These are equivalent since they're the qweighted versions...
 
+# These are equivalent since they're the weighted versions...
 gas_core <- induced_subgraph(gas, vids = core_nodes_gas)
 gaa_core <- induced_subgraph(gaa, vids = core_nodes_gaa)
 

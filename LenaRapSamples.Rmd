@@ -46,6 +46,7 @@ library(rlang)
 library(backbone)
 library(patchwork)
 library(RColorBrewer)
+library(graphlayouts)
 
 df <- readRDS("data/JL_samples.rds")
 ```
@@ -615,7 +616,7 @@ gas_core <- induced_subgraph(
 
 ## Build the layout projection layers
 
-```{r layers, includ=T}
+```{r layers, include=T}
 ## building the two within-layer projections directly from the bipartite graph
 
 projections <- igraph::bipartite_projection(
@@ -674,8 +675,17 @@ interlayer_edges <- igraph::as_data_frame(
   )
 ```
 
-That has all the elements we need. Next we're going to build the layouts
-
-
+That has all the elements we need. Next we're going to build the layouts.
+```{r layouts}
+set.seed(123)
+layout_song <- layout_with_fr(
+  g_song,
+  weights = E(g_song)$weight
+)
+layout_artist <- layout_with_fr(
+  g_artist,
+  weights = E(g_artist)$weight
+)
+```
 
 # References
