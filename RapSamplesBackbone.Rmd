@@ -1297,3 +1297,5 @@ dev.off()
 knitr::include_graphics(
   "img/Lena_multilayer_empirical.png"
 )
+
+```
