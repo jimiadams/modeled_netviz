@@ -684,3 +684,616 @@ gaa_core <- induced_subgraph(gaa, vids = core_nodes_gaa)
 
 ```
 
+
+
+___
+
+# Temporary
+Below here is a current version that's simply producing a strictly empirical parallel to the intended plot. This is what I'm including for the initial submission to the SN special issue. I'll update for any revisions.
+
+```{r empirical-multilayer, include=T}
+
+# ============================================================
+# Empirical multilayer visualization
+#
+# gw       = observed sampling-song × sampled-artist network
+# g_song   = sampling-song projection
+# g_artist = sampled-artist projection
+# gas_core = 26-node / 91-edge sampled-artist core
+#
+# The plot:
+#   - two literal planes
+#   - independent FR layouts within each layer
+#   - neutral within-layer projected ties
+#   - highly de-emphasized observed sampling ties between layers
+#   - sampled-artist nodes sized by sampling strength
+#   - sampled-artist core/backbone emphasized
+#   - sampled-artist source genre shown on lower layer
+#   - rap sub-genre shown on upper layer
+#   - no node labels
+# ============================================================
+
+
+# ------------------------------------------------------------
+# 1. BUILD THE TWO WITHIN-LAYER PROJECTIONS
+# ------------------------------------------------------------
+
+## building the two within-layer projections directly from the
+## already-attributed bipartite graph
+
+projections <- igraph::bipartite_projection(
+  gw,
+  multiplicity = TRUE,
+  probe1 = V(gw)[!V(gw)$type][1],
+  which = "both",
+  remove.type = FALSE
+)
+
+# probe1 is a sampled artist, so the sampled-artist projection
+# comes first and the sampling-song projection second
+g_artist <- projections[[1]]
+g_song   <- projections[[2]]
+
+
+# ------------------------------------------------------------
+# 2. REATTACH THE ATTRIBUTES ALREADY CARRIED BY gw
+# ------------------------------------------------------------
+
+# sampled-artist attributes
+artist_lookup <- tibble(
+  name = as.character(V(gw)$name),
+  type = V(gw)$type,
+  artist = V(gw)$artist,
+  genre = V(gw)$genre,
+  genre_color = V(gw)$genre_color
+) %>%
+  filter(!type) %>%
+  distinct(name, .keep_all = TRUE)
+
+V(g_artist)$artist <- artist_lookup$artist[
+  match(V(g_artist)$name, artist_lookup$name)
+]
+
+V(g_artist)$genre <- artist_lookup$genre[
+  match(V(g_artist)$name, artist_lookup$name)
+]
+
+V(g_artist)$genre_color <- artist_lookup$genre_color[
+  match(V(g_artist)$name, artist_lookup$name)
+]
+
+# sampling-song attributes
+song_lookup <- tibble(
+  name = as.character(V(gw)$name),
+  type = V(gw)$type,
+  artist = V(gw)$artist,
+  song_title = V(gw)$song_title,
+  year = V(gw)$year,
+  rap_genre = V(gw)$rap_genre,
+  rap_genre_label = V(gw)$rap_genre_label,
+  rap_genre_color = V(gw)$rap_genre_color
+) %>%
+  filter(type) %>%
+  distinct(name, .keep_all = TRUE)
+
+V(g_song)$artist <- song_lookup$artist[
+  match(V(g_song)$name, song_lookup$name)
+]
+
+V(g_song)$song_title <- song_lookup$song_title[
+  match(V(g_song)$name, song_lookup$name)
+]
+
+V(g_song)$year <- song_lookup$year[
+  match(V(g_song)$name, song_lookup$name)
+]
+
+V(g_song)$rap_genre <- song_lookup$rap_genre[
+  match(V(g_song)$name, song_lookup$name)
+]
+
+V(g_song)$rap_genre_label <- song_lookup$rap_genre_label[
+  match(V(g_song)$name, song_lookup$name)
+]
+
+V(g_song)$rap_genre_color <- song_lookup$rap_genre_color[
+  match(V(g_song)$name, song_lookup$name)
+]
+
+
+# ------------------------------------------------------------
+# 3. HIGHLIGHT THE EMPIRICAL CORE ON THE SAMPLED-ARTIST LAYER
+# ------------------------------------------------------------
+
+# gas_core is the empirically identified core:
+# 26 sampled artists with their 91 observed projected ties
+
+core_names <- as.character(V(gas_core)$name)
+
+V(g_artist)$is_core <- V(g_artist)$name %in% core_names
+
+
+# identify which edges in the full sampled-artist projection
+# belong to the core skeleton
+core_edge_names <- apply(
+  as_edgelist(gas_core, names = TRUE),
+  1,
+  function(x) paste(sort(x), collapse = "||")
+)
+
+artist_edge_names <- apply(
+  as_edgelist(g_artist, names = TRUE),
+  1,
+  function(x) paste(sort(x), collapse = "||")
+)
+
+E(g_artist)$is_core_edge <- artist_edge_names %in% core_edge_names
+
+
+# ------------------------------------------------------------
+# 4. SAMPLING STRENGTH FOR SAMPLED-ARTIST NODE SIZE
+# ------------------------------------------------------------
+
+sampled_strength <- strength(
+  gw,
+  v = V(gw)[!V(gw)$type],
+  weights = E(gw)$weight
+)
+
+names(sampled_strength) <- V(gw)$name
+
+V(g_artist)$sampling_strength <- sampled_strength[
+  V(g_artist)$name
+]
+
+# logged because sampling strength is strongly skewed
+V(g_artist)$plot_size <- scales::rescale(
+  log1p(V(g_artist)$sampling_strength),
+  to = c(1, 4.5)
+)
+
+
+# ------------------------------------------------------------
+# 5. RETAIN THE DIRECT OBSERVED INTER-LAYER TIES
+# ------------------------------------------------------------
+
+## these are the empirical sampling relationships themselves;
+## weight is retained in the object but will not be encoded visually
+
+interlayer_edges <- igraph::as_data_frame(
+  gw,
+  what = "edges"
+) %>%
+  mutate(
+    from_type = V(gw)$type[
+      match(from, V(gw)$name)
+    ],
+    to_type = V(gw)$type[
+      match(to, V(gw)$name)
+    ]
+  ) %>%
+  mutate(
+    song = if_else(
+      from_type,
+      from,
+      to
+    ),
+    sampled_artist = if_else(
+      from_type,
+      to,
+      from
+    )
+  ) %>%
+  select(
+    song,
+    sampled_artist,
+    weight
+  )
+
+
+# ------------------------------------------------------------
+# 6. INDEPENDENT FR LAYOUTS
+# ------------------------------------------------------------
+
+set.seed(123)
+
+layout_song <- layout_with_fr(
+  g_song,
+  weights = E(g_song)$weight
+)
+
+layout_artist <- layout_with_fr(
+  g_artist,
+  weights = E(g_artist)$weight
+)
+
+
+# ------------------------------------------------------------
+# 7. MAP EACH LAYOUT INTO ITS OWN LITERAL PLANE
+# ------------------------------------------------------------
+
+# The layout is normalized independently within each layer,
+# then mapped into the interior of a parallelogram.
+
+map_to_plane <- function(
+  layout,
+  xlim,
+  ylim,
+  pad = 0.08,
+  shear = 0
+) {
+  
+  x <- scales::rescale(
+    layout[, 1],
+    to = c(pad, 1 - pad)
+  )
+  
+  y <- scales::rescale(
+    layout[, 2],
+    to = c(pad, 1 - pad)
+  )
+  
+  plot_x <- xlim[1] +
+    x * diff(xlim) +
+    shear * (y - 0.5)
+  
+  plot_y <- ylim[1] +
+    y * diff(ylim)
+  
+  cbind(
+    x = plot_x,
+    y = plot_y
+  )
+}
+
+
+# upper = sampling-song layer
+song_xy <- map_to_plane(
+  layout_song,
+  xlim = c(-4.0, 4.0),
+  ylim = c(0.75, 2.45),
+  shear = 0.45
+)
+
+# lower = sampled-artist layer
+artist_xy <- map_to_plane(
+  layout_artist,
+  xlim = c(-4.0, 4.0),
+  ylim = c(-2.45, -0.75),
+  shear = -0.45
+)
+
+
+# ------------------------------------------------------------
+# 8. COORDINATE TABLES
+# ------------------------------------------------------------
+
+song_xy <- tibble(
+  name = V(g_song)$name,
+  x = song_xy[, "x"],
+  y = song_xy[, "y"]
+)
+
+artist_xy <- tibble(
+  name = V(g_artist)$name,
+  x = artist_xy[, "x"],
+  y = artist_xy[, "y"]
+)
+
+
+# ------------------------------------------------------------
+# 9. PROJECTED EDGE COORDINATES
+# ------------------------------------------------------------
+
+# sampling-song projection
+song_edges <- igraph::as_data_frame(
+  g_song,
+  what = "edges"
+) %>%
+  select(from, to, weight) %>%
+  left_join(
+    song_xy %>%
+      rename(
+        x_from = x,
+        y_from = y
+      ),
+    by = c("from" = "name")
+  ) %>%
+  left_join(
+    song_xy %>%
+      rename(
+        x_to = x,
+        y_to = y
+      ),
+    by = c("to" = "name")
+  )
+
+
+# sampled-artist projection
+artist_edges <- igraph::as_data_frame(
+  g_artist,
+  what = "edges"
+) %>%
+  select(from, to, weight) %>%
+  left_join(
+    artist_xy %>%
+      rename(
+        x_from = x,
+        y_from = y
+      ),
+    by = c("from" = "name")
+  ) %>%
+  left_join(
+    artist_xy %>%
+      rename(
+        x_to = x,
+        y_to = y
+      ),
+    by = c("to" = "name")
+  ) %>%
+  mutate(
+    core_edge = from %in% core_names &
+                to %in% core_names
+  )
+
+
+# core/backbone edges
+core_edges <- igraph::as_data_frame(
+  gas_core,
+  what = "edges"
+) %>%
+  select(from, to, weight) %>%
+  left_join(
+    artist_xy %>%
+      rename(
+        x_from = x,
+        y_from = y
+      ),
+    by = c("from" = "name")
+  ) %>%
+  left_join(
+    artist_xy %>%
+      rename(
+        x_to = x,
+        y_to = y
+      ),
+    by = c("to" = "name")
+  )
+
+
+# direct sampling ties
+interlayer_edges_xy <- interlayer_edges %>%
+  left_join(
+    song_xy %>%
+      rename(
+        x_song = x,
+        y_song = y
+      ),
+    by = c("song" = "name")
+  ) %>%
+  left_join(
+    artist_xy %>%
+      rename(
+        x_artist = x,
+        y_artist = y
+      ),
+    by = c("sampled_artist" = "name")
+  ) %>%
+  filter(
+    !is.na(x_song),
+    !is.na(y_song),
+    !is.na(x_artist),
+    !is.na(y_artist)
+  )
+
+
+# ------------------------------------------------------------
+# 10. PLANE GEOMETRY
+# ------------------------------------------------------------
+
+plane_corners <- function(
+  xlim,
+  ylim,
+  shear = 0
+) {
+  
+  x0 <- xlim[1]
+  x1 <- xlim[2]
+  y0 <- ylim[1]
+  y1 <- ylim[2]
+  
+  rbind(
+    c(x0 - shear / 2, y0),
+    c(x1 - shear / 2, y0),
+    c(x1 + shear / 2, y1),
+    c(x0 + shear / 2, y1)
+  )
+}
+
+sampling_plane <- plane_corners(
+  c(-4.0, 4.0),
+  c(0.75, 2.45),
+  shear = 0.45
+)
+
+sampled_plane <- plane_corners(
+  c(-4.0, 4.0),
+  c(-2.45, -0.75),
+  shear = -0.45
+)
+
+
+# ------------------------------------------------------------
+# 11. DRAW FUNCTION
+# ------------------------------------------------------------
+
+draw_empirical_multilayer <- function() {
+  
+  plot(
+    NA,
+    NA,
+    xlim = c(-5.0, 5.0),
+    ylim = c(-3.1, 3.1),
+    asp = 1,
+    axes = FALSE,
+    xlab = "",
+    ylab = "",
+    bty = "n"
+  )
+  
+  # ---- literal planes ----
+  polygon(
+    sampling_plane[,1],
+    sampling_plane[,2],
+    col = rgb(0.88, 0.88, 0.88, 0.80),
+    border = NA
+  )
+  
+  polygon(
+    sampled_plane[,1],
+    sampled_plane[,2],
+    col = rgb(0.88, 0.88, 0.88, 0.80),
+    border = NA
+  )
+  
+  
+  # ---- direct observed sampling ties ----
+  # deliberately very faint and unweighted
+  segments(
+    interlayer_edges_xy$x_song,
+    interlayer_edges_xy$y_song,
+    interlayer_edges_xy$x_artist,
+    interlayer_edges_xy$y_artist,
+    col = rgb(0.35, 0.35, 0.35, alpha = 0.035),
+    lwd = 0.4
+  )
+  
+  
+  # ---- sampling-song projected ties ----
+  # visible enough to reveal within-layer structure
+  song_width <- scales::rescale(
+    sqrt(song_edges$weight),
+    to = c(0.35, 1.1)
+  )
+  
+  segments(
+    song_edges$x_from,
+    song_edges$y_from,
+    song_edges$x_to,
+    song_edges$y_to,
+    col = rgb(0.30, 0.30, 0.30, alpha = 0.22),
+    lwd = song_width
+  )
+  
+  
+  # ---- sampled-artist projection, non-core ----
+  noncore_artist_edges <- artist_edges %>%
+    filter(!core_edge)
+  
+  segments(
+    noncore_artist_edges$x_from,
+    noncore_artist_edges$y_from,
+    noncore_artist_edges$x_to,
+    noncore_artist_edges$y_to,
+    col = rgb(0.30, 0.30, 0.30, alpha = 0.055),
+    lwd = 0.35
+  )
+  
+  
+  # ---- sampled-artist core/backbone ----
+  # weighted here because the core edge weights are substantively useful
+  core_width <- scales::rescale(
+    sqrt(core_edges$weight),
+    to = c(0.8, 2.6)
+  )
+  
+  segments(
+    core_edges$x_from,
+    core_edges$y_from,
+    core_edges$x_to,
+    core_edges$y_to,
+    col = rgb(0.20, 0.20, 0.20, alpha = 0.75),
+    lwd = core_width
+  )
+  
+  
+  # ---- sampling-song nodes ----
+  song_colors <- ifelse(
+    is.na(V(g_song)$rap_genre_color),
+    "white",
+    V(g_song)$rap_genre_color
+  )
+  
+  points(
+    song_xy$x,
+    song_xy$y,
+    pch = 24,
+    cex = 1.15,
+    bg = song_colors,
+    col = "white",
+    lwd = 0.45
+  )
+  
+  
+  # ---- sampled-artist nodes ----
+  artist_colors <- ifelse(
+    is.na(V(g_artist)$genre_color),
+    "grey70",
+    V(g_artist)$genre_color
+  )
+  
+  # peripheral sampled artists
+  peripheral <- !V(g_artist)$is_core
+  
+  points(
+    artist_xy$x[peripheral],
+    artist_xy$y[peripheral],
+    pch = 21,
+    cex = V(g_artist)$plot_size[peripheral] / 2,
+    bg = artist_colors[peripheral],
+    col = NA
+  )
+  
+  # core sampled artists
+  core <- V(g_artist)$is_core
+  
+  points(
+    artist_xy$x[core],
+    artist_xy$y[core],
+    pch = 21,
+    cex = V(g_artist)$plot_size[core] / 2,
+    bg = artist_colors[core],
+    col = "black",
+    lwd = 1.0
+  )
+}
+
+
+# ------------------------------------------------------------
+# 12. SAVE PRESENTATION-READY PNG
+# ------------------------------------------------------------
+
+dir.create(
+  "img",
+  showWarnings = FALSE
+)
+
+png(
+  filename = "img/Lena_multilayer_empirical.png",
+  width = 3600,
+  height = 3000,
+  res = 300
+)
+
+draw_empirical_multilayer()
+
+dev.off()
+
+
+# ------------------------------------------------------------
+# 13. SHOW IN THE RMD
+# ------------------------------------------------------------
+
+knitr::include_graphics(
+  "img/Lena_multilayer_empirical.png"
+)
