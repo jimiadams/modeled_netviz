@@ -60,14 +60,14 @@ Moreover visualization may aid in constructing or interpreting analytic approach
 This is especially important for noting that visualizations provide and convey assertions, rather than means for testing them; thus I do *not* address how to conduct and optimize analyses here. 
 Those are separate tasks that I assume visualization complements, rather than overlaps with or replaces.
 
-Many of the benefits for network scholarship mirror those that motivate data visualization in science more broadly, especially regarding communication clarity [@rawlings2023]. 
+Many of the benefits for network scholarship mirror those that motivate scientific data visualization more broadly [@rawlings2023]. 
 A fundamental premise is that data visualization enhances **memory** [@schwabish2021]; this reflects what we know from a number of old adages--including that there's simply value in beauty [@tufte2006; @halpern2015]. 
 Moreover, this memory benefit leverages the potential **efficiency** available in data visualization that simply cannot be achieved in other strategies for presenting evidence [@healy2018].^[There are many pithy statements about the vast amounts of information that can be conveyed in a single image.]
 Edward Tufte has prioritized not only using this benefit, but attempting to find ways to optimize it, e.g., via efforts to maximize what he called the "ink-to-information" ratio [@tufte1983].
 These memory-oriented enhancements can arise both via improved encoding processes *and* recall--e.g., the simple act of including visualizations leverages the complementary of multi-modal communication strategies' differential strengths and weaknesses (e.g., compared to text @sweller1988].
 
-The data we use to represent social processes are almost always inherently high-dimensional, and visualizations provide a means for **simplifying** that complexity in structured, interpretable formats [@wickham2023a].^[Some contend that this is a *constraint* of data visualization imposed on data presentation strategies (by obfuscating its richness), rather than its benefit [@healy2014].]
-This leads visualizations to not only enhance communicative aims, but also to improve readers' ability to understand and interpret complex social phenomenon [@schwabish2021]. 
+The data we use to represent social processes are frequently high-dimensional (especially networks), and visualizations provide a means for **simplifying** that complexity in structured, interpretable formats [@wickham2023a].^[Some contend that this is a *constraint* of data visualization imposed on data presentation strategies (by obfuscating its richness), rather than its benefit [@healy2014].]
+Simplification enhances visualizations communicative potential, while also enhancing readers' ability to understand and interpret complex social phenomenon [@schwabish2021]. 
 While statistics can summarize data in principled ways, data visualization rarely simply mimics these other forms and representations of data reduction. 
 Instead, they are also "attention-drawing" efforts that highlight certain features of the data, while simultaneously deprioritizing others [@leifer1992].
 
@@ -76,19 +76,18 @@ Network scholars especially leverage these dimension reduction approaches by tra
 One such "attention-drawing" move a research may use would highlight certain relational patterns (e.g., community structure), while deprioritizing others (e.g., homophily).
 For example, to emphasize the changes in political polarization over time in the US Congress, @moody2013 employ increased coarse-graining to highlight *group* size and positioning over time, and juxtapose that against the decreased *individual* positioning and distancing.
 
-While such trade-offs may seem generally useful, I argue that how researchers prioritize among these various aims frequently (even if implicitly) differ across different stages of the research process, each of which could employ visualization as a tool. 
-Given these differentiated aims across research stages, applying a single "typical" approach to network visualization may limit the utility of *visualizations* for the particularized purposes at different stages.
-That is, my hope is the encourage, more, more-varied, and more tailored uses of visualizations in ways that will afford each instance a greater likelihood of achieving the researchers' particular needs.
-That is, network research could benefit from rethinking optimal visualization strategies depending on their exploratory [@wickham2023a], conceptual/theoretical [@brady2020], or explanatory aims [@healy2014]. 
+Paralleling the myriad dimensions of analytically capturing empirical network properties, network visualizations also require a variety of strategies to represent these patterns of social structure.
+Below, I outline ways that network visualizations have not optimized this varied potential; and my hope is tor encourage, more, more-varied, and more tailored uses of visualizations in ways that will afford each instance a greater likelihood of achieving the researchers' particular needs.
+As a starting point, network research could benefit from rethinking optimal visualization strategies depending on their exploratory [@wickham2023a], conceptual/theoretical [@brady2020], or explanatory aims [@healy2014]. 
 
 ## Multidimensional aims: scientific purposes and principles, across research stages
 
-Yet how research implements these aims in practice requires navigating competing demands arising across multiple dimensions.
+To guide a more tailored approach to optimizing network visualizations, let's begin by delineating: the differences among multidimensional sets of aims, how they compete with and complement one another, and how researcher practices combine across these dimensions.
 First, I distinguish several distinct scientific **purposes**---the communicative reasons for employing visualization. 
 Second, I identify additional scientific **principles** that govern visualization practices in pursuing those purposes.
 Third, I differentiate three **stages** of research in which visualizations can prove useful: exploration, conceptualization, and interpretation.
 Together, these dimensions outline how particular visualization practices necessarily prioritize different **combinations** of these purposes and principles as their roles shift across the stages of the research process.
-In the following elaboration I draw on the broader literature on general approaches to data visualizations has established these sets of distinctions, while also highlighting within each element any further network-specific considerations.
+I draw on the broader literature on data visualizations to elaborate these sets of distinctions, and highlight any network-specific considerations across them.
 
 ### Scientific **purposes** of network visualization
 A first dimension in leveraging the utility of network visualizations concerns the various purposes they may accomplish.
@@ -149,47 +148,54 @@ While research processes entail many potential stages, three commonly employ vis
 [**Table 1**](#benies) outlines a heuristic typology of visualization strategies that roughly correspond with different stages of research, and consider how they each differentially prioritize the purposes and accommodate the principles described above.
 To foreshadow, this differentiation leads to a suggested strategy of visualizing *modeled analytic results* as a unique combination that remains under-used in network research—a practice I outline in the following section.
 
-In this section, I need to differentiate research stage from visualization strategy. Ultimately the table above focuses on the latter, and we often assume that the aims of those strategies align across these stages, but that need not be explicit. As such, I likely want to talk about *this* alignment as potentially, but not necessarily optimal. That is, I'm going to talk about exploration/theoretical development/explanation as different stages, while the viz strategies will be "observed"/conceptual/modeled. This allows a number of things in keeping those separate. It also affords me the space in the "explanatory" section to note descriptive/understanding aims as nonetheless addressable as well here, without either being excluded from "modeled" approaches.
+Much of the data visualization literature assumes sequential stages, with a corresponding set of visualization strategies asserted to align across them. 
+To avoid wading into epistemological and theoretical debates about research processes,^[e.g., I'm allowing for applications in inductive, deductive, *or* abductive orientations @timmermans2022a.] --here I focus on the potential orientations to visualization, and simply note the stages of research in which these are often suggested by data visualization scholars.
 
-*Observed* network visualizations provide a means for examining the case(s) at hand.
-These characterizations help researchers become familiar with the nature of their data [@martin2018], both by describing general node, tie, or network patterns of composition and structure and by identifying potential needs for analysis [@freeman2000].^[For example, this entails the pre-processing steps of variable reclassification or anomalous-case handling, [@wickham2023a].]
-This stage often prioritizes fidelity to exploring the features in the data, accounting for what they contain [@bender-demoll2005].
-
-A primary approach to visualizing network data prioritizes this purpose, shaping researchers’ understanding of patterns in the data and--when included in publications--attempting to do the same for readers.
-While this is often a “first step” toward examining and presenting one’s case, it does not mean that the visualization directly “reflects” reality.
+**Observed** network visualizations provide a means for presenting the case(s) at hand.
+This approach typically prioritizes fidelity to the features in the data, accounting for what they contain [@bender-demoll2005].
+Such descriptive approaches are especially common in explanatory data analysis (EDA) stages  [@wickham2023a; @healy2018]. 
+While EDA be framed as a "first step" toward examining and presenting one’s case, it does not mean that the visualization directly “reflects” reality.
 It merely indicates that the data have been obtained, minimally processed, shaped into a coherent presentation strategy, and presented to the reader [@wickham2023a; @healy2018].
 
+Visualizing observed data provides opportunities to develop familiarity with the details of data--whether as researchers make sense of what they will be analyzing [@martin2018], or in presentations of those features to readers.
 The fundamental steps to generating observed network visualizations are: (1) obtaining the data (through primary methods or secondary sources), (2) pre-processing, cleaning, and organizing the data, (3) reducing to focal elements (relational and nodal attributes), (4) transforming that reduction to visual form, and (5) labeling it.
-While these necessarily entail some degree of simplification--because visualizations cannot capture the data’s high dimensionality--this stage seeks to minimize simplifications or “rotate” the visualization’s priorities sufficiently to examine data's complexity by iterating through multiple simplifications, one at a time.
-If included in published papers, this type of visualization serves a similar purpose to the “descriptive statistics” Table 1 that many papers provide—giving the reader a means to orient to the case at hand with a distilled summary.
-However, publishing observed network visualizations can lead to visuals that are overly complex in ways that obfuscate what we can learn from them, draw attention to the particularities of the case, rather than the general principles the case is examined to characterize, be difficult to precisely replicate, raising questions about consistency in interpretation, and introduce potential risks that could violate research ethical standards.
-
-Although primarily descriptive, this type of visualization can also bridge to the analytic aims of research, seeding potential analyses for more inductively oriented work or beginning the process of case interpretation in more deductively oriented work.
 Many of the pre-processing, presentation, and sense-making steps involved at this stage benefit from intimate knowledge of the data [@potterat2004a].
 Although this knowledge can inform researchers’ work, it may undermine principles of confidentiality and/or deductive disclosure in ways that may not be advisable or permitted in publishable or directly replicable forms [@ortizruiz2026].
 
-Some fields readily draw on *visualized conceptual models*, to varying degrees of formalization—ranging from those that primarily serve to “organize one’s thoughts” [@brady2020] to approaches that formally articulate analytic aims and assumptions [e.g., directed acyclic graphs; @elwert2013].
-Network research has periodically leveraged such visualization aims to specify how *combinations* of features can lead expectations to diverge from various “ideal type” formations of networks.
-Visualizations can make these configurations concrete in ways that may not be as readily intelligible without them.
-Small world literature provides a compelling case of this form - plotting "cave man" graphs with only a few cross-group "shortcuts" necessary to shorten average path length, while maintaining high overall clustering [@watts1998b].
+For networks, visualizing observed data can characterize patterns of general node, tie, and/or network patterns of composition and structure and by identifying potential needs for analysis [@freeman2000].^[For example, this entails the pre-processing steps of variable reclassification or anomalous-case handling, [@wickham2023a].]
+A common use of these visualizations is to serve similar purposes to the “descriptive statistics” Table 1 that many papers provide—giving the reader a means to orient to the case at hand--both providing overview summaries, and indicating details that help make sense of the particularities of the case(s).
+However, publishing observed network visualizations can easily lead to visuals that are overly complex in ways that obfuscate what we can learn from them, draw attention to the particularities of the case, rather than the general principles the case is examined to characterize, be difficult to precisely replicate, raising questions about consistency in interpretation, and introduce potential risks that could violate research ethical standards.
+When used for exploratory purposes, the necessary simplifications of visualizations can sequentially emphasize different dimensions across multiple iterations, while "rotating" the priorities across them to explore multiple simplifications of the data's high dimensionality.
+Although primarily descriptive, using observed network visualizations as exploratory steps can also bridge to the analytic aims of research, seeding potential analyses for more inductively oriented work or beginning the process of case interpretation in more deductively oriented work [@wickham2023a].
 
-This form of visualization can explicitly articulate which elements are core to subsequent analyses and which remain unexamined assumptions, thus informing which theorized social processes the analyses evaluate [@adams2020d].
-Conceptual visualizations can formalize the theoretical claims a study evaluates, including the patterns that would support, disconfirm, or suggest alternate interpretations.^[Here, visualizations are performing the same clarifying and formalizing task that is accomplished when we employ "writing as thinking" [@zinsser1993].]
+Some fields readily draw on visualizing **conceptual models**, including those with varying degrees of formalization—ranging from those that primarily serve to “organize one’s thoughts” [@brady2020] to approaches that formally articulate analytic aims and assumptions [e.g., directed acyclic graphs; @elwert2013].
+Network research has periodically leveraged such visualization aims to specify how *combinations* of features can lead expectations to diverge from various "ideal type" formations of networks.
+Visualizations can make these configurations concrete in ways that may not be as readily intelligible without them.
+Small world literature provides a compelling case of this form - plotting "cave man" graphs with only a few cross-group "shortcuts" necessary to shorten average path length (traditionally associated more with random networks), while maintaining high overall clustering [@watts1998b].
+
+Conceptual visualizations generally characterize the research's selected modeling aims [@adams2020d], and entail steps that (1) articulate the research's theoretical claims, (2) which elements are not focal, but are included in the analytic approach, (3) what assumptions remain in the analyses (and any attempts to assess how robust estimates would be to those assumptions), and potentially, (4) things that are explicitly asserted to not be implicated in the examined questions.
+This can help to formalize which theoretical claims a study would have the abilityto  support, disconfirm, or suggest alternate interpretations.^[Here, visualizations are performing the same clarifying and formalizing task that is accomplished when we employ "writing as thinking" [@zinsser1993].]
 
 In their “pure” form, conceptual visualizations tend to prioritize theoretical interpretation and simplification over all else.
 Additionally, given the potential for (nearly) “data-free” visualizations of this sort, ethical considerations are likely minimal.
 
-Modeled results^[As above, "modeled" is not limited to statistical approaches.] visualizations seek to highlight the *theoretical* implications of *interpretation* and/or *explanation* [@rawlings2023].
+#############################
+# Here's where I left off. 
+# Note that the modeled section here is going to be *substantially* shorter than the others above, because the remaining sections below will elaborate this in MUCH more detail.
+
+**Modeled** results^[As above, "modeled" is not limited to statistical approaches.] visualizations seek to highlight the *theoretical* implications of *interpretation* and/or *explanation* [@rawlings2023].
 For example, in social network research with explanatory (e.g., causal) aims, researchers seek to demonstrate how observations in empirical cases [@kadushin2012] combined with appropriate analytic strategies [@borgatti2024; @mccarty2019], conform to expectations in ways that support theoretically appropriate interpretations [@borgatti2011].
 In this case, simplifications tend to highlight theoretical implications over data fidelity (case interpretation).
 Because an emphasis on theoretical conformity often highlights general patterns or “ideal types,” it need not rely on the specifics of the data--thus allowing researchers to readily maintain confidentiality and facilitate replication [@bender-demoll2005].
 
+
+### It also affords me the space in the "explanatory" section to note descriptive/understanding aims as nonetheless addressable as well here, without either being excluded from "modeled" approaches.
+ 
 Alternatively, other research may primarily draw on theory and analysis to account for events in particular cases *per se*.
 In this case simplification and (case) interpretation are still more heavily emphasized than description and full data fidelity.
 Confidentiality can be maintained through presenting heuristic visualizations--e.g., to elaborate "conceptual generalizability" [@collins2024]--rather than direct representations of labeled data, also fostering potential replicability.
 
 In sum, different research stages and visualization strategies incorporate different optimizations across the purposes and principles of network visualization. 
-
 
 ### Implications for visualization practice
 
