@@ -189,14 +189,10 @@ V(gw)$genre <- ifelse(
 # sampled-artist / source genres: cool family
 unique_genres <- sort(unique(na.omit(V(gw)$genre)))
 
-genre_colors <- c(
-  brewer.pal(5, "Blues"),
-  brewer.pal(5, "BuGn")
+genre_colors <- brewer.pal(
+  length(unique_genres),
+  "Paired"
 )
-
-genre_colors <- genre_colors[
-  c(5, 4, 3, 2, 1, 10, 9, 8, 7, 6)
-]
 
 names(genre_colors) <- unique_genres
 

@@ -332,25 +332,41 @@ Such modeled visualizations therefore provide: an empirically anchored, theoreti
 In [**Figure 2**](#fig:greys), panel B visualizes a single draw from the ERGM results for the *Grey’s Anatomy* analysis, allowing comparison with the observed network in panel A.
 The modeled visualization includes only the aspects incorporated in the model, which in turn diminishes the representation ofidiosyncratic aspects in the data.^[Here, the visual specifically excludes node labels and the race nodal attribute because goodness-of-fit statistics confirmed that these did not contribute to the observed relational pattern. More formal goodness-of-fit tests also confirm the “visual” similarity between the general structures of the two graphs, while other, lesser-performing models showed obvious divergences, visually *and* statistically [@lind2012].]
 
-#############################
-# Here's where I'm leaving off at the moment. I need to arrange what we need to consider as we go forward from here, (1) highlighting the utility from the Grey's example, (2) set up the "principles" and (3) "sentitizing considerations" to be illustrated here, and (4) outline that the example here is meant to be an illustrative exampel that reflects those, rather than a "recipe" to follow for future research applications. 
+Panel B of [**Figure 2**](#fig:greys) also illustrates a number of features that are instrumental to the model-fitting process from which this example derives, but nonetheless differentiate modeled network visualizations from other strategies. 
+In terms of explanatory capacity, names do not diminish the ability to observe important features of the network (e.g., a general, but not absolute, heterosexual partnering pattern).
+Noe that the nodes in panel B are note merely "label removed" but by deriving from a modeled network, the nodes are "characteristic" and there for do not provide one-to-one mappings to real data points.
+This abstraction helps draw our attention to the interpretive implications of our analysis rather than toward the idiosyncrasies of the case at hand [@becker2017].
+This may raise the question of whether visualizing a single draw from modeled results is idiosyncratic in some (non-empirically derived ways). 
+This concern belies the parallel realization that observed data also provide only a single, characterization of reality, invariably including error along with the information they convey.^[Treating the realized particulars of that instance as central can over-reify what is often only an approximation--though ideally a reasonable one--of the theoretical question being investigated [@becker2017].]
+Our confidence in the accuracy of *both* observed data and modeled results are that the key *theorized* and empirically-tested features they embed are robust to any such errors [@becker2017].
 
-Not including names does not diminish the ability to observe important features of the network (e.g., a general, but not absolute, heterosexual partnering pattern).
-More fundamentally, observed data provide only a single, characterization of reality, invariably including error along with the information they convey.^[Treating the realized particulars of that instance as central can over-reify what is often only an approximation--though ideally a reasonable one--of the theoretical question being investigated [@becker2017].]
-As such using unlabeled nodes,^[Here we have not merely “removed” labels, but by presenting a modeled network, the nodes are not one-to-one mappings to real data points in any meaningful sense.] helps draw our attention to the interpretive implications of our analysis rather than toward the idiosyncrasies of the case at hand [@becker2017].
-Furthermore, if these were actual data carrying confidentiality concerns, the modeled visualization—and its rendering of modeled results as unlabeled, “representative” nodes and ties rather than a capture of actual relationships—would also remove risks of sequential deductive disclosure.^[For example, given the infrequency of same-sex or inter-racial relationships in the population, even an *unlabeled* version of the graph on the left would allow partners of Derek or “Chief” to likely identify *themselves* in the plot, and thus “discover” their partners having other partners.]
-Moreover, because the visual is based on model results, the model-results object is likely shareable even if the raw data are not,^[It is not uncommon in social network projects to have data-sharing restrictions as part of participation agreements as a means to ensure confidentiality.] facilitating the replicability of both the results and the visualization.
+Beyond this theoretical simplifying focus, the *Grey's Anatomy* example also illustrates the confidentiality preserving nature of the modeled visualization approach.
+If these were actual data carrying confidentiality concerns, the modeled visualization—and its rendering of modeled results as unlabeled, “representative” nodes and ties rather than a capture of actual relationships—would also remove risks of sequential deductive disclosure.^[For example, given the infrequency of same-sex or inter-racial relationships in the population, even an *unlabeled* version of the graph on the left would allow partners of Derek or “Chief” to likely identify *themselves* in the plot, and thus “discover” their partners having other partners.]
+Finally, because the visual is based on model results, the model-results object is likely shareable even if the raw data are not,^[It is not uncommon in social network projects for participation agreements to have data-sharing restrictions on the *relational* aspects of the data, as a means to ensure confidentiality.] facilitating the replicability of both the results and the visualization.
 
 ## An illustrative empirical example - Rap Samples
 
 Finally, I demonstrate how the visualization strategy I propose could be applied to an empirical analysis using a quite different analytic approach from the ERGM example above.
-Jennifer Lena mapped rap artists’ sampling of other artists’ songs [@lena2004].
+In addition to showing how a modeled visualization can help facilitate interpretation of research takeaways,^[I note that neither of the primary empirical papers on which this example draws includes network visualizations. In part this reflects the complicated multi-tiered relational patterns described win those analyses. As such, this use case is primarily illustrative.] stepping through the process for this case allows me to articulate how future research can hone this practice. 
+First, rather than providing a "recipe" to apply uniformly across all use cases, this approach structures a set of *principles* that can be applied to a range of particular data formats and analytic strategies.
+Second, at various stages in developing the example, I will highlight *sensitizing considerations* regarding what this approach is optimized towards, and some of the limitations it contains.
+
+Jennifer Lena mapped rap songs’ sampling of other artists [@lena2004]. 
 She found (1) a small “core” set of sampled artists from whom a disproportionate volume of samples were drawn, and (2) “circles” among sampling artists that: (a) differentiated among sampled artists by source genre, and (b) distinguished groups of sampling rappers through their sampling repertoires, with those groups also partially sorted by rap sub-genre.
 Later work also showed that these patterns were partially shaped by industry differences [@lena2006] and contributed to the development of status hierarchies among the sub-genres [@lena2013].
 
-The same sequence outlined above for generating a modeled network visualization applies here, despite these analyses not relying on a single “formal” statistical network model.
-Lena’s conclusions arose from a sequence of descriptive and interpretive social network and non-network analyses (step 2 above), yielding empirically supported theoretical models (step 3), which can in turn be translated into network properties for visualization (step 4).
+Following the steps outlined above, we can produce a corollary modeled network visualization, despite these analyses not relying on a single “formal” statistical network model.
+The papers each provide a number of descriptive features in the data (step 1 above), including the frequencies, temporal trends, and "key players" (song and artist level).
+Panel A in [**Figure 3**](#fig:genres) provides an exploratory bipartite plot, with sampling songs represented by triangles and sampled artists by circles. 
+This plot begins to characterize some of the features of these sampling data--especially noting the differential rate at which sampled artists are sampled (node size of circles), and the concentration of that activity among select genres (e.g., the larger nodes are disproportionately green).
+Additionally, this plot is suggestive that the network is characterized by a core-periphery structure.
+Other elements are much less visually apparent without first conducting, then representing systematic analyses--including whether it is goverened by community structure and/or genre sorting.^[Some authors return to exploratory visualizations such as this one and layer analytic properties onto them. I provide a corresponding version of this approach in the appendix as a hybrid of the exploratory and modeled strategies presented here.]
+
+Lena’s conclusions arose from a sequence of descriptive and interpretive social network and non-network analyses (step 2 above), yielding empirically supported theoretical conclusions that can be summarized (step 3).
 Focusing only on the network elements of those results, these describe networks characterized by: (1) highly skewed degree distributions among sampled artists, and (2) a strong core-periphery structure, with a relatively small set of sampled artists forming the core. They also suggest community structuring at two levels: (3) among sampled artists, with communities partially sorted by source genre; and (4) among sampling artists, with communities partially differentiated by the source artists and songs in their sampling repertoires, which are partially sorted by rap sub-genres.
+
+Let me reiterate a note from above, up to this point--i.e., through the first three outlined steps --there is nothing new in the process beyond typical research processes that arrive at summarized analytic results.
+Next, I turn to how these summarized network properties can be translated into a network visualization characterizing these model results (step 4).
 
 \begin{figure}[htbp]
   \centering
@@ -373,11 +389,11 @@ Focusing only on the network elements of those results, these describe networks 
 
 \textcolor{red}{NOTE: Obviously at the moment, this is a heurisitic placeholder image for panel B, because I'm still working out the details of the multi-layering of the community structure presentation strategy. But hopefully you can still get the implication of what it will look like once that's filled in.}
 
+Translating these findings into visualization leads us to characterize those findings in a form that is formally articulated.^[In the ergm example above, this builds networks that have statistics corresponding to each of the included statistical coefficients.]
+Recognizing that model results are estimates, with error, any visualization necessarily draws from those modeling details
+
 In [**Figure 3**](#fig:rap), I present two visualization strategies for this analysis. 
-The first panel is an exploratory bipartite plot, with sampling artists represented by triangles and sampled artists by circles. 
-Sampled-artist node size is proportional to (logged) sampling strength, and their source genre is encoded by color. \textcolor{red}{I am still considering whether and how to encode sampling artists’ rap sub-genres, given that they use a different genre classification.} 
-\textcolor{red}{A select set of nodes are labeled to help orient interpretation.}
-This visualization provides some indication of the analytic patterns identified by Lena--most notably the skewed distribution of sampling across source artists and the resulting core-periphery structure--while other elements are much less visually apparent--including the community structure and its genre sorting.^[Some authors return to exploratory visualizations such as this one and layer analytic properties onto them. I provide a corresponding version of this approach in the appendix as a hybrid of the exploratory and modeled strategies presented here.]
+
 
 The second panel instead builds the visualization around the analytic structure. 
 I first extracted a core set of sampled artists (those above the 95th percentile of sampled-artist strength) and mapped the strength of co-sampled relationships among them. 
