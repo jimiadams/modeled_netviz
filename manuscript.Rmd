@@ -1,8 +1,9 @@
 ---
 title: |
-  Visualizing Modeled Social Networks: a Provocation\thanks{
-  This manuscript has benefited greatly from input by seminar participants at the South Carolina Networks Consortium, Duke University's Social Networks \& Health workshop, the Patchwork group at Autonomous University of Barcelona, and Sunbelt 2026. I'm also especially grateful to Jenn Lena, Marck Pachucki, and Jun Zhao for providing materials and guidance for honing the illustrative examples, and to Jim Moody and David Schaefer for helpful feedback on the manuscript. Though they may not all agree with me.}
-author: "jimi adams, University of South Carolina"
+  Visualizing Modeled Social Networks: a Provocation \thanks{%%
+  %% This manuscript has benefited greatly from input by seminar participants at the South Carolina Networks Consortium, Duke University's Social Networks \& Health workshop, the Patchwork group at Autonomous University of Barcelona, and Sunbelt 2026. I'm also especially grateful to Jenn Lena, Marck Pachucki, and Jun Zhao for providing materials and guidance for honing the illustrative examples, and to Jim Moody and David Schaefer for helpful feedback on the manuscript. Though they may not all agree with me.
+  All code for replication is available at [removed for review].}
+author: "Anonymized for Review"
 date: "`r format(Sys.Date(), '%Y %B %d')`"
 output: pdf_document
 bibliography: modviz.bib
@@ -19,15 +20,18 @@ header-includes:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+<!--This version is anonymized for review. For web-posting, and/or "final" submission, I will need to go through and remove all commented out blocks.-->
 
 **Abstract**: 
 Network scholarship regularly leverages visualizations. 
 They are thought to enhance readers’ recall, interpretation, and understanding of scholars’ intended takeaways.
 However, visualizations combine multiple competing demands that do not readily translate into a single optimal strategy for realizing those benefits. 
 Here, I distinguish between the scientific (1) purposes and (2) principles of network visualization, which are then differentially used across (3) stages of the research process. 
-Drawing on these non-overlapping demands, I encourage the field to consider whether we can improvce the utility of visualizations for certain combinations of those aims by presenting *modeled* results in network visualizations.
+Drawing on these non-overlapping demands, I encourage the field to consider whether we can improve the utility of visualizations for certain combinations of those aims by presenting *modeled* results in network visualizations.
 
-\textcolor{red}{NOTE: In preparation for submission to the \textit{Social Networks} theory special issue (which has a submission timeline of Nov 1).}
+\begin{center}
+  \textcolor{red}{version submitted for review to \textit{Social Networks}'s theory special issue.}
+\end{center}
 
 \newpage
 
@@ -123,6 +127,9 @@ In particular, visualization’s utility may not require including the full comp
 Additionally, because positions in network visualizations are typically defined relatively (vs. absolutely), algorithmic and procedural details (e.g., random-number-generator seeds) can be important for faithfully recreating visualizations that are substantively and/or aesthetically comparable [@bender-demoll2005].
 
 ### Network visualization across research **stages**
+While research processes entail many potential stages, three commonly employ visualizations as a primary tool.
+[**Table 1**](#benies) outlines a heuristic typology of visualization strategies that roughly correspond with different stages of research, and consider how they each differentially prioritize the purposes and accommodate the principles described above.
+To foreshadow, this differentiation leads to a suggested strategy of visualizing *modeled analytic results* as a unique combination that remains under-used in network research—a practice I outline in the following section.
 
 <div id="benies"></div> 
 \begin{table}[htb] 
@@ -144,12 +151,8 @@ replicability & \textcolor{blue}{?} & \checkmark & \checkmark \\
 \end{tabular} 
 \end{table}
 
-While research processes entail many potential stages, three commonly employ visualizations as a primary tool.
-[**Table 1**](#benies) outlines a heuristic typology of visualization strategies that roughly correspond with different stages of research, and consider how they each differentially prioritize the purposes and accommodate the principles described above.
-To foreshadow, this differentiation leads to a suggested strategy of visualizing *modeled analytic results* as a unique combination that remains under-used in network research—a practice I outline in the following section.
-
-Much of the data visualization literature assumes sequential stages, with a corresponding set of visualization strategies asserted to align across them. 
-To avoid wading into epistemological and theoretical debates about research processes,^[e.g., I'm allowing for applications in inductive, deductive, *or* abductive orientations @timmermans2022a.] --here I focus on the potential orientations to visualization, and simply note the stages of research in which these are often suggested by data visualization scholars.
+Much of the data visualization literature assumes *sequential* stages, with a corresponding set of visualization strategies asserted to align across them. 
+To avoid wading into epistemological and theoretical debates about research processes,^[e.g., I'm allowing for applications of the approach proposed here in inductive, deductive, *or* abductive orientations @timmermans2022a.]--here I focus on the potential orientations to visualization, and simply note the stages of research in which these are often suggested by data visualization scholars.
 
 **Observed** network visualizations provide a means for presenting the case(s) at hand.
 This approach typically prioritizes fidelity to the features in the data, accounting for what they contain [@bender-demoll2005].
@@ -168,64 +171,55 @@ However, publishing observed network visualizations can easily lead to visuals t
 When used for exploratory purposes, the necessary simplifications of visualizations can sequentially emphasize different dimensions across multiple iterations, while "rotating" the priorities across them to explore multiple simplifications of the data's high dimensionality.
 Although primarily descriptive, using observed network visualizations as exploratory steps can also bridge to the analytic aims of research, seeding potential analyses for more inductively oriented work or beginning the process of case interpretation in more deductively oriented work [@wickham2023a].
 
-Some fields readily draw on visualizing **conceptual models**, including those with varying degrees of formalization—ranging from those that primarily serve to “organize one’s thoughts” [@brady2020] to approaches that formally articulate analytic aims and assumptions [e.g., directed acyclic graphs; @elwert2013].
+Some fields widely incorporate visualizing **conceptual** frameworks, including those with varying degrees of formalization—ranging from those that primarily serve to “organize one’s thoughts” [@brady2020] to approaches that formally articulate modeling aims and assumptions [e.g., directed acyclic graphs; @elwert2013].
 Network research has periodically leveraged such visualization aims to specify how *combinations* of features can lead expectations to diverge from various "ideal type" formations of networks.
 Visualizations can make these configurations concrete in ways that may not be as readily intelligible without them.
 Small world literature provides a compelling case of this form - plotting "cave man" graphs with only a few cross-group "shortcuts" necessary to shorten average path length (traditionally associated more with random networks), while maintaining high overall clustering [@watts1998b].
 
 Conceptual visualizations generally characterize the research's selected modeling aims [@adams2020d], and entail steps that (1) articulate the research's theoretical claims, (2) which elements are not focal, but are included in the analytic approach, (3) what assumptions remain in the analyses (and any attempts to assess how robust estimates would be to those assumptions), and potentially, (4) things that are explicitly asserted to not be implicated in the examined questions.
-This can help to formalize which theoretical claims a study would have the abilityto  support, disconfirm, or suggest alternate interpretations.^[Here, visualizations are performing the same clarifying and formalizing task that is accomplished when we employ "writing as thinking" [@zinsser1993].]
+This can help to formalize which theoretical claims a study would have the ability to  support, disconfirm, or suggest alternate interpretations.^[Here, visualizations are performing the same clarifying and formalizing task that is accomplished when we employ "writing as thinking" [@zinsser1993].]
 
 In their “pure” form, conceptual visualizations tend to prioritize theoretical interpretation and simplification over all else.
 Additionally, given the potential for (nearly) “data-free” visualizations of this sort, ethical considerations are likely minimal.
 
-#############################
-# Here's where I left off. 
-# Note that the modeled section here is going to be *substantially* shorter than the others above, because the remaining sections below will elaborate this in MUCH more detail.
-
-**Modeled** results^[As above, "modeled" is not limited to statistical approaches.] visualizations seek to highlight the *theoretical* implications of *interpretation* and/or *explanation* [@rawlings2023].
+Visualizing **modeled** results^[As above, "modeled" is not limited to statistical approaches.]  allows researchers to highlight the research's *theoretical* implications [@rawlings2023]. 
 For example, in social network research with explanatory (e.g., causal) aims, researchers seek to demonstrate how observations in empirical cases [@kadushin2012] combined with appropriate analytic strategies [@borgatti2024; @mccarty2019], conform to expectations in ways that support theoretically appropriate interpretations [@borgatti2011].
-In this case, simplifications tend to highlight theoretical implications over data fidelity (case interpretation).
-Because an emphasis on theoretical conformity often highlights general patterns or “ideal types,” it need not rely on the specifics of the data--thus allowing researchers to readily maintain confidentiality and facilitate replication [@bender-demoll2005].
 
-
-### It also affords me the space in the "explanatory" section to note descriptive/understanding aims as nonetheless addressable as well here, without either being excluded from "modeled" approaches.
- 
-Alternatively, other research may primarily draw on theory and analysis to account for events in particular cases *per se*.
-In this case simplification and (case) interpretation are still more heavily emphasized than description and full data fidelity.
-Confidentiality can be maintained through presenting heuristic visualizations--e.g., to elaborate "conceptual generalizability" [@collins2024]--rather than direct representations of labeled data, also fostering potential replicability.
+Because an emphasis on theoretical representation often highlights general patterns or "conceptual generalizability" [@collins2024], this approach need not rely on the specifics of the data--thus allowing researchers to readily maintain confidentiality and facilitate replication [@bender-demoll2005].
+Alternatively, researchers may primarily draw on theory and analysis to account for events in particular cases *per se*.
+Even in this case, simplifications are still necessary over "full" data fidelity, identifying certain focal aspects to make sense of the case while de-emphasizing others.
+This also points to a further caveat--while many data visualization primers assume theoretical interpretations necessarily target causal (explanatory) goals, data visualizations can represent a wide range of analytic results that may instead prioritize understanding *verstehen* or descriptive aims.
 
 In sum, different research stages and visualization strategies incorporate different optimizations across the purposes and principles of network visualization. 
+Given the potential for distinct combinations across these multidimensional aims, I next summarize how their intersections suggest alternative orientations to visualization strategies, draw a few parallels to existing practices, then outline the steps for implementing modeled network visualizations. 
 
 ### Implications for visualization practice
-
-As illustrated in the preceding section, visualizations often need to prioritize distinct combinations of the purposes outlined above and may need to adapt in order to adhere to the accompanying visualization principles.
-This potential for non-overlapping combinations can produce sub-optimal visuzliations in several distinct ways.
+This potential for non-overlapping combinations can produce sub-optimal visualizations in several distinct ways.
 Perhaps most obviously, when researchers construct a visualization to serve one of these purposes (e.g., exploratory data analysis), it will not optimally serve other aims (e.g., explanatory) because the combinations necessary to achieve one task well can trade off against the ability to optimize for other purposes.
 
 Perhaps more problematically, when researchers *assume* (or worse, *require*) that visualizations have “universal” benefits, they presuppose that the purposes of data visualization are necessarily shared across this range of uses.
-One common version of this approach in SNA produces a “descriptive” plot of the observed data and then “overlays” features of the theoretical interpretation of analytic results, in hopes that readers will recognize the “important” signal amid the remaining noise in the data.
+One common version of this approach in SNA produces a “descriptive” plot of the observed data and then “overlays” features of the theoretical interpretation of analytic results, in hopes that readers will recognize the “important” signal amid the remaining noise in the represented data.
 Unfortunately, this type of compromise strategy can fail to accomplish *any* of our aims well [@pache2010].
-My contention is that network visualizations not infrequently commit one of these two errors.^[For example, in instances where I have wanted to convey the theoretical takeaways from @adams2013—that different types of “risk partnerships” provide different contributions to overall graph connectivity, even while their node-level differences/combinations are minimal—I have found that nearly impossible to readily convey from the (largely exploratory-oriented) visualization we included in the paper—error 1.]
-Rather than simply critiquing existing practices, I propose an alternative visualization strategy that optimizes for a combination of purposes not adequately served by our most common approaches, while maintaining the visualization principles detailed above.
-In particular, I propose that “modeled network visualizations” can more readily combine theoretical interpretation with empirically grounded simplification while preserving confidentiality and facilitating replicability.
+My contention is that network visualizations not infrequently commit one of these two errors.^[Self-incriminating example removed for review.<!--[For example, in instances where I have wanted to convey the theoretical takeaways from @adams2013—that different types of “risk partnerships” provide different contributions to overall graph connectivity, even while their node-level differences/combinations are minimal—I have found that nearly impossible to readily convey from the (largely exploratory-oriented) visualization we included in the paper—error 1.]-->]
+This leads me to propose an alternative visualization strategy that optimizes on a combination of purposes not adequately served by our most common approaches, while maintaining the visualization principles detailed above.
+In particular, I propose that "modeled network visualizations" can more readily combine theoretical interpretation with empirically grounded simplification while preserving confidentiality and facilitating replicability.
 
 ## Modeled network visualizations
 
-My fundamental proposition is simple: rather than relying on "observed" networks to present analytic results, we should develop a strategy for presenting "modeled network visualizations."
+My fundamental proposition is simple: rather than relying solely on "observed" networks, we should develop a strategy for developing "modeled network visualizations" - especially for presenting analytic results.
 This is not a ground-breaking suggestion.
 In fact, many statistical modelers—of social network and other types of data—already enact this practice, but publications do not consistently deploy this approach in ways that fully leverages its potential utility.
 For example, “eye-balling” consistency of modeled results against observed network visuals—in tandem with formal statistical tests for goodness of fit—is typically taught as a helpful practice in model development and fitting processes [@krivitsky2023].^[They can be especially helpful in identifying theoretical limitations of existing models or enhancing stability of estimates.]
-However, while we use these heuristic network visualizations to improve model fit, authors still often resort to presenting the observed version as their primary network visualization(s) in publications.
+However, while we use these heuristic network visualizations to improve model fit or in other analytic development steps, authors still often resort to presenting the observed version as their primary network visualization(s) in publications.
 I have done this multiple times myself.
 
 "Modeled network visualizations" can provide a better alternative when we seek to characterize analytic results in ways that better achieve certain combinations of the aims and principles outlined above.^[I do not also contrast these with “conceptual” visualizations in what follows, because researchers often develop those intentionally in *non-empirical* ways.]
-In describing the proposed approach and  examples below, I focus on the conditions under which modeled network visualizations offer relative advantages in pursuing this unique combination.
+In describing the proposed approach and examples below, I focus on the conditions under which modeled network visualizations offer relative advantages in pursuing this unique combination.
 
 ### Effect plots - a parallel motivation
-Let me draw a few parallels that illustrate how researchers leverage (parts of) the same logic underpinning this proposed approach when presenting and interpreting modeled results.
-Logistic-regression coefficients (just like exponential random graph models) are notoriously hard to make substantive sense of on their own (e.g., significance and magnitude of effects are frequently conflated in results interpretations by writers and readers alike).
-Interaction terms in other forms of regression are similarly difficult to interpret.
+Let me draw a few parallels to the approach I propose from strategies researchers frequently employ that leverage (parts of) the same logic--especially in presenting and interpreting modeled results.
+Logistic-regression coefficients (as with ERGMs or SAOMs) are notoriously hard to make substantive sense of on their own (e.g., significance and magnitude of effects are frequently conflated in results interpretations by writers and readers alike).
+Interaction terms in these--and other forms of--regressions are similarly difficult to interpret.
 A common solution has been for researchers to: (1) gather, pre-process, and provide a descriptive summary of their data to give an overview of what the sample being analyzed represents and how key focal features are distributed in the population; (2) conduct statistical analyses to investigate the researchers’ theoretical aims, which are summarized with traditional combinations of betas, standard errors, log-likelihoods, etc. to represent the fit of those claims to empirical estimation; and then (3) transform those modeled results into “predicted probabilities” in ways that help interpret what those modeled results “look like” in their implications [@fox2006].
 
 \begin{figure}[htbp]
@@ -253,55 +247,56 @@ In [**Figure 1**](#fig:lr-pp), the right panel makes apparent that "remorse" ben
 Deciphering that result from the left panel would be next to impossible; but we also would rarely attempt to use a descriptive plot for those purposes.
 To do so would not only fail to clearly tell the aggregate story we have learned in the course of theorization and analysis.^[It is additionally well known that overly granular descriptive statistics can inadvertently pose deductive disclosure risks, thus leading to "cell size" thresholds for many reporting standards [@rocher2019].]
 So why, in network research, do we so often feel uniquely compelled to present the “real” pattern of relationships from our data as a means to interpret and convey our findings in visual form?
+The approach I describe below generally imports these existing practices into network visualization practices.
 
 ### Blockmodels, motifs, & coefficients - partial *network* parallels
-It is also important to note that the basis of the general idea—if not the complete practice I am recommending—is already in use in some domains of social network research.
-Perhaps the most direct corollary is how blockmodeling results tend to be presented as a representations of role profiles [@doreian2005].
+I also note that the basis of the general idea—-if not the complete practice--I am recommending, is already in use in some domains of social network research.
+Perhaps the most direct corollary is how blockmodeling results tend to be presented as a representation of role profiles [@doreian2005].
 The image-matrix and/or reduced-graph presentation distills the overall role structure of an analyzed graph into summary form [@borgatti2024].
 A permuted adjacency matrix arranged by density blocks maps that summary onto the full data, but typically does so for the *observed* adjacency matrix rather than for a modeled representation.
 Other “coarse-graining” visualization strategies for “large” networks commonly take similar parallel approaches [@newman2004a].
 
-Another approach to leveraging visualizations to characterize analytic results in theoretically focused ways comes via *network motifs* [@schwarze2021].
+Another approach to leveraging visualizations to characterize analytic results in theoretically -focused ways exists in *network motifs* [@schwarze2021].
 Network motifs identify *repeated* structural patterns across multiple (often, but not exclusively, *personal*) sub-graphs of networks.
-They present these patterns as abstracted “common forms,” rather than presenting multiple parallel observed networks and then highlighting commonalities across the repeated panels.
-These aims are similar to those in blockmodels, though network motifs exclusively consider *local* configurations.
+They analytically identify these patterns as abstracted "common forms," that are often presented in distilled and summarized form, rather than presenting multiple parallel observed networks for the full sample, and higlighting overlayed similarities across the repeated panels.
+These aims are similar to those in blockmodels, though network motifs typically consider *local* configurations.
 However, network motifs—and their visual style of presentation—remain more widely adopted in network science than among social network researchers to date [for an exception see @vacca2020].
-Other approaches in ego-network research similarly draw on stylized representations to visualize analytic implications, rather than reverting to empirical networks to explain findings [especially when doing so would violate confidentiality; @mccarty2019].
+Other approaches in ego-network research similarly draw on stylized representations to visualize analytic implications, rather than reverting to empirical networks to explain findings [especially when doing so would violate confidentiality, @mccarty2019].
 
-Such configurational representations have also been employed to assist with interpreting the results of inferential statistical models of social network data by presenting visualizations of micro-patterns rather than coefficient names in results tables [e.g., in stochastic actor-based models; @snijders2026].
+Such configurational representations have also been employed to assist with interpreting the results of inferential statistical models of social network data by presenting visualizations of micro-patterns rather than coefficient names in results tables [e.g., in stochastic actor-based models, @snijders2026].
+The approach I describe below generally expands these applications to apply to visualizing networks as wholes from these applications to visualizing elements of social network patterns.
 
 ## Implementing modeled network visualizations
-
 Although modeled network visualizations can take many forms,^[Recall that I use “modeled” in a theoretical and conceptually based sense, not necessarily a statistical one.] their implementation follows a similar structure across these potential forms.
 This section elaborates the four common stages of this process. 
+It is important to note that of the stages I describe here, only the fourth is explicitly about the *visualization* strategy I propose here; steps 1-3 are the analytic steps that are assumed to have been completed *before* visualizing.^[As such, the paper is not concerned with identifying the appropriate analytic approaches for one's research questions, nor diagnosing whether those have been appropriately conducted. That is a separate step of the research process that is beyond the scope of this paper, and is better addressed theoretically and analytically.]
 I accompany the description with an illustrative example drawn from a strategy for teaching and model building in exponential random graph models [@krivitsky2026; @lind2012].
-The final section then illustrates the approach through an empirical example.
+I then illustrate the application of this approach through an extended empirical example.
 
 ### Step 1: Characterize the data to be examined
-
-As with the recent resurgence in attention to the importance of *descriptive* statistics before conducting and presenting any multi-variable analyses [@ayala2019; @healy2014; @wickham2023a], the first step is to provide a preliminary account of the data to be examined.
+As with the recent resurgence in attention to the importance of *descriptive* statistics before conducting and presenting any multi-variable analyses [@ayala2019; @healy2014; @wickham2023a], the first *empirical* step in research is to generate a preliminary account of the data to be examined.
 The full details of what this should entail likely depend on the scientific aims and nature of the data to be investigated (e.g., qualitative or quantitative, closed or open population, etc.), but scholars have recently suggested potentially standardizing these to include a variety of features at the node, tie, and network levels [@neal2024b].
 In some—but, as with my proposal here, *not all*—cases, an observed (network) visualization can enhance this descriptive task.
-That is, my proposal doesn't exclude exploratory network visualizations, instead asking us to reconsider if they're right for our purposes.
+That is, my proposal doesn't exclude exploratory network visualizations, instead asking us to reconsider if they're right for *other* (or all) purposes.
 
-The observed network in panel A of [**Figure 2**](#fig:greys) provides a visualization of the extended example I draw on below while developing this strategy--adapted from a widely used example developed by Benjamin Lind -@lind2012.
-The data the “hookup” network among characters in *Grey’s Anatomy* and will be used in estimating an expoential random graph model (ERGM) and visualize its results.
+The observed network in panel A of [**Figure 2**](#fig:greys) provides a visualization of the adapted pedagogical example I draw on below while developing this strategy.
+This example presents the “hookup” network among characters in *Grey’s Anatomy*, which I will estimated using an exponential random graph model (ERGM) and visualize its results. 
+This example is mildly adapted from a widely used example developed by Benjamin Lind -@lind2012.
 
-### Step 2: Conduct an analysis appropriate to the research question
+### Step 2: Conduct analysis appropriate to the research question
 The second step is to conduct whatever analyses are appropriate to the theoretical aims of the research questions and the nature of the analytic dataset.
 This step reiterates a fundamental feature of the proposal here: “modeled” results come in many forms.
-While the illustration here draws from *statistical* models (ERGMs, in particular), the approach could equally be applied to *any* other form of data-analytic results—ranging from similarly statistically oriented models such as SAOMs through to the primary takeaways from grounded-theoretically oriented ethnographic observations [@dominguez2014].
+The *Grey's Anatomy* example draws from *statistical* models (ERGMs, in particular), but the approach applies equally to *any* other form of data-analytic results—ranging from similarly statistically oriented models such as SAOMs through to the primary takeaways from grounded-theoretically oriented ethnographic observations [@dominguez2014].
 
 Building (statistical) models of observed network data can be a complicated process.
 In developing “well-behaving” models, estimating of goodness of fit can assist with interpreting what the latest model estimates are—and are not—accounting for in the data.
 Many tutorials for developing such models employ visualizations of a single network instance from intermediate model results, both as a means to intuit how models work when teaching--a necessary step when enhancing model estimation and fit in real analyses [@krivitsky2026].
 
 Examining the observed network above in light of theoretical goals,^[In empirical work, this combination likely drives both the data we collect in the first place and the elements we draw from it in exploratory/observed network visualizations.] suggests a variety of model parameters to investigate.
-For example, we could fit models that include degree effects; race, gender, or age effects (both as “activity” and “homophily” parameters); or structural features (e.g., local closure rules [@adams2015]).^[In [**Figure 2**](#fig:greys) Panel A, “isolates” are not present because they were excluded by definition in the way the data were encoded, so a restriction against isolation should be part of the model.]
+In the *Grey's Anatomy* example, we could fit models that include degree effects; race, gender, or age effects (both as “activity” and “homophily” parameters); or structural features (e.g., local closure rules [@lind2012; @krivitsky2026]).^[In [**Figure 2**](#fig:greys) Panel A, “isolates” are not present because they were excluded by definition in the way the data were encoded, so a restriction against isolation should be part of the model.]
 
 ### Step 3: Compile an appropriate summary of analytic results
-
-Analytic results and interpretations are necessarily reductions of the full details available in our data [@adams2020d].
+Analytic results and interpretations are necessarily reductions of the full details available in our data, and do so for differentiated purposes [@adams2020d].
 Done well, they draw our attention to the scientifically useful features of the data, lead us to appropriate interpretations, and limit the distractions that keep us from achieving those aims—regardless of the particularities of the case at hand [@healy2017].
 The third step is therefore to compile an appropriate overview of analytic results in summary form (whether statistical or otherwise).
 
@@ -329,13 +324,16 @@ The results elements of the *Grey's* example include gender *heter*ophily, age s
 
 
 ### Step 4: Generate a modeled network from that summary
+The fourth step is where my proposal comes in--with results in hand, we then convert that summary into a "predicted" network that conforms to the key features of the estimated analytic results.
+This modeled network visualization will necessarily differ from any observed network visualization by eliminating features that are not "modeled" [@schwabish2021], reducing the prominence of idiosyncratic variation (i.e., identifying “what is this a case of?” [@ragin1992; @collins2024]), and highlighting only the key elements of the findings that warrant theoretical interpretation [@vertesi2025].
 
-The fourth step is then to convert that summary into a “predicted” network that conforms to the key features of the estimated analytic results.
-This modeled network visualization will necessarily differ from any observed network visualization by eliminating features that are not “modeled” [@schwabish2021], reducing the prominence of idiosyncratic variation (i.e., identifying “what is this a case of?” [@ragin1992; @collins2024]), and highlighting only the key elements of the findings that warrant theoretical interpretation [@vertesi2025].
-The idea here is to provide an empirically anchored, theoretically prioritized, network visualization that clearly communicates the researchers’ key interpretative takeaways.
+Such modeled visualizations therefore provide: an empirically anchored, theoretically prioritized, network visualization that clearly communicates the researchers’ key interpretative takeaways--and ideally in ways that optimize what visualizations convey that statistics alone could not.
 
 In [**Figure 2**](#fig:greys), panel B visualizes a single draw from the ERGM results for the *Grey’s Anatomy* analysis, allowing comparison with the observed network in panel A.
-The modeled visualization includes only the aspects incorporated in the model, while diminishing the role of idiosyncratic aspects of the data.^[Here, the visual specifically excludes node labels and the race nodal attribute because goodness-of-fit statistics confirmed that these did not contribute to the observed relational pattern. More formal goodness-of-fit tests also confirm the “visual” similarity between the general structures of the two graphs, while other, lesser-performing models showed obvious divergences, visually *and* statistically.]
+The modeled visualization includes only the aspects incorporated in the model, which in turn diminishes the representation ofidiosyncratic aspects in the data.^[Here, the visual specifically excludes node labels and the race nodal attribute because goodness-of-fit statistics confirmed that these did not contribute to the observed relational pattern. More formal goodness-of-fit tests also confirm the “visual” similarity between the general structures of the two graphs, while other, lesser-performing models showed obvious divergences, visually *and* statistically [@lind2012].]
+
+#############################
+# Here's where I'm leaving off at the moment. I need to arrange what we need to consider as we go forward from here, (1) highlighting the utility from the Grey's example, (2) set up the "principles" and (3) "sentitizing considerations" to be illustrated here, and (4) outline that the example here is meant to be an illustrative exampel that reflects those, rather than a "recipe" to follow for future research applications. 
 
 Not including names does not diminish the ability to observe important features of the network (e.g., a general, but not absolute, heterosexual partnering pattern).
 More fundamentally, observed data provide only a single, characterization of reality, invariably including error along with the information they convey.^[Treating the realized particulars of that instance as central can over-reify what is often only an approximation--though ideally a reasonable one--of the theoretical question being investigated [@becker2017].]
@@ -401,7 +399,7 @@ Although this particular example presents no disclosure concerns,^[I selected th
 
 ## Quo Vadimus?
 As with any visualization strategy, useful examples in the literature are joined by many that are, well, not so much.
-There are numerous routes to less-informative (network) visualizations that can be avoided by following basic guidelines of visualization--e.g., unintelligible "hairball," poor layout choices, over-complicate visuals, and other visualization "sins" arise from poor implementation per se [@tufte1983].
+There are numerous routes to less-informative (network) visualizations that can be avoided by following basic guidelines of visualization--e.g., unintelligible "hairball," poor layout choices, over-complicate visuals, and other visualization "sins" arise from poor implementation *per se* [@tufte1983].
 However, a similar weakness arise if we assume visualization is a single task with "global optimization" principles.
 Here, I have sought to make the case that for certain combinations of the purposes and principles outlined above, modeled network visualizations are the better choice.
 
