@@ -365,7 +365,7 @@ Other elements are much less visually apparent without first conducting, then re
 Lena’s conclusions arose from a sequence of descriptive and interpretive social network and non-network analyses (step 2 above), yielding empirically supported theoretical conclusions that can be summarized (step 3).
 Focusing only on the network elements of those results, these describe networks characterized by: (1) highly skewed degree distributions among sampled artists, and (2) a strong core-periphery structure, with a relatively small set of sampled artists forming the core. They also suggest community structuring at two levels: (3) among sampled artists, with communities partially sorted by source genre; and (4) among sampling artists, with communities partially differentiated by the source artists and songs in their sampling repertoires, which are partially sorted by rap sub-genres.
 
-Let me reiterate a note from above, up to this point--i.e., through the first three outlined steps --there is nothing new in the process beyond typical research processes that arrive at summarized analytic results.
+Let me reiterate a note from above, up to this point--i.e., through the first three outlined steps --there is nothing new in the process beyond typical research processes, producing summarized analytic results.
 Next, I turn to how these summarized network properties can be translated into a network visualization characterizing these model results (step 4).
 
 \begin{figure}[htbp]
@@ -387,13 +387,27 @@ Next, I turn to how these summarized network properties can be translated into a
   \label{fig:rap}
 \end{figure}
 
-\textcolor{red}{NOTE: Obviously at the moment, this is a heurisitic placeholder image for panel B, because I'm still working out the details of the multi-layering of the community structure presentation strategy. But hopefully you can still get the implication of what it will look like once that's filled in.}
+Translating these findings into visualization requires us to formalized any modeled properties into visual components.^[In the ergm example above, this builds networks that have statistics corresponding to each of the included statistical coefficients.]
+Panel B of [**Figure 3**](#fig:rap), I present the modeled visualization result addressing the combination of results described above. 
+As I elaborate the steps of producing this visualization, it serves not as a recipe to follow, but demonstrates how the approach of mapping the findings into a visualization strategy, while illustrating the strategy's necessary principles and sensitizing considerations mentioned above.
 
-Translating these findings into visualization leads us to characterize those findings in a form that is formally articulated.^[In the ergm example above, this builds networks that have statistics corresponding to each of the included statistical coefficients.]
+################# Start Here
 Recognizing that model results are estimates, with error, any visualization necessarily draws from those modeling details
 
-In [**Figure 3**](#fig:rap), I present two visualization strategies for this analysis. 
-
+- included properties
+  - modeled
+  - inferred
+- excluded properties
+  - examined but dropped (significant)
+  - assumed
+  - unavailable
+- draw selection
+  - matched statistics
+  - non-idiosyncratic
+  - not overly determined
+- differential emphasis
+  - layering
+  - attribution
 
 The second panel instead builds the visualization around the analytic structure. 
 I first extracted a core set of sampled artists (those above the 95th percentile of sampled-artist strength) and mapped the strength of co-sampled relationships among them. 
