@@ -1,7 +1,7 @@
 ---
 title: |
   Visualizing Modeled Social Networks: a Provocation \thanks{%%
-  %% This manuscript has benefited greatly from input by seminar participants at the South Carolina Networks Consortium, Duke University's Social Networks \& Health workshop, the Patchwork group at Autonomous University of Barcelona, and Sunbelt 2026. I'm also especially grateful to Jenn Lena, Marck Pachucki, and Jun Zhao for providing materials and guidance for honing the illustrative examples, and to Jim Moody and David Schaefer for helpful feedback on the manuscript. Though they may not all agree with me.
+  ...
   All code for replication is available at [removed for review].}
 author: "Anonymized for Review"
 date: "`r format(Sys.Date(), '%Y %B %d')`"
@@ -17,8 +17,11 @@ header-includes:
   - \AtBeginEnvironment{CSLReferences}{\singlespacing}
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+# To compile - run the following in the console:
+# rmarkdown::render("manuscript.Rmd", envir = globalenv())
 ```
 <!--This version is anonymized for review. For web-posting, and/or "final" submission, I will need to go through and remove all commented out blocks.-->
 
@@ -387,29 +390,50 @@ Next, I turn to how these summarized network properties can be translated into a
   \label{fig:rap}
 \end{figure}
 
-Translating these findings into visualization requires us to formalized any modeled properties into visual components.^[In the ergm example above, this builds networks that have statistics corresponding to each of the included statistical coefficients.]
-Panel B of [**Figure 3**](#fig:rap), I present the modeled visualization result addressing the combination of results described above. 
-As I elaborate the steps of producing this visualization, it serves not as a recipe to follow, but demonstrates how the approach of mapping the findings into a visualization strategy, while illustrating the strategy's necessary principles and sensitizing considerations mentioned above.
+Translating these findings into visualization requires formalizing any modeled properties into visual components.^[In the ergm example above, this builds networks that have statistics corresponding to each of the included statistical coefficients.]
+Panel B of [**Figure 3**](#fig:rap), presents the modeled visualization addressing the combination of results from Lena's work as summarized above.
+I leverage this visualization to elaborate the strategy’s relevant principles and sensitizing considerations, following the steps common to all network visualizations: defining the node set(s), edge set(s), layout, and visual layers (e.g., color, shape, and size).
 
-################# Start Here
-Recognizing that model results are estimates, with error, any visualization necessarily draws from those modeling details
+### 1. Defining the node and set(s)
+Lena’s data contain `r nrow(samp)` samples linking `r nrow(rap_song_attributes)` rap songs to `r nrow(sampled_artist_attributes)` unique sampled artists. 
+I therefore begin the modeled visualization by matching the sizes of these two node sets.
 
-- included properties
-  - modeled
-  - inferred
-- excluded properties
-  - examined but dropped (significant)
-  - assumed
-  - unavailable
-- draw selection
-  - matched statistics
-  - non-idiosyncratic
-  - not overly determined
-- differential emphasis
-  - layering
-  - attribution
+I retain Lena’s bipartite data structure, in which ties connect sampling songs to sampled artists.^[An alternative would be to convert these data into a single node set with node type encoded as a nodal attribute]. 
+The visualization also incorporates two analytically constructed within-mode relational counts: overlap among sampled artists within songs and overlap among sampling songs through their shared sampled artists, built from standard two-mode to one-mode projections.
+An observed network visualization would therefore represent the original cross-mode sampling edges and the corresponding projection counts: (1) how many times the same artists are sampled within the same song and (2) how many artists are jointly sampled between pairs of rap songs.
 
-The second panel instead builds the visualization around the analytic structure. 
+For generalizing the approach, note that this set *includes* one edge type from the original data, *constructs* two edge types, and *removes* one element from the original data (while sampling edges were weighted--some songs sampled the same artist multiple times--those weights are not included analytically or visually). 
+
+For the modeled visualization, however, I use each of these three edge sets to construct a "stub" distribution. 
+That is, their observed patterns allocate counts to nodes that will later be assigned as ties. 
+These are not yet assigned *as* specific edges for the visualization because other modeled properties, described below, govern those assignments.
+
+3. **Selecting a modeled realization and layout**
+
+   - Explain that the visualization is a modeled realization, rather than a reproduction of the observed case.
+   - Describe the criteria for selecting a draw: correspondence to relevant modeled statistics, lack of idiosyncrasy, and avoidance of an overly determined rendering.
+   - Explain how the layout makes the core and community structure legible.
+   - Note that the selected draw remains one representation of results estimated with error.
+
+4. **Layering and differential emphasis**
+  - Explain which findings the visualization asks readers to notice first.
+  - Specify which nodal attributes, 
+    - degree distribution and genre, are included and whether they are modeled or inferred.
+  - Use layers and other encodings to distinguish the co-sampling core, partially genre-sorted communities, and the two sides of the network.
+    - Identify how color, shape, size, weight, opacity, or ordering map onto particular findings.
+  - Attribute each visual emphasis to a modeled or inferential result, rather than treating it as incidental design.
+  - Note which attributes or properties are unavailable, assumed, intentionally excluded, or examined and dropped.
+
+5. **Interpreting the visualization’s scope**
+
+   - Summarize what the visualization establishes: skewed participation, a co-sampling core, and partially genre-sorted communities.
+   - Clarify what it does not establish or depict.
+   - Explain that omitted features may have been unsupported, excluded after examination, assumed, or unavailable—not necessarily unimportant.
+   
+
+
+
+The second panel instead builds the visualization around the structure of the analytic results. 
 I first extracted a core set of sampled artists (those above the 95th percentile of sampled-artist strength) and mapped the strength of co-sampled relationships among them. 
 I then used this core structure to organize the remaining network, anchoring the positions of the core artists to those established in the first step. 
 This allows the core-periphery structure to emanate from the analytically identified core, while preventing the much larger set of sampling artists—and their relationships—from overwhelming the visual layout. 
