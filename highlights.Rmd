@@ -1,0 +1,10 @@
+---
+title: "Highlights for Visualizing Modeled Social Networks: a Provocation "
+date: "2026-11-01"
+output: pdf_document
+---
+
+- Modeled network visaulizations offer an alternative to observed network data visualizations
+- This strategy optimizes the theoretical takeaways that arise from empirical analyses
+- It may also further the capacity for desirable principles of network visaulization as well (e.g., confidentiality and replicability)
+- This is intended as a complementary (not replacement) strategy for network visualization that prioritizes different purposes

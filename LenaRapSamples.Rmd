@@ -690,7 +690,7 @@ interlayer_edges <- igraph::as_data_frame(
 
 That has all the elements we need. Next we're going to build the layouts.
 ```{r layouts}
-set.seed(123)
+set.seed(8675309)
 layout_song <- layout_with_fr(
   g_song,
   weights = E(g_song)$weight
@@ -961,7 +961,7 @@ artist_layout_edges <- igraph::as_data_frame(
   transmute(
     from = paste0("artist_", from),
     to   = paste0("artist_", to),
-    weight = sqrt(weight)
+    weight = log(weight+.01)
   )
 
 
@@ -974,7 +974,7 @@ song_layout_edges <- igraph::as_data_frame(
   transmute(
     from = paste0("song_", from),
     to   = paste0("song_", to),
-    weight = sqrt(weight)
+    weight = log(weight+.01)
   )
 
 
@@ -988,7 +988,7 @@ interlayer_layout_edges <- interlayer_edges %>%
   transmute(
     from = paste0("song_", song),
     to   = paste0("artist_", sampled_artist),
-    weight = .3
+    weight = .2
   )
 
 
@@ -1024,7 +1024,7 @@ g_layout <- graph_from_data_frame(
 # 7. ONE FR LAYOUT FOR THE COMBINED STRUCTURE
 # ------------------------------------------------------------
 
-set.seed(123)
+set.seed(8675309)
 
 layout_combined <- layout_with_fr(
   g_layout,
@@ -1332,9 +1332,9 @@ draw_empirical_multilayer <- function() {
     song_edges$y_to,
     col = rgb(
       0.30, 0.30, 0.30,
-      alpha = 0.20
+      alpha = 0.08
     ),
-    lwd = 0.45
+    lwd = 0.30
   )
 
 
@@ -1350,9 +1350,9 @@ draw_empirical_multilayer <- function() {
     noncore_artist_edges$y_to,
     col = rgb(
       0.30, 0.30, 0.30,
-      alpha = 0.045
+      alpha = 0.12
     ),
-    lwd = 0.30
+    lwd = 0.40
   )
 
 
@@ -1377,8 +1377,6 @@ draw_empirical_multilayer <- function() {
 
 
   # ---- sampled artists: TOP plane ----
-  # stronger categorical palette
-  # node size = sampling strength
 
   peripheral <- !V(g_artist_gc)$is_core
   core <- V(g_artist_gc)$is_core
@@ -1404,17 +1402,61 @@ draw_empirical_multilayer <- function() {
 
 
   # ---- sampling songs: BOTTOM plane ----
-  # softer categorical palette
 
   points(
     song_xy$x,
     song_xy$y,
     pch = 24,
-    cex = 1.15,
-    bg = song_colors,
+    cex = 0.65,
+    bg = adjustcolor(song_colors, alpha.f = 0.65),
     col = "white",
-    lwd = 0.45
+    lwd = 0.35
   )
+  
+  # ---- sampled-artist genre legend ----
+
+legend(
+  x = 2.2,
+  y = 0.55,
+  legend = artist_genres,
+  pch = 21,
+  pt.bg = artist_palette[artist_genres],
+  pt.cex = 0.95,
+  col = "white",
+  lwd = 0.5,
+  title = "Sampled artist genre",
+  cex = 0.65,
+  bg = rgb(1, 1, 1, alpha = 0.82),
+  box.lwd = 0.5,
+  box.col = "grey60",
+  ncol = 2,
+  xjust = 0,
+  yjust = 0.5
+)
+
+
+# ---- sampling-song genre legend ----
+
+legend(
+  x = 2.2,
+  y = -2.5,
+  legend = unname(
+    rap_genre_labels[song_genres]
+  ),
+  pch = 24,
+  pt.bg = song_palette[song_genres],
+  pt.cex = 0.95,
+  col = "white",
+  lwd = 0.5,
+  title = "Sampling song genre",
+  cex = 0.60,
+  bg = rgb(1, 1, 1, alpha = 0.82),
+  box.lwd = 0.5,
+  box.col = "grey60",
+  ncol = 2,
+  xjust = 0,
+  yjust = 0.5
+)
 }
 
 

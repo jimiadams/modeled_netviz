@@ -1,0 +1,15 @@
+The second panel instead builds the visualization around the structure of the analytic results. 
+I first extracted a core set of sampled artists (those above the 95th percentile of sampled-artist strength) and mapped the strength of co-sampled relationships among them. 
+I then used this core structure to organize the remaining network, anchoring the positions of the core artists to those established in the first step. 
+This allows the core-periphery structure to emanate from the analytically identified core, while preventing the much larger set of sampling artists—and their relationships—from overwhelming the visual layout. 
+Their communities remain represented in the visualization, but as a secondary structural layer rather than as the primary determinant of network position.
+
+Some differences between these visualizations are matters of emphasis; others reflect differences in the network analytic results being represented. 
+In particular, Lena’s interpretation of “circles” concerns similarities in sampling patterns: similarities in the sets of sampled artists and songs associated with sampling artists. 
+These patterns are therefore more directly represented by intra-mode projections, which are an analytic transformation of the observed sampling network rather than a direct representation of the underlying sampling ties. 
+A fully projected network, however, would not necessarily facilitate reaching these interpretations from the visualization itself. 
+Instead, focal elements of the projected structure (e.g., within communities) can be used to organize a modeled representation that preserves the theoretically relevant properties while suppressing less consequential empirical detail, and also retaining empirical details of the sampling ties themselves that provide the basis for those patterns.
+
+Likewise, labels may assist interpretation—for example, by allowing readers to recognize the positions of James Brown or George Clinton—but they are not necessary to convey the modeled results. 
+Coreness, the skewed distribution of sampling, relationships among core artists, and differential genre allocation can all be represented by a synthetic set of artists without relying on their identities. 
+Although this particular example presents no disclosure concerns,^[I selected this example explicitly in part because it allows comparison of labeled and unlabeled visualizations.] it illustrates the broader possibility of communicating theoretical implications without labels in other cases where disclosure risks would be present.
