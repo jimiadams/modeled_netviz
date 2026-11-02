@@ -3,7 +3,7 @@ title: |
   Visualizing Modeled Social Networks: a Provocation \thanks{This manuscript has benefited greatly from input by seminar participants at the South Carolina Networks Consortium, Duke University’s Social Networks and Health workshop, the Patchwork group at Autonomous University of Barcelona, and Sunbelt 2026. I’m also especially grateful to Jenn Lena, Marck Pachucki, and Jun Zhao for providing materials and guidance for honing the illustrative examples, and to Jim Moody and David Schaefer for helpful feedback on the manuscript. Though they may not all agree with me. All code for replication will be posted to GitHub.}
 author: "jimi adams"
 date: "`r format(Sys.Date(), '%Y %B %d')`"
-output: pdf_document
+output: word_document
 bibliography: modviz.bib
 link-citations: yes
 header-includes:
